@@ -1,0 +1,79 @@
+.right{
+    text-align: right !important;
+    margin-right:5px;
+    cursor: pointer;
+}
+.center{
+    text-align: center;
+}
+.pad{
+    padding: 0;
+    align-items: center !important;
+    text-align: center;
+}
+.left{
+    text-align: left;
+    margin: 5px;
+}
+i.black{
+    font-size: 25px;
+    margin:4px;
+    color: #1d1b1b;
+}
+i.book{
+    font-size: 25px;
+    margin-left: 35px !important;
+    margin:4px;
+    color: #1d1b1b;
+}
+i.people{
+    font-size: 25px;
+    margin:4px;
+    color: #208f97e7;
+}
+
+.i-check.hover,
+.i-radio.hover {
+  border: 1px solid #ed8323 !important;
+}
+
+.big{
+  font-size: 20px;
+  color: #ccc;
+  margin-left: 7px !important;
+}
+.star{
+  color: orange !important;
+}
+i{
+  cursor: pointer;
+}
+.alert-success{
+  width: 100%;
+  color: #22b822;
+  background-color: #c4f7c4;
+  padding-top:10px;
+  padding-bottom:10px;
+  text-align: center;
+}
+.alert-danger{
+  width: 100%;
+  color: #cf3939;
+  background-color: #eec8c8;
+  padding-top:10px;
+  padding-bottom:10px;
+  text-align: center;
+}
+/* DOES NOT WORK - not specific enough */
+.popover-content {
+  background: #222;
+}
+
+/* Works - pass "my-custom-class" in cssClass to increase specificity */
+.my-custom-class .popover-content {
+  background: #222;
+}
+
+.my-custom-class {
+  --background: #222;
+}

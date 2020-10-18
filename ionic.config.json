@@ -1,7 +1,8 @@
 {
   "name": "side-nav",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

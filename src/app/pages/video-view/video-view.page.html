@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>video-view</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <h4>Play Offline Video</h4>
+  <ion-button expand="full" fill="outline" (click)="playLocalVideo()">Offline Video</ion-button>
+
+  <h4>Play Online Video</h4>
+  <ion-button expand="full" fill="outline" (click)="playRemoteVideo()">Online Video</ion-button>
+
+  <h4>Close Player</h4>
+  <ion-button expand="full" fill="outline" (click)="closeVideo()">Stop Video</ion-button> -->
+<ion-grid>
+  <video #player playsinline preload="auto" controls width="100%" height="250" controlsList="nodownload">
+    <source [src]="items.url" type="video/mp4" />
+  </video>
+  <div class="bar">
+    <ion-button (click)="openFullscreen(player)" color="light" fill="clear">
+      <ion-icon slot="icon-only" name="easel"></ion-icon>
+    </ion-button>
+    <ion-button (click)="playInside(player)" color="light" fill="clear">
+      <ion-icon slot="icon-only" name="open"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-row>
+    <ion-col size-xs="12">
+      <ion-card>
+        <ion-card-header>
+          {{ items.name }}
+        </ion-card-header>
+        <ion-card-content>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

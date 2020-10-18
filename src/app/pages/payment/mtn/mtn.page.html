@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start" color="primary">
+      <ion-back-button defaultHref="/payment"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center">You selected MTN Mobile Money</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <img src="../../../../assets/img/momo.jpeg" style="width: 100%; padding: 5px;">
+  <h4 style="padding: 5px; color: orange;">
+  Please have you mobile Phone beside Your, and be ready to dial *126# and confirm your payment to Ohipopo.org School</h4>
+<ion-grid>
+  <ion-row>
+    <ion-col size-xs="6">
+      <ion-item>
+        Name: <ion-input type="text" value="your full name" readonly></ion-input>
+      </ion-item>
+    </ion-col>
+    <!-- <ion-col size-xs="8">
+      <ion-item>
+        Name: <ion-input name="address" type="text" value="your full name"></ion-input>
+      </ion-item>
+    </ion-col> -->
+  </ion-row>
+  <ion-row>
+    <ion-col size-xs="12">
+      <ion-item>
+        Enter your Phone Number:<br>
+        <ion-input name="phone" type="number"></ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

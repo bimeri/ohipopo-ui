@@ -1,0 +1,54 @@
+.image-link{
+    border: 1px solid #ccc;
+}
+h6{
+    color: rgb(95, 77, 77) !important;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    text-justify: inter-word;
+    text-align: center;
+}
+
+div.image-link {
+    text-align: center;
+    align-items: center;
+    height: 250px !important;
+}
+.container {
+    position: relative;
+    text-align: center;
+    color: black;
+  }
+  .centered {
+    position: absolute;
+    top: 20%;
+    left: 32%;
+    transform: translate(-15%, -15%);
+  }  
+  .time{
+      font-size: 50px;
+  } 
+  .date{
+      font-size: 20px;
+  }
+.card{
+    height: 150px !important;
+    width: 300px !important;
+    position: fixed;
+    top: 200px;
+    left: 80px;
+    z-index: 1000;
+    box-shadow: 6px 6px 8px 8px  rgba(26, 25, 25, 0.3);
+    background-color: white;
+}
+.cross{
+    float: right !important;
+    color: red;
+    font-size: 30px;
+    padding: 8px;
+}
+.card-content{
+    text-align: center !important;
+    margin: 3px;
+}

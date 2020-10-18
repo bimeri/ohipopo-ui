@@ -1,0 +1,48 @@
+<ion-header class="color">
+  <ion-toolbar color="warning">
+    <ion-title>User Authentication (Login)</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-progress-bar type="indeterminate" *ngIf="load" color="warning"></ion-progress-bar>
+
+  <form [formGroup]="userLogin" (ngSubmit)="loginForm()" style="width: 100%;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="10" offset-md="1" size-xs="12">
+          <h5 class="center">No account?, <a (click)="OpenListing()">create account</a> instead</h5>
+          <ion-card class="card">
+            <ion-card-header>
+              <ion-card-title class="center">
+                Provide your information to signin
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              
+              <ion-item padding>
+                <ion-label position="floating">Enter Mobile Number</ion-label>
+                <ion-input type="number" name="phoneNumber" formControlName="phoneNumber"></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label position="floating">password</ion-label>
+                <ion-input name="password" type="password" formControlName="password"></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-checkbox name="remember_me" formControlName="remember_me" [checked]="false" position="floating"></ion-checkbox>
+                <ion-label><b> &nbsp;&nbsp; Keep me signed in</b></ion-label>
+              </ion-item>
+              <br>    
+              <ion-label><a href="#">forgot Password <ion-icon slot="start" name=""></ion-icon> </a></ion-label>
+              <ion-button class="right" type="submit" [disabled]="!userLogin.valid">Submit</ion-button>
+              <br><br>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-alert-controller></ion-alert-controller> -->
+      
+    </ion-grid>
+  </form>  
+</ion-content>

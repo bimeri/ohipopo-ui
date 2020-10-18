@@ -1,0 +1,30 @@
+<app-header></app-header>
+<ion-grid style="width: 100% !important; background-color: #ffcc00">
+  <div class="pad">
+    <img src="../../../assets/img/newLogo.png" width="210" class="logo">
+    <h5 class="center"> {{ levelName }}/Select your Subjects</h5>
+  </div>
+  <hr style="border-top: 1px solid #49483d;">
+<h6 *ngIf="!subjectCheck">Seleted 3</h6>
+<form *ngIf="!subjectCheck" [formGroup]="selectedSubject" (ngSubmit)="saveSubjects()">
+  <!-- {{ selectedSubject.value | json }} -->
+  <ion-row *ngFor="let subject of subjects">
+      <ion-col size-md="6" size-xs="6">
+        <img src="../../../assets/img/tutorial.png" style="border-radius: 10px;">
+      </ion-col>
+      <ion-col size-md="6" size-xs="6">
+        <p><b style="padding-bottom: 5px; font-size: 18px;">{{ subject.name }}</b><br> {{ subject.author }} <br> {{ subject.topic }} topics</p>
+        <div class="right" >
+          <!-- <ion-input type="text" value="{{ subject.id }}" name="subjectId" formControlName="subjectId"></ion-input> -->
+          <input type="checkbox" name="options" color="primary">
+        </div>
+      </ion-col>
+      <hr style="border-top: 1px solid #f7f6eb; width: 100%;">
+  </ion-row>
+  <ion-row>
+    <ion-col size-xs="6" offset-xs="3">
+      <ion-button color="primary" routerLink="/public/home" class="center" style="width: 100%; align-items: center; text-align: center;">Submit</ion-button>
+    </ion-col>
+  </ion-row>
+</form>
+</ion-grid>

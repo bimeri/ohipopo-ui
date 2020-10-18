@@ -1,0 +1,89 @@
+<ion-header class="color">
+  <!-- <ion-back-button
+    [text]="buttonText"
+    [icon]="buttonIcon" color="danger">
+  </ion-back-button> -->
+  <ion-toolbar color="warning">
+    <ion-title>User Authentication (Registration)</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-progress-bar type="indeterminate" color="warning" *ngIf="load"></ion-progress-bar>
+  <form [formGroup]="userRegistration" (ngSubmit)="submitForm()" style="width: 100%;">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="10" offset-md="1" size-xs="12">
+          <h5 class="center">Have an account already?, <a routerLink="/login">Login</a> instead</h5>
+          <ion-card class="card">
+            <ion-card-header>
+              <ion-card-title class="center">
+                fill all the fields below
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="floating">Enter full name</ion-label>
+                <ion-input type="text" name="fullName" formControlName="fullName"></ion-input>
+              </ion-item>
+              
+              <ion-item padding>
+                <ion-label position="floating">Enter Mobile Number</ion-label>
+                <ion-input type="number" name="phoneNumber" formControlName="phoneNumber"></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label position="floating">email (optional)</ion-label>
+                <ion-input type="email" name="email" formControlName="email"></ion-input>
+              </ion-item>
+    
+              <ion-item>
+                <ion-label>select Category</ion-label>
+                <ion-select value="" formControlName="category" okText="okay" cancelText="Dismiss" (ngModelChange)="getLevel($event)">
+                  <ion-select-option *ngFor="let c of category" [value]="c.id">{{ c.typeName }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label>select Level</ion-label>
+                <ion-select value="" formControlName="level" okText="okay" cancelText="Dismiss">
+                  <ion-select-option *ngFor="let level of levels" [value]="level.id">{{ level.levelName }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+    
+              <ion-item>
+                <ion-label position="floating">Enter your address</ion-label>
+                <ion-input name="address" type="text" formControlName="address"></ion-input>
+              </ion-item>
+    
+              <ion-item>
+                <ion-label position="floating">date of birth</ion-label>
+                <ion-datetime  min="1950" max="2015" value="{{ dates | date:'D MMM YYYY' }}" formControlName="dateOfBirth"></ion-datetime>
+              </ion-item>
+    
+              <ion-item>
+                <ion-label position="floating">password</ion-label>
+                <ion-input name="password" type="password" formControlName="password"></ion-input>
+              </ion-item>
+    
+              <ion-item>
+                <ion-label position="floating">Confirm Password</ion-label>
+                <ion-input type="password" name="confirmPassword" formControlName="confirmPassword"></ion-input>
+              </ion-item>
+              <ion-item>
+                <input type="checkbox" formControlName="check" name="check" position="floating" required>
+                <ion-label><b> &nbsp;&nbsp; Terms and conditions</b></ion-label>
+              </ion-item>
+              <br>
+    
+              <ion-button color="danger" fill="outline" (click)="clearForm()"><ion-icon slot="start" name="close"></ion-icon> clear</ion-button>
+              <ion-button color="right" class="right" type="submit" [disabled]="!userRegistration.valid">Submit</ion-button>
+              <br><br>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <!-- <ion-alert-controller></ion-alert-controller> -->
+      
+    </ion-grid>
+  </form>  
+</ion-content>

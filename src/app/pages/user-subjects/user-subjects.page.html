@@ -1,0 +1,43 @@
+<app-header></app-header>
+
+<ion-content>
+  <div class="alert-success">
+   <b>Your payment was successful</b>
+  </div>
+  <div class="alert-danger">
+   <b>Your payment was unsuccessful</b>
+  </div>
+  <ion-row *ngFor="let subject of subjects">
+    <ion-col size-md="6" size-xs="6">
+      <a (click)="checkPayment(subject.sub_id)">
+        <img src="{{ env }}/{{ subject.logo }}" style="border-radius: 10px;" height="150" alt="{{ subject.name }}">
+      </a>
+    </ion-col>
+    <ion-col size-md="6" size-xs="6">
+      <ion-label class="ion-text-right right" style="float: right !important; font-size: 20px; padding: 3px;">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-label>
+      <p><b style="padding-bottom: 5px; font-size: 18px; margin: 4px;">{{ subject.name }}</b><br> 
+        {{ subject.author }} <br> {{ subject.topics }} topics
+      </p>
+      <div class="left" style="margin-top: -8px;">
+        <i class="fa fa-star big" [class]="star1 == true ? 'star' : '' " (click)="star_one()"></i>
+        <i class="fa fa-star big" [class]="star2 == true ? 'star' : '' " (click)="star_two()"></i>
+        <i class="fa fa-star big" [class]="star3 == true ? 'star' : '' " (click)="star_three()"></i>
+        <i class="fa fa-star big" [class]="star4 == true ? 'star' : '' " (click)="star_four()"></i>
+        <i class="fa fa-star big" [class]="star5 == true ? 'star' : '' " (click)="star_five()"></i>
+        &nbsp;&nbsp;
+        <i class="fa fa-thumbs-up black"></i>
+        <br>
+        <div class="">
+          <i class="fa fa-group people"></i>
+          &nbsp;
+          <b style="color: #1d7734; font-size: 20px;">{{ subject.students }}</b>
+        &nbsp;&nbsp;&nbsp;
+        <i class="fa fa-book book"></i>&nbsp;<b style="color: #e44a4a;">Notes</b>
+        </div>
+      </div>
+    </ion-col>
+    <hr style="border-top: 1.5px solid #6e6e67; width: 100%;">
+</ion-row>
+</ion-content>

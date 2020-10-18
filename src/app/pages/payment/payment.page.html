@@ -1,0 +1,18 @@
+<app-header></app-header>
+<ion-content>
+<ion-grid>
+  <h5 class="center" style="border-top: 2px;">Select Method of Payment</h5>
+  <ion-row>
+    <ion-col *ngFor="let payment of payments" size-xs="6" size-md="6">
+      <ion-card no-padding>
+        <ion-card-header>{{ payment.name }}</ion-card-header>
+        <ion-card-content>
+          <a [routerLink]="payment.url">
+            <img [src]="payment.logo">
+          </a>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

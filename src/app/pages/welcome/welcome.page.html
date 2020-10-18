@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/public/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center" style="margin-left:-70px !important">{{ levelName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <img src="../../../assets/img/goto_class.jpg">
+    <div class="centered">
+     <div class="time">
+      <h5 class="date">Welcome on campus</h5>
+       {{ dates | date:'h:mm a' }}
+      <p class="date">{{ dates | date:'EEEE d MMMM y' }}</p>
+     </div>
+    </div>
+  </div>
+<ion-grid>
+  <ion-row>
+    <ion-col size-md="6" size-xs="6">
+      <div class="image-link">
+        <a routerLink="/user/subject">
+          <img src="../../../assets/img/class.png" alt="go to class" id="image">
+        </a>
+        <h6>go to class</h6>
+      </div>
+    </ion-col>
+    <ion-col size-md="6" size-xs="6">
+      <div class="image-link">
+        <a (click)="toastMessage('link')">
+          <img src="../../../assets/img/contact.png" alt="Talk to a councelor" id="image">
+        </a>
+        <h6 style="margin-top:-8px !important">talk to a councelor</h6>
+      </div>
+    </ion-col>
+    <ion-col size-md="6" size-xs="6">
+      <div class="image-link" alt="disciline Master" id="image">
+        <a (click)="toastMessage('link')">
+          <img src="../../../assets/img/admin.png" alt="Discipline master">
+        </a>
+        <h6>discipline master</h6>
+      </div>
+    </ion-col>
+    <ion-col size-md="6" size-xs="6">
+      <div class="image-link">
+        <a (click)="toastMessage('link')">
+          <img src="../../../assets/img/shop.png" alt="buy text books" id="image">
+        </a>
+        <h6>buy text books</h6>
+      </div>
+    </ion-col>
+    <ion-col size-md="6" size-xs="6">
+      <div class="image-link">
+        <a (click)="toastMessage('link')">
+          <img src="../../../assets/img/library.png" alt="go to class" id="image">
+        </a>
+        <h6>school library</h6>
+      </div>
+    </ion-col>
+    <ion-col size-md="6" size-xs="6">
+      <div class="image-link">
+        <a routerLink="/public/home">
+          <img src="../../../assets/img/calendar.png" alt="go to class" id="image">
+        </a>
+        <h6>time table</h6>
+      </div>
+    </ion-col>
+    <div class="card" id="hide" *ngIf="show">
+      <span onclick="document.getElementById('hide').style.display='none'" class="cross">&times;</span>
+      <div class="card-content">
+        Available only for Full Time Students
+      </div>
+    </div>
+  </ion-row>
+</ion-grid>
+</ion-content>

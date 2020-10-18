@@ -8,6 +8,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ShareModule } from './shared/share/share.module';
+import { UserService } from './service/users/user.service';
+import { AuthenticateService } from './service/authentication/authenticate.service';
+import { HandleErrorService } from './service/error-handler/handle-error.service';
+import { VideoPlayer } from '@ionic-native/video-player/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,11 +21,17 @@ import { AppRoutingModule } from './app-routing.module';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ShareModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    UserService,
+    AuthenticateService,
+    HandleErrorService,
+    VideoPlayer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
