@@ -14,8 +14,8 @@ export class SplashPage implements OnInit {
   ngOnInit() {
     setInterval(() => {
       if (this.authService.isLogin() === true){
-        this.route.navigate(['/public/home']);
-      } else {this.route.navigate(['/login']);
+        this.route.navigate(['/login']);
+      } else {this.route.navigate(['/register']);
     }
     }, 4000);
   }

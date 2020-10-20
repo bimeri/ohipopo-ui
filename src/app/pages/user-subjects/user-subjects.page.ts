@@ -25,6 +25,7 @@ star5: boolean;
 number: number = 0;
 payment = false;
 env = `${environment.base_url}`;
+loading: boolean;
   constructor(private shareService: ShareService,
               private userService: UserService,
               private handlerService: HandleErrorService,
@@ -34,6 +35,7 @@ env = `${environment.base_url}`;
               public loadingController: LoadingController) { }
 
   ngOnInit() {
+    this.loading = true;
     this.getUserId();
     this.getUsersSubjects();
     if (!this.authenticateService.isLogin()){
@@ -69,7 +71,7 @@ env = `${environment.base_url}`;
       this.router.navigate(['video-payment']);
     }
     else {
-      this.router.navigate(['video-view']);
+      this.router.navigate(['video-view', subid]);
     }
   }
   getUsersSubjects(){
@@ -78,12 +80,14 @@ env = `${environment.base_url}`;
       (response: any) => {
         console.log('user sub', response);
         this.subjects = response;
+        this.loading = false;
         if (response.length === 0) {
           this.router.navigate(['subject/all']);
         }
       },
       (error: any) => {
         this.handlerService.errorResponses(error);
+        this.loading = false;
       }
     );
   }

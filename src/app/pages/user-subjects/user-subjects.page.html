@@ -1,5 +1,5 @@
+<ion-progress-bar type="indeterminate" color="warning" *ngIf="loading"></ion-progress-bar>
 <app-header></app-header>
-
 <ion-content>
   <div class="alert-success">
    <b>Your payment was successful</b>
@@ -8,12 +8,12 @@
    <b>Your payment was unsuccessful</b>
   </div>
   <ion-row *ngFor="let subject of subjects">
-    <ion-col size-md="6" size-xs="6">
+    <ion-col size-md="6" size-xs="6" size-lg="6">
       <a (click)="checkPayment(subject.sub_id)">
         <img src="{{ env }}/{{ subject.logo }}" style="border-radius: 10px;" height="150" alt="{{ subject.name }}">
       </a>
     </ion-col>
-    <ion-col size-md="6" size-xs="6">
+    <ion-col size-md="6" size-xs="6" size-lg="6">
       <ion-label class="ion-text-right right" style="float: right !important; font-size: 20px; padding: 3px;">
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-label>

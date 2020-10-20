@@ -21,4 +21,8 @@ header = this.sharedService.headerRequest;
   getUserDetailByUserId(userId: number){
     return this.http.get<any>(`${this.pathDir}/user/detail?userId=${userId}`, {headers: this.header});
   }
+
+  getAllSubjectsTopicById(subjectId: number){
+    return this.http.get<any>(`${this.pathDir}/subject/topics?subjectId=${subjectId}`, {headers: this.header});
+  }
 }

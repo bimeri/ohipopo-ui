@@ -7,6 +7,7 @@ import { AuthenticateService } from './service/authentication/authenticate.servi
 import { Router } from '@angular/router';
 import { ShareService } from './service/shared/share.service';
 import { User } from 'src/app/model/user';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -60,6 +61,7 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   login = false;
+  showSplash = true;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -75,6 +77,8 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      timer(3000).subscribe(() => this.showSplash = false);
+
     });
   }
 

@@ -35,7 +35,6 @@ export class LoginPage implements OnInit {
     console.log(this.userLogin.value);
     this.authenticateService.loginUser(this.userLogin.value).subscribe(
      (response: any) => {
-       console.log('the response', response);
        this.load = false;
        this.authenticateService.presentToast('success', 'Login Successfully. Welcome ' + response[0].userInfo.fullName + '', 'top', 5000);
        localStorage.setItem('userInfo', JSON.stringify({
@@ -55,7 +54,7 @@ export class LoginPage implements OnInit {
         }));
        setTimeout(() => {
        window.location.reload();
-       this.router.navigate(['public/home']);
+      //  this.router.navigate(['public/home']);
         }, 2000);
      },
      (error: any) => {

@@ -24,16 +24,16 @@ export class WelcomePage implements OnInit {
               private errorHandle: HandleErrorService) { }
 
   ngOnInit() {
-    if (this.authenticationService.isLogin()){
-      if (localStorage.hasOwnProperty('userDetails')) {
-        this.router.navigate(['public/home']);
-      } else {
-        this.router.navigate(['subject/all']);
-      }
-     }
-
     this.getUserDetail();
     this.getSubject();
+    if (this.authenticationService.isLogin()){
+      this.router.navigate(['public/home']);
+    }
+    if (localStorage.hasOwnProperty('userDetails')) {
+        this.router.navigate(['public/home']);
+      } else {
+        this.router.navigate(['/login']);
+     }
   }
 
   getUserDetail(){
@@ -45,8 +45,7 @@ export class WelcomePage implements OnInit {
      this.userService.getAllSubject(this.levelId).subscribe(
        (response: any) => {
          this.levelName = response.levelName;
-         console.log('all subjects', response);
-         if (response.typeName === 'Part Time') {
+         if (response.typeName === 'partTime') {
            this.userType = true;
          }
        },

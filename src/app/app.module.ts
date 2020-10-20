@@ -14,9 +14,10 @@ import { UserService } from './service/users/user.service';
 import { AuthenticateService } from './service/authentication/authenticate.service';
 import { HandleErrorService } from './service/error-handler/handle-error.service';
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
+import { SplashComponent } from './components/splash/splash.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SplashComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -32,7 +33,7 @@ import { VideoPlayer } from '@ionic-native/video-player/ngx';
     AuthenticateService,
     HandleErrorService,
     VideoPlayer,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, }
   ],
   bootstrap: [AppComponent]
 })
