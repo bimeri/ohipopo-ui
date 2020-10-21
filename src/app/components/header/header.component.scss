@@ -1,4 +1,17 @@
-@import '../../folder/folder.page.scss';
+ion-menu-button {
+    color: var(--ion-color-primary);
+  }
+  .color{
+    color: white !important;
+    font-size: 50px;
+  }
+  .col{
+    font-size: 20px;
+    color: black !important;
+  }
+  .right{
+    float: right !important;
+  }
 *{
     overflow: hidden;
 }

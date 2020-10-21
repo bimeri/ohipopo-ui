@@ -34,7 +34,7 @@ div.image-link {
   }
 .card{
     height: 150px !important;
-    width: 300px !important;
+    width: fit-content;
     position: fixed;
     top: 200px;
     left: 80px;
@@ -51,4 +51,5 @@ div.image-link {
 .card-content{
     text-align: center !important;
     margin: 3px;
+    padding :15px;
 }

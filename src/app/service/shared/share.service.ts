@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class ShareService {
 
   constructor() { }
+  $userInfo = new EventEmitter();
   public headerRequest = new HttpHeaders({
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -21,5 +22,11 @@ export class ShareService {
   }
   getAccessToken(){
     return localStorage.getItem('Token');
+  }
+
+  emitUserInfo(userinfo: {}, useretail: {}){
+    const info = userinfo;
+    const detail = useretail;
+    this.$userInfo.emit([info, detail]);
   }
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
+import { ShareService } from '../../service/shared/share.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginPage implements OnInit {
               private authenticateService: AuthenticateService,
               private handleService: HandleErrorService,
               private router: Router,
-              public navCtrl: NavController) { }
+              public navCtrl: NavController,
+              private shareService: ShareService) { }
 
   ngOnInit() {
     this.userLogin = this.formBuilder.group({
@@ -52,6 +54,10 @@ export class LoginPage implements OnInit {
         deadLine: response[1].userDetails.deadLine,
         subscribes: response[1].userDetails.subscribed
         }));
+       this.shareService.emitUserInfo(
+          JSON.parse(localStorage.getItem('userDetails')),
+          JSON.parse(localStorage.getItem('userInfo'))
+        );
        setTimeout(() => {
        window.location.reload();
       //  this.router.navigate(['public/home']);

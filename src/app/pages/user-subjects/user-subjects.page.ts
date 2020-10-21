@@ -32,7 +32,13 @@ loading: boolean;
               private authenticateService: AuthenticateService,
               private router: Router,
               public popoverController: PopoverController,
-              public loadingController: LoadingController) { }
+              public loadingController: LoadingController) {
+                this.shareService.$userInfo.subscribe(
+                  data => {
+                    this.userId = data[1].id;
+                  }
+                );
+              }
 
   ngOnInit() {
     this.loading = true;
@@ -68,10 +74,10 @@ loading: boolean;
 
   checkPayment(subid){
     if (this.payment){
-      this.router.navigate(['video-payment']);
+      this.router.navigate(['video-view', subid]);
     }
     else {
-      this.router.navigate(['video-view', subid]);
+      this.router.navigate(['payment']);
     }
   }
   getUsersSubjects(){

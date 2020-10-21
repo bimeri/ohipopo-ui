@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ShareService } from '../../../service/shared/share.service';
+import { User } from 'src/app/model/user';
 
 @Component({
   selector: 'app-mtn',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mtn.page.scss'],
 })
 export class MtnPage implements OnInit {
+userInfo: User;
+  constructor(private shareService: ShareService) { }
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.userInfo = this.shareService.getUserinfo();
   }
 
 }

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ShareService } from '../shared/share.service';
-import { retry } from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -24,5 +23,10 @@ header = this.sharedService.headerRequest;
 
   getAllSubjectsTopicById(subjectId: number){
     return this.http.get<any>(`${this.pathDir}/subject/topics?subjectId=${subjectId}`, {headers: this.header});
+  }
+
+  registerUserSubjects(details){
+    console.log('detail from the service', details);
+    return this.http.get<any>(`${this.pathDir}/subject/register?userSubjects=${details}`, {headers: this.header});
   }
 }

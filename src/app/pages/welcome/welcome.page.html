@@ -69,9 +69,11 @@
       </div>
     </ion-col>
     <div class="card" id="hide" *ngIf="show">
-      <span onclick="document.getElementById('hide').style.display='none'" class="cross">&times;</span>
+      <span onclick="document.getElementById('hide').style.display='none'" class="cross" (click)="close()">&times;</span>
       <div class="card-content">
         Available only for Full Time Students
+        <hr>
+        <ion-button slot="start" color="warning">Click to enroll for Full time</ion-button>
       </div>
     </div>
   </ion-row>

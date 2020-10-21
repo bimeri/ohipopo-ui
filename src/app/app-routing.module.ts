@@ -7,10 +7,6 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-  // {
-  //   path: 'public/:id',
-  //   loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  // },
   {
     path: 'splash',
     loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)

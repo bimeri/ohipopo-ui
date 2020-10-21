@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ShareService } from './service/shared/share.service';
 import { User } from 'src/app/model/user';
 import { timer } from 'rxjs';
+import { HandleErrorService } from './service/error-handler/handle-error.service';
 
 @Component({
   selector: 'app-root',
@@ -68,7 +69,8 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private authService: AuthenticateService,
     private router: Router,
-    private shareService: ShareService
+    private shareService: ShareService,
+    private errorHander: HandleErrorService
   ) {
     this.initializeApp();
   }
@@ -95,11 +97,9 @@ export class AppComponent implements OnInit {
   }
 
   getUserName(){
-   const name: User = this.shareService.getUserinfo();
-   console.log('detail', name);
-   if (name) {
-    this.userName = name.fullName;
-   }
+   const detail = this.shareService.getUserinfo();
+   this.userName = detail.fullName;
+   this.login = true;
   }
 
   logoutUser(){

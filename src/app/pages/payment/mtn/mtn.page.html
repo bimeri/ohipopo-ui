@@ -13,23 +13,21 @@
   Please have you mobile Phone beside Your, and be ready to dial *126# and confirm your payment to Ohipopo.org School</h4>
 <ion-grid>
   <ion-row>
-    <ion-col size-xs="6">
+    <ion-col size-xs="12">
       <ion-item>
-        Name: <ion-input type="text" value="your full name" readonly></ion-input>
+        Name:<div style="margin-left: 25%; font-size: 23px;"> <ion-label>{{ userInfo .fullName}}</ion-label></div>
       </ion-item>
     </ion-col>
-    <!-- <ion-col size-xs="8">
-      <ion-item>
-        Name: <ion-input name="address" type="text" value="your full name"></ion-input>
-      </ion-item>
-    </ion-col> -->
   </ion-row>
   <ion-row>
     <ion-col size-xs="12">
       <ion-item>
-        Enter your Phone Number:<br>
-        <ion-input name="phone" type="number"></ion-input>
+       <ion-label position="floating">Enter your Phone Number:</ion-label> &nbsp;&nbsp;&nbsp;
+        <ion-input name="phone" type="number" [value]="userInfo.phoneNumber"></ion-input>
       </ion-item>
+    </ion-col>
+    <ion-col size-xs="10" offset-xs="1" class="margin-top">
+      <ion-button color="warning" style="width: 100%; align-items: center; text-align: center;">Make Payment</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

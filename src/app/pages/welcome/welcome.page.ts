@@ -44,7 +44,15 @@ export class WelcomePage implements OnInit {
    getSubject(){
      this.userService.getAllSubject(this.levelId).subscribe(
        (response: any) => {
-         this.levelName = response.levelName;
+         if (response.levelName === 'aLevelScience') {
+          this.levelName = 'Advanced Level Science';
+         }
+         else if (response.levelName === 'aLevelArt') {
+          this.levelName = 'Advanced Level Art';
+         }
+         else {
+          this.levelName = 'Ordinary Level';
+         }
          if (response.typeName === 'partTime') {
            this.userType = true;
          }
@@ -58,11 +66,14 @@ export class WelcomePage implements OnInit {
    toastMessage(type: string){
      if (this.userType) {
        this.authenticationService.presentToast('danger', 'Available only for Full Time Students', 'bottom', 2500);
-       this.show = !this.show;
+       this.show = true;
      } else {
       this.authenticationService.presentToast('tertiary', 'Coming soon...', 'bottom', 1000);
      }
      return;
    }
 
+   close(){
+     this.show = false;
+   }
 }
