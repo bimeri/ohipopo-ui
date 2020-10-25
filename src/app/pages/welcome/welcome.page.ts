@@ -5,6 +5,7 @@ import { AuthenticateService } from '../../service/authentication/authenticate.s
 import { ShareService } from '../../service/shared/share.service';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
+import { StorageService } from '../../service/storage/storage.service';
 
 @Component({
   selector: 'app-welcome',
@@ -21,9 +22,40 @@ export class WelcomePage implements OnInit {
               private router: Router,
               private shareService: ShareService,
               private userService: UserService,
-              private errorHandle: HandleErrorService) { }
+              private errorHandle: HandleErrorService,
+              private storageService: StorageService) { }
 
   ngOnInit() {
+    // localStorage.clear();
+    console.log('welcom page');
+    this.storageService.getObject('userInfo')
+    .then(result => {
+      if (result != null) {
+      console.log('user info: ', result);
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      });
+
+    this.storageService.getObject('userDetails')
+    .then(result => {
+      if (result != null) {
+      console.log('user detail: ', result);
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      });
+
+
+    this.storageService.getObject('Token')
+    .then(result => {
+      if (result != null) {
+      console.log('acccess token: ', result);
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      });
+
     this.getUserDetail();
     this.getSubject();
     if (this.authenticationService.isLogin()){

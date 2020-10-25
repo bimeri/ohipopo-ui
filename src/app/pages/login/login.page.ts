@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { UserService } from 'src/app/service/users/user.service';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { ShareService } from '../../service/shared/share.service';
+import { StorageService } from '../../service/storage/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,9 @@ export class LoginPage implements OnInit {
               private handleService: HandleErrorService,
               private router: Router,
               public navCtrl: NavController,
-              private shareService: ShareService) { }
+              private shareService: ShareService,
+              private userService: UserService,
+              private storageService: StorageService) { }
 
   ngOnInit() {
     this.userLogin = this.formBuilder.group({
@@ -37,7 +41,12 @@ export class LoginPage implements OnInit {
     console.log(this.userLogin.value);
     this.authenticateService.loginUser(this.userLogin.value).subscribe(
      (response: any) => {
+      //  console.log('the response', response);
        this.load = false;
+       this.storageService.setObject('userInfo', response[0].userInfo);
+       this.storageService.setObject('userDetails', response[1].userDetails);
+       this.storageService.setObject('Token', response.accessToken);
+       this.storageService.setObject('expire', response.expires_at);
        this.authenticateService.presentToast('success', 'Login Successfully. Welcome ' + response[0].userInfo.fullName + '', 'top', 5000);
        localStorage.setItem('userInfo', JSON.stringify({
         id: response[0].userInfo.id,
@@ -55,13 +64,12 @@ export class LoginPage implements OnInit {
         subscribes: response[1].userDetails.subscribed
         }));
        this.shareService.emitUserInfo(
-          JSON.parse(localStorage.getItem('userDetails')),
-          JSON.parse(localStorage.getItem('userInfo'))
-        );
-       setTimeout(() => {
-       window.location.reload();
-      //  this.router.navigate(['public/home']);
-        }, 2000);
+        this.storageService.getObject('userDetails'),
+        this.storageService.getObject('userInfo'));
+      //  setTimeout(() => {
+      //  window.location.reload();
+       this.router.navigate(['public/home']);
+        // }, 2000);
      },
      (error: any) => {
        this.handleService.errorResponses(error);

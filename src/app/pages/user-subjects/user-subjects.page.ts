@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UserDetail } from 'src/app/model/user-detail';
 import { LoadingController, PopoverController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
+import { StorageService } from '../../service/storage/storage.service';
 
 @Component({
   selector: 'app-user-subjects',
@@ -14,7 +15,6 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./user-subjects.page.scss'],
 })
 export class UserSubjectsPage implements OnInit {
-userId: number;
 subjects: [];
 star1: boolean;
 star2: boolean;
@@ -26,50 +26,37 @@ number: number = 0;
 payment = false;
 env = `${environment.base_url}`;
 loading: boolean;
-  constructor(private shareService: ShareService,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private handlerService: HandleErrorService,
               private authenticateService: AuthenticateService,
               private router: Router,
               public popoverController: PopoverController,
-              public loadingController: LoadingController) {
-                this.shareService.$userInfo.subscribe(
-                  data => {
-                    this.userId = data[1].id;
-                  }
-                );
-              }
+              public storageService: StorageService,
+              public loadingController: LoadingController) { }
 
   ngOnInit() {
     this.loading = true;
     this.getUserId();
-    this.getUsersSubjects();
     if (!this.authenticateService.isLogin()){
       this.router.navigate(['/login']);
      }
-    this.userDetail();
   }
 
   getUserId(){
-   const uid = this.shareService.getUserinfo();
-   this.userId = uid.id;
-   console.log('user id', this.userId);
-  }
-
-  userDetail(){
-    this.userService.getUserDetailByUserId(this.userId).subscribe(
-      (response: UserDetail) => {
-        if (response[0].paid_amount === null){
+    this.storageService.getObject('userDetails').then(result => {
+      if (result != null) {
+        this.getUsersSubjects( result.user_id);
+        if (result.paid_amount === null){
           this.payment = false;
         }
         else {
           this.payment = true;
         }
-      },
-       (error: any) => {
-         this.handlerService.errorResponses(error);
-       }
-    );
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      return e;
+      });
   }
 
   checkPayment(subid){
@@ -80,11 +67,11 @@ loading: boolean;
       this.router.navigate(['payment']);
     }
   }
-  getUsersSubjects(){
+
+  getUsersSubjects(uid){
     this.presentLoading();
-    this.userService.getUserRegisteredSubject(this.userId).subscribe(
+    this.userService.getUserRegisteredSubject(uid).subscribe(
       (response: any) => {
-        console.log('user sub', response);
         this.subjects = response;
         this.loading = false;
         if (response.length === 0) {

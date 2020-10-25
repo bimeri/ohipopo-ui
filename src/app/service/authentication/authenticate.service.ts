@@ -29,7 +29,7 @@ header = this.sharedService.headerRequest;
   }
 
   registerUser(userinfo: User){
-    return this.http.post<any>(this.registerUrl, userinfo, {headers: this.header});
+    return this.http.post<any>(this.registerUrl, userinfo);
   }
 
   loginUser(user: { phoneNumber: string; password: string}): Observable<User> {

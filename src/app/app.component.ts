@@ -9,6 +9,7 @@ import { ShareService } from './service/shared/share.service';
 import { User } from 'src/app/model/user';
 import { timer } from 'rxjs';
 import { HandleErrorService } from './service/error-handler/handle-error.service';
+import { StorageService } from './service/storage/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -69,10 +70,16 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private authService: AuthenticateService,
     private router: Router,
-    private shareService: ShareService,
-    private errorHander: HandleErrorService
-  ) {
+    private storageService: StorageService,
+    private shareService: ShareService) {
     this.initializeApp();
+    this.shareService.$userInfo.subscribe(
+      data => {
+        if (data) {
+          this.login = true;
+        }
+      }
+    );
   }
 
   initializeApp() {
@@ -97,8 +104,15 @@ export class AppComponent implements OnInit {
   }
 
   getUserName(){
-   const detail = this.shareService.getUserinfo();
-   this.userName = detail.fullName;
+   this.storageService.getObject('userInfo').then(result => {
+    if (result != null) {
+    console.log('the result from app com', result);
+    this.userName = result.fullName;
+    }
+    }).catch(e => {
+    console.log('error: ', e);
+    return e;
+    });
    this.login = true;
   }
 
@@ -106,10 +120,11 @@ export class AppComponent implements OnInit {
     this.authService.logout().subscribe(
       val => {
         console.log('val', val);
+        this.storageService.clear();
         localStorage.clear();
         this.authService.presentToast('success', 'logout successfully', 'bottom', 2000);
         this.login = false;
-        this.router.navigate(['login']);
+        this.router.navigateByUrl('login');
       },
       error => {
         console.log('error', error);

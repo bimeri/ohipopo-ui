@@ -8,14 +8,14 @@
 </ion-header>
 
 <ion-content>
-  <img src="../../../../assets/img/momo.jpeg" style="width: 100%; padding: 5px;">
+  <img src="../../../../assets/img/momo.jpeg" style="width: 100%; height: 300px; padding: 5px;">
   <h4 style="padding: 5px; color: orange;">
   Please have you mobile Phone beside Your, and be ready to dial *126# and confirm your payment to Ohipopo.org School</h4>
 <ion-grid>
   <ion-row>
     <ion-col size-xs="12">
       <ion-item>
-        Name:<div style="margin-left: 25%; font-size: 23px;"> <ion-label>{{ userInfo .fullName}}</ion-label></div>
+        Name:<div style="margin-left: 25%; font-size: 23px;"> <ion-label>{{ user?.fullName}}</ion-label></div>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -23,7 +23,7 @@
     <ion-col size-xs="12">
       <ion-item>
        <ion-label position="floating">Enter your Phone Number:</ion-label> &nbsp;&nbsp;&nbsp;
-        <ion-input name="phone" type="number" [value]="userInfo.phoneNumber"></ion-input>
+        <ion-input name="phone" type="number" [value]="user?.phoneNumber"></ion-input>
       </ion-item>
     </ion-col>
     <ion-col size-xs="10" offset-xs="1" class="margin-top">

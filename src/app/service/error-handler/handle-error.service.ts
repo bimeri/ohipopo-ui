@@ -13,6 +13,7 @@ export class HandleErrorService {
     if (!(error && Object.keys(error).length === 0)) {
       if (error.status === 401) {
         this.authenticateService.presentToast('danger', 'user not authorize to perform this task', 'top', 5000);
+        this.authenticateService.logout();
       }
       if (error.status === 406) {
         this.authenticateService.presentToast('danger', 'fail to login. Invalid user credentials', 'top', 4000);

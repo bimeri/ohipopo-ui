@@ -15,6 +15,9 @@ import { AuthenticateService } from './service/authentication/authenticate.servi
 import { HandleErrorService } from './service/error-handler/handle-error.service';
 import { VideoPlayer } from '@ionic-native/video-player/ngx';
 import { SplashComponent } from './components/splash/splash.component';
+import { IonicStorageModule } from '@ionic/storage';
+import { StorageService } from './service/storage/storage.service';
+import { ShareService } from './service/shared/share.service';
 
 @NgModule({
   declarations: [AppComponent, SplashComponent],
@@ -22,6 +25,7 @@ import { SplashComponent } from './components/splash/splash.component';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
     ShareModule
@@ -32,6 +36,8 @@ import { SplashComponent } from './components/splash/splash.component';
     UserService,
     AuthenticateService,
     HandleErrorService,
+    StorageService,
+    ShareService,
     VideoPlayer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, }
   ],

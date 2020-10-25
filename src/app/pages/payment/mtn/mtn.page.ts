@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ShareService } from '../../../service/shared/share.service';
 import { User } from 'src/app/model/user';
+import { StorageService } from '../../../service/storage/storage.service';
 
 @Component({
   selector: 'app-mtn',
@@ -8,11 +8,19 @@ import { User } from 'src/app/model/user';
   styleUrls: ['./mtn.page.scss'],
 })
 export class MtnPage implements OnInit {
-userInfo: User;
-  constructor(private shareService: ShareService) { }
+user: User;
+  constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {
-    this.userInfo = this.shareService.getUserinfo();
+    this.storageService.getObject('userInfo').then(result => {
+      if (result != null) {
+        this.user = result;
+        console.log('user info from the mtn com', this.user);
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      return e;
+      });
   }
 
 }

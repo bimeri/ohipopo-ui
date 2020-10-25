@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserDetail } from 'src/app/model/user-detail';
 import { HandleErrorService } from 'src/app/service/error-handler/handle-error.service';
-import { ShareService } from 'src/app/service/shared/share.service';
 import { UserService } from 'src/app/service/users/user.service';
 import { environment } from 'src/environments/environment';
+import { StorageService } from '../../service/storage/storage.service';
 
 @Component({
   selector: 'app-subject',
@@ -11,35 +10,36 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./subject.page.scss'],
 })
 export class SubjectPage implements OnInit {
-  levelId: number;
   levelName: string;
   subjects: [];
   count = 0;
   subjectCheck: boolean;
   newArrray = [];
   loader = true;
-  userId: any;
   apiDir = `${environment.base_url}`;
-  constructor(private shareService: ShareService,
-              private userService: UserService,
-              private errorHandle: HandleErrorService
+  constructor(private userService: UserService,
+              private errorHandle: HandleErrorService,
+              private storageService: StorageService
               ) { }
 
   ngOnInit() {
       // this.router.navigate(['public/profile']);
     this.getUserDetail();
-    this.getSubject();
   }
   getUserDetail(){
-    const details: UserDetail = this.shareService.getUserDetails();
-    this.levelId = details.levelId;
-    const uid = this.shareService.getUserDetails();
-    this.userId = uid.id;
+    this.storageService.getObject('userDetails').then(result => {
+      if (result != null) {
+        this.getSubject( result.level_id);
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      return e;
+      });
    }
 
-   getSubject(){
+   getSubject(levelId){
      this.loader = true;
-     this.userService.getAllSubject(this.levelId).subscribe(
+     this.userService.getAllSubject(levelId).subscribe(
        (response: any) => {
          this.levelName = response.levelName;
          this.subjects = response[0];

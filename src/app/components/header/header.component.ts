@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShareService } from '../../service/shared/share.service';
+import { StorageService } from '../../service/storage/storage.service';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,18 @@ import { ShareService } from '../../service/shared/share.service';
 export class HeaderComponent implements OnInit {
   userInfos: any;
 
-  constructor(private shareService: ShareService) { }
+  constructor(private shareService: ShareService, private storageService: StorageService) { }
 
   ngOnInit() {
-    if (localStorage.getItem('userInfo') !== '') {
-      this.userInfos = this.shareService.getUserinfo();
-    }
+    this.storageService.getObject('userInfo').then(result => {
+      if (result != null) {
+      console.log('user id from the header', result.id);
+      this.shareService.emitUserId(result.id);
+      this.userInfos = result;
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      return e;
+      });
   }
 }
