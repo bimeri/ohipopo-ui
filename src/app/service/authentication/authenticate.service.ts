@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
 import { ShareService } from '../shared/share.service';
 import { User } from '../../model/user';
 import { ToastController } from '@ionic/angular';
-import { Token } from '../../model/token';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { StorageService } from '../storage/storage.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticateService {
@@ -14,7 +14,9 @@ registerUrl = `${environment.base_url}/api/auth/register`;
 header = this.sharedService.headerRequest;
   constructor(private http: HttpClient,
               private sharedService: ShareService,
-              private toastController: ToastController) { }
+              private toastController: ToastController,
+              private storageService: StorageService,
+              private router: Router) { }
 
   async presentToast(colors: string, messages: string, pos, time: number) {
     const toast = await this.toastController.create({
@@ -33,25 +35,16 @@ header = this.sharedService.headerRequest;
   }
 
   loginUser(user: { phoneNumber: string; password: string}): Observable<User> {
-    // this.$isLoggedIn.emit(user);
     return this.http
-      .post<any>(`${environment.base_url}/api/auth/login`, user)
-      .pipe(tap(data => this.doLoginUser(data)));
-  }
-  public doLoginUser(data: Token) {
-    localStorage.setItem('Token', data.accessToken);
-    localStorage.setItem('expire', data.expires_at);
-    localStorage.setItem('type', data.type);
+      .post<any>(`${environment.base_url}/api/auth/login`, user);
   }
 
   isLogin(){
-    if (localStorage.hasOwnProperty('userInfo') &&
-        localStorage.hasOwnProperty('type') &&
-        localStorage.hasOwnProperty('userDetails') &&
-        localStorage.hasOwnProperty('Token')) {
-         return true;
-    }
-    return false;
+    return from(this.storageService.get('token').then(result => {
+      if (result === null) {
+         this.router.navigate(['/login']);
+        }
+      }));
   }
 
   logout(){

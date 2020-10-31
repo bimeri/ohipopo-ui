@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { async } from '@angular/core/testing';
 
 @Injectable()
 export class StorageService {
@@ -11,12 +10,10 @@ export class StorageService {
 
   async set(key: string, value: string): Promise<any>{
     try{
-      const keyValue = await this.storage.set(key, value);
-      // console.log('set string in storage: ' + keyValue);
-      return true;
+       await this.storage.set(key, value);
+       return true;
     }
     catch (ex) {
-      // console.log('catch exception is: ', ex);
       return false;
     }
   }
@@ -25,7 +22,6 @@ export class StorageService {
 async get(key: string): Promise<any> {
   try {
       const result = await this.storage.get(key);
-      console.log('the value gotten is: ', result);
       if (result != null) {
       return result;
       }

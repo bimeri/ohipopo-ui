@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.storageService.getObject('userInfo').then(result => {
       if (result != null) {
-      console.log('user id from the header', result.id);
       this.shareService.emitUserId(result.id);
       this.userInfos = result;
       }

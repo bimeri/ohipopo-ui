@@ -6,6 +6,7 @@ import { ShareService } from '../../service/shared/share.service';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { StorageService } from '../../service/storage/storage.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-welcome',
@@ -14,7 +15,6 @@ import { StorageService } from '../../service/storage/storage.service';
 })
 export class WelcomePage implements OnInit {
   levelName: string;
-  levelId: number;
   userType: boolean;
   dates = new Date();
   show: boolean ;
@@ -26,55 +26,47 @@ export class WelcomePage implements OnInit {
               private storageService: StorageService) { }
 
   ngOnInit() {
-    // localStorage.clear();
-    console.log('welcom page');
     this.storageService.getObject('userInfo')
     .then(result => {
       if (result != null) {
-      console.log('user info: ', result);
       }
       }).catch(e => {
-      console.log('error: ', e);
       });
 
     this.storageService.getObject('userDetails')
     .then(result => {
       if (result != null) {
-      console.log('user detail: ', result);
+      this.getSubject(result.level_id);
       }
       }).catch(e => {
       console.log('error: ', e);
       });
 
 
-    this.storageService.getObject('Token')
+    this.storageService.getObject('token')
     .then(result => {
       if (result != null) {
-      console.log('acccess token: ', result);
+        this.shareService.emitToken(result);
+      } else {
       }
       }).catch(e => {
       console.log('error: ', e);
       });
 
-    this.getUserDetail();
-    this.getSubject();
-    if (this.authenticationService.isLogin()){
-      this.router.navigate(['public/home']);
-    }
-    if (localStorage.hasOwnProperty('userDetails')) {
-        this.router.navigate(['public/home']);
-      } else {
-        this.router.navigate(['/login']);
-     }
+    this.isLogin();
   }
 
-  getUserDetail(){
-    const details: UserDetail = this.shareService.getUserDetails();
-    this.levelId = details.levelId;
-   }
+  isLogin(){
+    // this.storageService.clear();
+    return from(this.storageService.get('token').then(result => {
+     if (result === null) {
+        this.router.navigate(['/login']);
+      }
+     }));
+  }
 
-   getSubject(){
-     this.userService.getAllSubject(this.levelId).subscribe(
+   getSubject(levelId){
+     this.userService.getAllSubject(levelId).subscribe(
        (response: any) => {
          if (response.levelName === 'aLevelScience') {
           this.levelName = 'Advanced Level Science';

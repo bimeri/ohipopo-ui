@@ -20,14 +20,23 @@
     </ion-col>
   </ion-row>
   <ion-row>
+    <div *ngIf="spinner" class="spinner">
+      <ion-spinner name="lines"></ion-spinner>
+    </div>
+    <div *ngIf="spinner" class="spinner1">
+      <ion-spinner name="lines"></ion-spinner>
+    </div>
+    <div *ngIf="spinner" class="spinner2">
+      <ion-spinner name="lines"></ion-spinner>
+    </div>
     <ion-col size-xs="12">
       <ion-item>
        <ion-label position="floating">Enter your Phone Number:</ion-label> &nbsp;&nbsp;&nbsp;
-        <ion-input name="phone" type="number" [value]="user?.phoneNumber"></ion-input>
+        <ion-input name="phone" type="number" [value]="user?.phoneNumber" #number></ion-input>
       </ion-item>
     </ion-col>
     <ion-col size-xs="10" offset-xs="1" class="margin-top">
-      <ion-button color="warning" style="width: 100%; align-items: center; text-align: center;">Make Payment</ion-button>
+      <ion-button color="warning" style="width: 100%; align-items: center; text-align: center;" (click)="makePayment(number.value, user?.fullName)" [disabled]="disable">Make Payment</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

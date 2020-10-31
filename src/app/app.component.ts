@@ -87,7 +87,6 @@ export class AppComponent implements OnInit {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       timer(3000).subscribe(() => this.showSplash = false);
-
     });
   }
 
@@ -106,7 +105,6 @@ export class AppComponent implements OnInit {
   getUserName(){
    this.storageService.getObject('userInfo').then(result => {
     if (result != null) {
-    console.log('the result from app com', result);
     this.userName = result.fullName;
     }
     }).catch(e => {
@@ -119,7 +117,6 @@ export class AppComponent implements OnInit {
   logoutUser(){
     this.authService.logout().subscribe(
       val => {
-        console.log('val', val);
         this.storageService.clear();
         localStorage.clear();
         this.authService.presentToast('success', 'logout successfully', 'bottom', 2000);

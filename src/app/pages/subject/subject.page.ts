@@ -3,6 +3,8 @@ import { HandleErrorService } from 'src/app/service/error-handler/handle-error.s
 import { UserService } from 'src/app/service/users/user.service';
 import { environment } from 'src/environments/environment';
 import { StorageService } from '../../service/storage/storage.service';
+import { AuthenticateService } from '../../service/authentication/authenticate.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subject',
@@ -19,7 +21,9 @@ export class SubjectPage implements OnInit {
   apiDir = `${environment.base_url}`;
   constructor(private userService: UserService,
               private errorHandle: HandleErrorService,
-              private storageService: StorageService
+              private storageService: StorageService,
+              private authenticateService: AuthenticateService,
+              private router: Router,
               ) { }
 
   ngOnInit() {
@@ -43,7 +47,6 @@ export class SubjectPage implements OnInit {
        (response: any) => {
          this.levelName = response.levelName;
          this.subjects = response[0];
-         console.log(response[0]);
          if (response[0].length === 0) {
           this.subjectCheck = true;
          }
@@ -63,13 +66,14 @@ export class SubjectPage implements OnInit {
      else {
     this.newArrray.push(id);
      }
-     console.log('array is', this.newArrray);
      this.count = this.newArrray.length;
 
    }
    submitValue(){
     this.userService.registerUserSubjects(this.newArrray).subscribe(
       result => {
+        this.authenticateService.presentToast('success', 'Subject Registered successfully', 'top', 2000);
+        this.router.navigate(['user/subject']);
         console.log('result', result);
       },
       error => {

@@ -50,22 +50,25 @@
               </datalist>
             </div><br>
 
-            <ion-row  *ngFor="let video of videos | keyvalue" style="border-bottom: 1.5px solid #000; margin-top: -45px;">
-              <div class="ion-text-left h6"> {{ video.key }} 31 lecture video</div><br>
-              <div *ngFor="let value of video.value; let i = index">
-                <ion-row style="border-bottom: 1px solid #ccc; border-radius: 7px;">
-                  <ion-col size-xs="6">
-                    <video playsinline no-padding preload="auto" style="border-radius: 10px;" width="100%" (click)="playVideo(value.videoUrl, i)">
-                      <source src="{{ value.videoUrl }}" type="video/mp4" />
-                    </video>
-                  </ion-col>
-                  <ion-col size-xs="6">
-                    <div style=" font-size: 18px; margin-top: 40px !important; text-align: left;">
-                      <b>{{ value.videoName }}</b><br> 
-                      <small> {{ subjectAuthor }}</small>
-                    </div>
-                  </ion-col>
-                </ion-row>
+            <ion-row  *ngFor="let video of videos, let i = index" style="border-bottom: 1.5px solid #000;">
+              <div class="ion-text-left h6"> {{ video.topicName }} {{ video.topicVideo[0].totalVideo }} lecture video</div><br>
+              <div *ngFor="let sub of video.topicVideo, let j = index">
+                <ion-item  (click)="playVideo(sub.videoUrl, sub.videoName)" size-xs="12" size-sm="12">
+                  <ion-row style="border-bottom: 1px solid #ccc; border-radius: 7px;">
+                    <ion-col size-xs="6">
+                      <video playsinline preload="auto" [attr.src]="sub.videoUrl" style="border-radius: 1px;" width="100%">
+                        <!-- <source [src]="sub.videoUrl" type="video/mp4" /> -->
+                      </video>
+                      <!-- <img [src]="logo" width="100%"> -->
+                    </ion-col>
+                    <ion-col size-xs="6">
+                      <div style=" font-size: 18px; margin-top: 40px !important; text-align: left;">
+                        <b>{{ sub.videoName }}</b><br> 
+                        <small> {{ subjectAuthor }}</small>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                </ion-item>
               </div>
             </ion-row>
             
@@ -83,8 +86,32 @@
           <h2>Ready to shop?</h2>
           <ion-button fill="clear">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
         </ion-slide>
-  
+        
       </ion-slides>
+      <ion-tabs>
+        <ion-tab-bar slot="bottom">
+          <ion-tab-button tab="schedule">
+            <ion-icon name="calendar"></ion-icon>
+            <ion-label>Schedule</ion-label>
+            <ion-badge>6</ion-badge>
+          </ion-tab-button>
+      
+          <ion-tab-button tab="speakers">
+            <ion-icon name="person-circle"></ion-icon>
+            <ion-label>Speakers</ion-label>
+          </ion-tab-button>
+      
+          <ion-tab-button tab="map">
+            <ion-icon name="map"></ion-icon>
+            <ion-label>Map</ion-label>
+          </ion-tab-button>
+      
+          <ion-tab-button tab="about">
+            <ion-icon name="information-circle"></ion-icon>
+            <ion-label>About</ion-label>
+          </ion-tab-button>
+        </ion-tab-bar>
+      </ion-tabs>
     </ion-col>
   </ion-row>
 </ion-grid>

@@ -38,9 +38,7 @@ load: boolean;
       check: ['', Validators.required],
      });
     this.getLevelTypes();
-    if (this.authenticationService.isLogin()){
-      this.router.navigate(['public/home']);
-     }
+    // this.authenticationService.isLogin();
     }
 
     clearForm(){

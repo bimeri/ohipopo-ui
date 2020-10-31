@@ -1,31 +1,24 @@
 import { HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { StorageService } from '../storage/storage.service';
-import { User } from 'src/app/model/user';
+import { from, Observable } from 'rxjs';
 
 @Injectable()
 export class ShareService {
+ tokenn = localStorage.getItem('token');
+public headerRequest = new HttpHeaders({
+  'Content-Type': 'application/json',
+  Accept: 'application/json',
+  Authorization: 'Bearer ' + this.tokenn});
+  constructor(private storage: Storage) {
+    // this.$token.subscribe(data => {this.token = data; });
+   }
 
-  constructor(private storageService: StorageService) { }
+  $token = new EventEmitter();
   $userInfo = new EventEmitter();
   $userId = new EventEmitter();
-  public headerRequest = new HttpHeaders({
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: 'Bearer ' + this.getAccessToken()
-  });
-
-  getUserinfo(): Promise<User>{
-    // console.log('fenebrf', JSON.parse(localStorage.getItem('userInfo')));
-  return  this.storageService.getObject('userInfo');
-    // JSON.parse(localStorage.getItem('userInfo'));
-  }
-  getUserDetails(){
-    return JSON.parse(localStorage.getItem('userDetails'));
-  }
-  getAccessToken(){
-    return localStorage.getItem('Token');
-  }
+  $payment = new EventEmitter();
 
   emitUserInfo(userinfo: {}, useretail: {}){
     const info = userinfo;
@@ -33,7 +26,16 @@ export class ShareService {
     this.$userInfo.emit([info, detail]);
   }
 
+  emitToken(token){
+    // this.tokenn = token;
+    this.$token.emit(token);
+  }
+
   emitUserId(uid){
     this.$userId.emit(uid);
+  }
+
+  emitPayment(value){
+    this.$payment.emit(value);
   }
 }

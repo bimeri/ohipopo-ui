@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ShareService } from '../../service/shared/share.service';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
-import { AuthenticateService } from '../../service/authentication/authenticate.service';
 import { Router } from '@angular/router';
-import { UserDetail } from 'src/app/model/user-detail';
 import { LoadingController, PopoverController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../../service/storage/storage.service';
+import { ShareService } from '../../service/shared/share.service';
 
 @Component({
   selector: 'app-user-subjects',
@@ -21,25 +19,34 @@ star2: boolean;
 star3: boolean;
 star4: boolean;
 star5: boolean;
-// tslint:disable-next-line: no-inferrable-types
-number: number = 0;
+number = 0;
 payment = false;
 env = `${environment.base_url}`;
 loading: boolean;
+success: boolean;
+fail: boolean;
   constructor(private userService: UserService,
               private handlerService: HandleErrorService,
-              private authenticateService: AuthenticateService,
               private router: Router,
               public popoverController: PopoverController,
               public storageService: StorageService,
-              public loadingController: LoadingController) { }
+              public loadingController: LoadingController,
+              private shareService: ShareService) {
+                this.shareService.$payment.subscribe(data => {
+                  if (data === '123') {
+                    this.success = true;
+                    this.fail = false;
+                  }
+                  else {
+                    this.fail = true;
+                    this.success = false;
+                  }
+              });
+              }
 
   ngOnInit() {
     this.loading = true;
     this.getUserId();
-    if (!this.authenticateService.isLogin()){
-      this.router.navigate(['/login']);
-     }
   }
 
   getUserId(){

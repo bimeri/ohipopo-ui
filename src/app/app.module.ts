@@ -8,7 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ShareModule } from './shared/share/share.module';
 import { UserService } from './service/users/user.service';
 import { AuthenticateService } from './service/authentication/authenticate.service';
@@ -18,6 +18,7 @@ import { SplashComponent } from './components/splash/splash.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './service/storage/storage.service';
 import { ShareService } from './service/shared/share.service';
+import { InterceptorProvider } from './interceptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent, SplashComponent],
@@ -39,7 +40,8 @@ import { ShareService } from './service/shared/share.service';
     StorageService,
     ShareService,
     VideoPlayer,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, }
+    // { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,40 +1,18 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { environment } from 'src/environments/environment';
 import { ShareService } from '../shared/share.service';
+
 
 @Injectable()
 export class UserService {
 pathDir = `${environment.base_url}/${environment.auth_path}`;
  header = this.sharedService.headerRequest;
-tt: any = null;
-  constructor(private http: HttpClient, private sharedService: ShareService, private storage: Storage) { this.get('Token'); }
-   get(key) {
-    try {
-        const result = this.storage.get(key);
-        if (result != null) {
-        // return result;
-        this.tt = result;
-        console.log('the vslu rom the header requesrt,', result);
-        }
-        return null;
-      } catch (reason) {
-      console.log(reason);
-      return null;
-      }
-    }
-  // header = new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     Accept: 'application/json',
-  //     Authorization: 'Bearer ' + this.tt
-  //   });
-
+  constructor(private http: HttpClient, private sharedService: ShareService) { }
 
   getAllSubject(levelId: any){
-    this.get('Token');
-    console.log('the heder value is', this.header);
-    return this.http.get<any>(`${this.pathDir}/subject?levelId=${levelId}`, {headers: this.header});
+console.log('the hedaer at this piont', this.header);
+return this.http.get<any>(`${this.pathDir}/subject?levelId=${levelId}`, {headers: this.header});
   }
 
   getUserRegisteredSubject(userId: string){
@@ -52,5 +30,22 @@ tt: any = null;
   registerUserSubjects(details){
     console.log('detail from the service', details);
     return this.http.get<any>(`${this.pathDir}/subject/register?userSubjects=${details}`, {headers: this.header});
+  }
+
+  makePayment(phone, userName){
+    const data = {
+      service: '5sMccBwuw2NDOn0Z7Iipz80tpEfEh6zg',
+      service_secret: 'x32XtxUzhSP4crtBkhSp4mQevvBCzDMGkQefeYmD21uRUzN6Lnr1xLkNs2vWJKYL',
+      phonenumber: phone,
+      amount: 1,
+      country: 'CM',
+      currency: 'XAF',
+      user: userName,
+      };
+    return this.http.post<any>(`${this.pathDir}/payment`, data, {headers: this.header});
+  }
+  paymentStatus(payid){
+    const data = {paymentId: payid};
+    return this.http.post<any>(`${this.pathDir}/check`, data, {headers: this.header});
   }
 }
