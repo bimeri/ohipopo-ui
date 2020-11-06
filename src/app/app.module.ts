@@ -19,6 +19,13 @@ import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './service/storage/storage.service';
 import { ShareService } from './service/shared/share.service';
 import { InterceptorProvider } from './interceptors/token.interceptor';
+import { DatePipe } from '@angular/common';
+import { UserSubjectsPageModule } from './pages/user-subjects/user-subjects.module';
+import { SubjectPageModule } from './pages/subject/subject.module';
+import { PaymentPageModule } from './pages/payment/payment.module';
+import { MtnPageModule } from './pages/payment/mtn/mtn.module';
+import { WelcomePageModule } from './pages/welcome/welcome.module';
+import { ProfilePageModule } from './pages/profile/profile.module';
 
 @NgModule({
   declarations: [AppComponent, SplashComponent],
@@ -29,7 +36,13 @@ import { InterceptorProvider } from './interceptors/token.interceptor';
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    ShareModule
+    ShareModule,
+    UserSubjectsPageModule,
+    SubjectPageModule,
+    PaymentPageModule,
+    MtnPageModule,
+    WelcomePageModule,
+    ProfilePageModule
   ],
   providers: [
     StatusBar,
@@ -39,8 +52,10 @@ import { InterceptorProvider } from './interceptors/token.interceptor';
     HandleErrorService,
     StorageService,
     ShareService,
+    InterceptorProvider,
+    DatePipe,
     VideoPlayer,
-    // { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],
   bootstrap: [AppComponent]

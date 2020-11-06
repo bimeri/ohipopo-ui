@@ -1,11 +1,24 @@
-<ion-progress-bar type="indeterminate" color="warning" *ngIf="loading"></ion-progress-bar>
-<app-header></app-header>
+<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start" color="primary">
+      <ion-menu-button menu="menu" class="ion-text-left color"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="text-small"><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org </ion-title>
+  </ion-toolbar>
+  <div class="right">
+    <i class="fa fa-ellipsis-v"></i>
+  </div>
+</ion-header>
 <ion-content>
   <div class="alert-success" *ngIf="success">
    <b>Your payment was successful</b>
   </div>
   <div class="alert-danger" *ngIf="fail">
    <b>Your payment was unsuccessful</b>
+  </div>
+  <div class="alert-danger" *ngIf="length == 0">
+   <ion-button color="primary" (click)="getUserId()">click to load subject</ion-button>
   </div>
   <ion-row *ngFor="let subject of subjects">
     <ion-col size-md="6" size-xs="6" size-lg="6">

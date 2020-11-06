@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">side-nav</string>
-    <string name="title_activity_main">side-nav</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">Ohipopo-app</string>
+    <string name="title_activity_main">Ohipopo-app</string>
+    <string name="package_name">com.ohipopo.org-app</string>
+    <string name="custom_url_scheme">com.ohipopo.org-app</string>
 </resources>

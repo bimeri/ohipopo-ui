@@ -3,7 +3,8 @@ export class UserDetail {
     balance?: number;
     deadLine?: string;
     id?: number;
-    levelId?: number;
-    paidAmount: number;
-    subscribes?: 0;
+    level_id?: number;
+    paid_amount: number;
+    subscribed?: 0;
+    user_id?: number;
 }

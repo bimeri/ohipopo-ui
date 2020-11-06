@@ -16,12 +16,10 @@ export class VideoViewPage implements OnInit {
   subjectName: string;
   subjectAuthor: string;
   defaultUrl: string;
-  // items = [];
   videos = [];
   logo = '';
   constructor(private activateRoute: ActivatedRoute,
               private userService: UserService,
-              private router: Router,
               private errorHandle: HandleErrorService ) { }
   ngOnInit() {
     this.activateRoute.paramMap.subscribe(
@@ -45,7 +43,7 @@ export class VideoViewPage implements OnInit {
         console.log(response);
         this.subjectName = response[2].name;
         this.subjectAuthor = response[2].author;
-        this.defaultUrl = response[1][3].topicVideo[0].videoUrl;
+        this.defaultUrl = response[2].url;
         this.logo = `${environment.base_url}/${response[2].logo}`;
       },
       (error: any) => {
@@ -53,13 +51,6 @@ export class VideoViewPage implements OnInit {
       }
     );
   }
-  // groupByType(array){
-  //   return array.reduce((r, a) => {
-  //         r[a.topic_name] = r[a.topic_name] || [];
-  //         r[a.topic_name].push(a);
-  //         return r;
-  //     }, Object.create(null));
-  // }
 
   playVideo(url: string, videoName: string){
     this.defaultUrl = '';

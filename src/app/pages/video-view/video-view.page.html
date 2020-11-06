@@ -1,7 +1,8 @@
-
-  <video playsinline no-padding preload="auto" 
+  <video playsinline preload="auto" 
           [attr.src]="defaultUrl" 
-          controls width="100%"
+          controls
+          width=" 100%"
+          height="260em"
           controlsList="nodownload" 
           seekable autoplay>   
   </video>
@@ -50,7 +51,7 @@
               </datalist>
             </div><br>
 
-            <ion-row  *ngFor="let video of videos, let i = index" style="border-bottom: 1.5px solid #000;">
+            <ion-row *ngFor="let video of videos, let i = index" style="border-bottom: 1.5px solid #000;">
               <div class="ion-text-left h6"> {{ video.topicName }} {{ video.topicVideo[0].totalVideo }} lecture video</div><br>
               <div *ngFor="let sub of video.topicVideo, let j = index">
                 <ion-item  (click)="playVideo(sub.videoUrl, sub.videoName)" size-xs="12" size-sm="12">
@@ -71,7 +72,6 @@
                 </ion-item>
               </div>
             </ion-row>
-            
           </ion-item>
         </ion-slide>
   
@@ -86,32 +86,7 @@
           <h2>Ready to shop?</h2>
           <ion-button fill="clear">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
         </ion-slide>
-        
       </ion-slides>
-      <ion-tabs>
-        <ion-tab-bar slot="bottom">
-          <ion-tab-button tab="schedule">
-            <ion-icon name="calendar"></ion-icon>
-            <ion-label>Schedule</ion-label>
-            <ion-badge>6</ion-badge>
-          </ion-tab-button>
-      
-          <ion-tab-button tab="speakers">
-            <ion-icon name="person-circle"></ion-icon>
-            <ion-label>Speakers</ion-label>
-          </ion-tab-button>
-      
-          <ion-tab-button tab="map">
-            <ion-icon name="map"></ion-icon>
-            <ion-label>Map</ion-label>
-          </ion-tab-button>
-      
-          <ion-tab-button tab="about">
-            <ion-icon name="information-circle"></ion-icon>
-            <ion-label>About</ion-label>
-          </ion-tab-button>
-        </ion-tab-bar>
-      </ion-tabs>
     </ion-col>
   </ion-row>
 </ion-grid>

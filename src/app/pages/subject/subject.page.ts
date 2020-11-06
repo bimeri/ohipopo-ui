@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { StorageService } from '../../service/storage/storage.service';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
 import { Router } from '@angular/router';
+import { ShareService } from 'src/app/service/shared/share.service';
 
 @Component({
   selector: 'app-subject',
@@ -16,19 +17,31 @@ export class SubjectPage implements OnInit {
   subjects: [];
   count = 0;
   subjectCheck: boolean;
-  newArrray = [];
+  newArrray: number[] = [];
   loader = true;
   apiDir = `${environment.base_url}`;
+  spinner: boolean;
+  userInfos: any;
   constructor(private userService: UserService,
               private errorHandle: HandleErrorService,
               private storageService: StorageService,
               private authenticateService: AuthenticateService,
               private router: Router,
+              private shareService: ShareService
               ) { }
 
   ngOnInit() {
       // this.router.navigate(['public/profile']);
     this.getUserDetail();
+    this.storageService.getObject('userInfo').then(result => {
+      if (result != null) {
+      this.shareService.emitUserId(result.id);
+      this.userInfos = result;
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      return e;
+      });
   }
   getUserDetail(){
     this.storageService.getObject('userDetails').then(result => {
@@ -59,7 +72,7 @@ export class SubjectPage implements OnInit {
      );
    }
    pushId(ids: number){
-     const id = ids.toString();
+     const id = ids;
      if (this.newArrray.includes(id)){
     this.newArrray = this.newArrray.filter(item => item !== id);
      }
@@ -70,14 +83,16 @@ export class SubjectPage implements OnInit {
 
    }
    submitValue(){
-    this.userService.registerUserSubjects(this.newArrray).subscribe(
+     this.spinner = true;
+     this.userService.registerUserSubjects(this.newArrray).subscribe(
       result => {
-        this.authenticateService.presentToast('success', 'Subject Registered successfully', 'top', 2000);
+        this.authenticateService.presentToast('success', 'Subject Registered successfully', 'top', 4000);
+        this.spinner = false;
         this.router.navigate(['user/subject']);
-        console.log('result', result);
       },
       error => {
         this.errorHandle.errorResponses(error);
+        this.spinner = false;
       }
     );
    }

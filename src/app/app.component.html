@@ -1,9 +1,6 @@
-<div class="spash" *ngIf="showSplash">
-  <app-splash></app-splash>
-</div>
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay" *ngIf="login">
+    <ion-menu contentId="main-content" type="overlay" menuId="menu" *ngIf="login">
 
       <img src="../assets/img/newLogo.png" height="220px" width="100%" style="border-bottom: 1px solid #ccc">
 

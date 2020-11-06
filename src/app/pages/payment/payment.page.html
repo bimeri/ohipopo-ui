@@ -1,6 +1,21 @@
-<app-header></app-header>
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start" color="primary">
+      <ion-menu-button menu="menu" class="ion-text-left color"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="text-small"><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org </ion-title>
+  </ion-toolbar>
+  <div class="right">
+    <i class="fa fa-ellipsis-v"></i>
+  </div>
+</ion-header>
 <ion-content>
 <ion-grid>
+  <ion-item>
+    <div class="alert">
+      You have not yet paid lecture fees
+    </div>
+  </ion-item>
   <h5 class="center" style="border-top: 2px;">Select Method of Payment</h5>
   <ion-row>
     <ion-col *ngFor="let payment of payments" size-xs="6" size-md="6">

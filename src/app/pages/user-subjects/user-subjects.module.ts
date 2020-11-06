@@ -7,15 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { UserSubjectsPageRoutingModule } from './user-subjects-routing.module';
 
 import { UserSubjectsPage } from './user-subjects.page';
-import { HeaderComponent } from '../../components/header/header.component';
+import { ShareModule } from '../../shared/share/share.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    UserSubjectsPageRoutingModule
+    UserSubjectsPageRoutingModule,
+    ShareModule
   ],
-  declarations: [UserSubjectsPage, HeaderComponent]
+  declarations: [UserSubjectsPage]
 })
 export class UserSubjectsPageModule {}

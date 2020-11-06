@@ -7,11 +7,10 @@ import { ShareService } from '../shared/share.service';
 @Injectable()
 export class UserService {
 pathDir = `${environment.base_url}/${environment.auth_path}`;
- header = this.sharedService.headerRequest;
+header = this.sharedService.headerRequest;
   constructor(private http: HttpClient, private sharedService: ShareService) { }
 
   getAllSubject(levelId: any){
-console.log('the hedaer at this piont', this.header);
 return this.http.get<any>(`${this.pathDir}/subject?levelId=${levelId}`, {headers: this.header});
   }
 
@@ -22,13 +21,15 @@ return this.http.get<any>(`${this.pathDir}/subject?levelId=${levelId}`, {headers
   getUserDetailByUserId(userId: number){
     return this.http.get<any>(`${this.pathDir}/user/detail?userId=${userId}`, {headers: this.header});
   }
+  getUserDetailBy(){
+    return this.http.get<any>(`${this.pathDir}/user/paymentDetal`, {headers: this.header});
+  }
 
   getAllSubjectsTopicById(subjectId: number){
     return this.http.get<any>(`${this.pathDir}/subject/topics?subjectId=${subjectId}`, {headers: this.header});
   }
 
   registerUserSubjects(details){
-    console.log('detail from the service', details);
     return this.http.get<any>(`${this.pathDir}/subject/register?userSubjects=${details}`, {headers: this.header});
   }
 
@@ -36,7 +37,7 @@ return this.http.get<any>(`${this.pathDir}/subject?levelId=${levelId}`, {headers
     const data = {
       service: '5sMccBwuw2NDOn0Z7Iipz80tpEfEh6zg',
       service_secret: 'x32XtxUzhSP4crtBkhSp4mQevvBCzDMGkQefeYmD21uRUzN6Lnr1xLkNs2vWJKYL',
-      phonenumber: phone,
+      phoneNumber: phone,
       amount: 1,
       country: 'CM',
       currency: 'XAF',
@@ -47,5 +48,10 @@ return this.http.get<any>(`${this.pathDir}/subject?levelId=${levelId}`, {headers
   paymentStatus(payid){
     const data = {paymentId: payid};
     return this.http.post<any>(`${this.pathDir}/check`, data, {headers: this.header});
+  }
+
+  registereUserPayment(phone: number){
+    const data = {phoneNumber: phone};
+    return this.http.post<any>(`${this.pathDir}/registerPayment`, data, {headers: this.header});
   }
 }

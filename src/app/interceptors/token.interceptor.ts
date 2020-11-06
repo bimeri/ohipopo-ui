@@ -12,7 +12,7 @@ export class InterceptorProvider implements HttpInterceptor {
     protected  url = `${environment.base_url}`;
     protected debug = true;
 
-    constructor(private storage: Storage, private alertCtrl: AlertController, private storageService: StorageService) { }
+    constructor( private alertCtrl: AlertController, private storageService: StorageService) { }
 
     // Intercepts all HTTP requests!
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -29,9 +29,9 @@ export class InterceptorProvider implements HttpInterceptor {
                     request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
                 }
 
-                 if (this.debug) {
-                    request = request.clone({ url: this.url + request.url + '?XDEBUG_SESSION_START=1'});
-                }
+                //  if (this.debug) {
+                //     request = request.clone({ url: this.url + request.url + '?XDEBUG_SESSION_START=1'});
+                // }
                  return next.handle(request).pipe(
                     map((event: HttpEvent<any>) => {
                         if (event instanceof HttpResponse){
@@ -42,8 +42,10 @@ export class InterceptorProvider implements HttpInterceptor {
                         console.log('error caught by interceptor', error);
                         const status = error.status;
                         const reason = error.error.message;
+                        if (status < 299){ return throwError(error); } else {
                         this.presentAlert(status, reason);
                         return throwError(error);
+                        }
                     })
                 );
              })
@@ -52,7 +54,7 @@ export class InterceptorProvider implements HttpInterceptor {
     async presentAlert(status, reason) {
         const alert = await this.alertCtrl.create({
             header: status + ' Error',
-            subHeader: 'Subtitle',
+            subHeader: 'Fail to authenticate user',
             message: reason,
             buttons: ['OK']
         });

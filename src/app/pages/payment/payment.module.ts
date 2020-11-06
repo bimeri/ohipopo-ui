@@ -8,7 +8,6 @@ import { PaymentPageRoutingModule } from './payment-routing.module';
 
 import { PaymentPage } from './payment.page';
 import { ShareModule } from '../../shared/share/share.module';
-import { HeaderComponent } from '../../components/header/header.component';
 
 @NgModule({
   imports: [
@@ -18,6 +17,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     PaymentPageRoutingModule,
     ShareModule
   ],
-  declarations: [PaymentPage, HeaderComponent]
+  declarations: [PaymentPage]
 })
 export class PaymentPageModule {}

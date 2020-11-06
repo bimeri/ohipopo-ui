@@ -5,11 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticateService } from './service/authentication/authenticate.service';
 import { Router } from '@angular/router';
-import { ShareService } from './service/shared/share.service';
-import { User } from 'src/app/model/user';
 import { timer } from 'rxjs';
-import { HandleErrorService } from './service/error-handler/handle-error.service';
 import { StorageService } from './service/storage/storage.service';
+import { ShareService } from './service/shared/share.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +17,13 @@ import { StorageService } from './service/storage/storage.service';
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
   userName: string;
+  login = false;
   public appPages = [
+    {
+      title: 'Home',
+      url: '/public/home',
+      icon: 'home'
+    },
     {
       title: 'Edit Profile',
       url: '/public/profile',
@@ -62,8 +66,8 @@ export class AppComponent implements OnInit {
     }
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  login = false;
   showSplash = true;
+  hide: boolean;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -73,13 +77,10 @@ export class AppComponent implements OnInit {
     private storageService: StorageService,
     private shareService: ShareService) {
     this.initializeApp();
-    this.shareService.$userInfo.subscribe(
-      data => {
-        if (data) {
-          this.login = true;
-        }
-      }
-    );
+    this.shareService.$userInfo.subscribe(data =>
+      {
+       this.userName = data[1].fullName;
+       this.login = true; });
   }
 
   initializeApp() {
@@ -96,22 +97,22 @@ export class AppComponent implements OnInit {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
     this.getUserName();
-
-    if (this.authService.isLogin()){
-      this.login = true;
-    }
+    setTimeout(() => {
+    this.hide = false;
+    }, 5000);
   }
 
   getUserName(){
    this.storageService.getObject('userInfo').then(result => {
     if (result != null) {
     this.userName = result.fullName;
+    this.login = true;
+
     }
     }).catch(e => {
     console.log('error: ', e);
     return e;
     });
-   this.login = true;
   }
 
   logoutUser(){

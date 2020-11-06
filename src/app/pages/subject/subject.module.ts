@@ -8,7 +8,6 @@ import { SubjectPageRoutingModule } from './subject-routing.module';
 
 import { SubjectPage } from './subject.page';
 import { ShareModule } from '../../shared/share/share.module';
-import { HeaderComponent } from '../../components/header/header.component';
 
 @NgModule({
   imports: [
@@ -18,6 +17,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     SubjectPageRoutingModule,
     ShareModule
   ],
-  declarations: [SubjectPage, HeaderComponent]
+  declarations: [SubjectPage]
 })
 export class SubjectPageModule {}

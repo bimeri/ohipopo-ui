@@ -5,9 +5,9 @@ import { AuthenticateService } from '../../service/authentication/authenticate.s
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { ShareService } from '../../service/shared/share.service';
 import { StorageService } from '../../service/storage/storage.service';
-import { Plugins } from '@capacitor/core';
 import { from } from 'rxjs';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,8 @@ export class LoginPage implements OnInit {
               public navCtrl: NavController,
               private router: Router,
               private shareService: ShareService,
-              private storageService: StorageService) { }
+              private storageService: StorageService,
+              private dateFormat: DatePipe) { }
 
   ngOnInit() {
     this.userLogin = this.formBuilder.group({
@@ -35,41 +36,36 @@ export class LoginPage implements OnInit {
   }
 
   isLogin(){
-    return from(this.storageService.get('token').then(result => {
-      if (result === null) {
-         this.router.navigate(['/login']);
-        } else {
-         this.router.navigate(['public/home']);
-        }
-      }));
+    return from(this.storageService.getObject('expire').then(result => {
+      const currentDate = this.dateFormat.transform(new Date(), 'd/M/y');
+      const expire = this.dateFormat.transform(result, 'd/M/y');
+      if (new Date(currentDate).getTime() > new Date(expire).getTime()) {
+        this.router.navigate(['/login']);
+      }
+      else {
+        this.router.navigate(['/public/home']);
+      }
+    }));
   }
+
   loginForm(){
     this.load = true;
     this.authenticateService.loginUser(this.userLogin.value).subscribe(
      (response: any) => {
        this.load = false;
-       localStorage.setItem('token', response.accessToken);
        this.storageService.setObject('userInfo', response[0].userInfo);
        this.storageService.setObject('userDetails', response[1].userDetails);
        this.storageService.setObject('token', response.accessToken);
-       this.storageService.setObject('expire', response.expires_at);
-       this.storeToken(response.accessToken);
-       this.shareService.emitToken(response.accessToken);
-       this.authenticateService.presentToast('success', 'Login Successfully. Welcome ' + response[0].userInfo.fullName + '', 'top', 5000);
-       this.shareService.emitUserInfo(this.storageService.getObject('userDetails'), this.storageService.getObject('userInfo'));
-      //  setTimeout(() => {
-      //  window.location.reload();
+       this.storageService.setObject('expire', (response.expires_at));
+       this.authenticateService.presentToast('success', 'Login Successfully. Welcome ' + response[0].userInfo.fullName + '', 'top', 4000);
+       this.shareService.emitUserInfo(response[1].userDetails, response[0].userInfo);
        this.router.navigate(['public/home']);
-        // }, 2000);
      },
      (error: any) => {
        this.handleService.errorResponses(error);
        this.load = false;
      }
    );
-  }
-  private storeToken(token){
-    Plugins.Storage.set({key: 'token', value: token});
   }
 
   public OpenListing() {

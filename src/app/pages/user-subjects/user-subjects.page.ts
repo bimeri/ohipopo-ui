@@ -6,6 +6,8 @@ import { LoadingController, PopoverController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../../service/storage/storage.service';
 import { ShareService } from '../../service/shared/share.service';
+import { UserDetail } from 'src/app/model/user-detail';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-subjects',
@@ -20,26 +22,30 @@ star3: boolean;
 star4: boolean;
 star5: boolean;
 number = 0;
-payment = false;
 env = `${environment.base_url}`;
 loading: boolean;
 success: boolean;
 fail: boolean;
+length: number;
+  userInfos: any;
   constructor(private userService: UserService,
               private handlerService: HandleErrorService,
               private router: Router,
               public popoverController: PopoverController,
               public storageService: StorageService,
               public loadingController: LoadingController,
+              private dateFormat: DatePipe,
               private shareService: ShareService) {
-                this.shareService.$payment.subscribe(data => {
-                  if (data === '123') {
+                this.shareService.$success.subscribe(data => {
+                  if (data) {
                     this.success = true;
                     this.fail = false;
                   }
-                  else {
-                    this.fail = true;
+              });
+                this.shareService.$failure.subscribe(data => {
+                  if (data) {
                     this.success = false;
+                    this.fail = true;
                   }
               });
               }
@@ -47,18 +53,10 @@ fail: boolean;
   ngOnInit() {
     this.loading = true;
     this.getUserId();
-  }
-
-  getUserId(){
-    this.storageService.getObject('userDetails').then(result => {
+    this.storageService.getObject('userInfo').then(result => {
       if (result != null) {
-        this.getUsersSubjects( result.user_id);
-        if (result.paid_amount === null){
-          this.payment = false;
-        }
-        else {
-          this.payment = true;
-        }
+      this.shareService.emitUserId(result.id);
+      this.userInfos = result;
       }
       }).catch(e => {
       console.log('error: ', e);
@@ -66,13 +64,31 @@ fail: boolean;
       });
   }
 
+  getUserId(){
+    this.storageService.getObject('userDetails').then(result => {
+      if (result != null) {
+        this.getUsersSubjects( result.user_id);
+      }
+      }).catch(e => {
+      return e;
+      });
+  }
+
   checkPayment(subid){
-    if (this.payment){
-      this.router.navigate(['video-view', subid]);
-    }
-    else {
-      this.router.navigate(['payment']);
-    }
+    this.userService.getUserDetailBy().subscribe(
+      (result: UserDetail) => {
+        this.success = false;
+        this.fail = false;
+        const currentDate = this.dateFormat.transform(new Date(), 'd/M/y');
+        if ( result.paid_amount > 0 && new Date(result.deadLine).getTime() > new Date(currentDate).getTime()) {
+          this.router.navigate(['video-view', subid]);
+        } else {
+          this.router.navigate(['payment']);
+        }
+      }, error => {
+        this.handlerService.errorResponses(error);
+      }
+    );
   }
 
   getUsersSubjects(uid){
@@ -80,6 +96,7 @@ fail: boolean;
     this.userService.getUserRegisteredSubject(uid).subscribe(
       (response: any) => {
         this.subjects = response;
+        this.length = response.length;
         this.loading = false;
         if (response.length === 0) {
           this.router.navigate(['subject/all']);

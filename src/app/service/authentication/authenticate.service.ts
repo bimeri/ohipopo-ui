@@ -7,6 +7,7 @@ import { ToastController } from '@ionic/angular';
 import { from, Observable } from 'rxjs';
 import { StorageService } from '../storage/storage.service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Injectable()
 export class AuthenticateService {
@@ -16,6 +17,7 @@ header = this.sharedService.headerRequest;
               private sharedService: ShareService,
               private toastController: ToastController,
               private storageService: StorageService,
+              private dateFormat: DatePipe,
               private router: Router) { }
 
   async presentToast(colors: string, messages: string, pos, time: number) {
@@ -40,10 +42,12 @@ header = this.sharedService.headerRequest;
   }
 
   isLogin(){
-    return from(this.storageService.get('token').then(result => {
-      if (result === null) {
-         this.router.navigate(['/login']);
-        }
+    return from(this.storageService.getObject('expire').then(result => {
+      const currentDate = this.dateFormat.transform(new Date(), 'd/M/y');
+      const expire = this.dateFormat.transform(result, 'd/M/y');
+      if (new Date(currentDate).getTime() > new Date(expire).getTime()) {
+        this.router.navigate(['/login']);
+      }
       }));
   }
 

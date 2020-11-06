@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserDetail } from 'src/app/model/user-detail';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
 import { ShareService } from '../../service/shared/share.service';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { StorageService } from '../../service/storage/storage.service';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-welcome',
@@ -19,20 +16,12 @@ export class WelcomePage implements OnInit {
   dates = new Date();
   show: boolean ;
   constructor(private authenticationService: AuthenticateService,
-              private router: Router,
               private shareService: ShareService,
               private userService: UserService,
               private errorHandle: HandleErrorService,
               private storageService: StorageService) { }
 
   ngOnInit() {
-    this.storageService.getObject('userInfo')
-    .then(result => {
-      if (result != null) {
-      }
-      }).catch(e => {
-      });
-
     this.storageService.getObject('userDetails')
     .then(result => {
       if (result != null) {
@@ -41,7 +30,6 @@ export class WelcomePage implements OnInit {
       }).catch(e => {
       console.log('error: ', e);
       });
-
 
     this.storageService.getObject('token')
     .then(result => {
@@ -53,16 +41,7 @@ export class WelcomePage implements OnInit {
       console.log('error: ', e);
       });
 
-    this.isLogin();
-  }
-
-  isLogin(){
-    // this.storageService.clear();
-    return from(this.storageService.get('token').then(result => {
-     if (result === null) {
-        this.router.navigate(['/login']);
-      }
-     }));
+    this.authenticationService.isLogin();
   }
 
    getSubject(levelId){

@@ -8,9 +8,11 @@
 </ion-header>
 
 <ion-content>
-  <img src="../../../../assets/img/momo.jpeg" style="width: 100%; height: 300px; padding: 5px;">
-  <h4 style="padding: 5px; color: orange;">
-  Please have you mobile Phone beside Your, and be ready to dial *126# and confirm your payment to Ohipopo.org School</h4>
+  <img src="../../../../assets/img/momo.jpeg" style="width: 100%; height: 250px; padding-top: 5px;">
+  <h4 style="padding: 15px; color: #ffa500; background-color: #ececba; text-align: justify; justify-content: baseline; margin-top: -15px !important;">
+  You are about to make a deposite of {{ '800 XCFA' }} to Ohipopo.org, Please have you mobile Phone beside Your, and be ready to dial *126# and confirm your payment. <br>
+  <b style="color: #cf4a4a;">You have a maximun of 120 seconds for this transaction, please do it as fast as you receive the notification</b>
+</h4>
 <ion-grid>
   <ion-row>
     <ion-col size-xs="12">
@@ -36,7 +38,8 @@
       </ion-item>
     </ion-col>
     <ion-col size-xs="10" offset-xs="1" class="margin-top">
-      <ion-button color="warning" style="width: 100%; align-items: center; text-align: center;" (click)="makePayment(number.value, user?.fullName)" [disabled]="disable">Make Payment</ion-button>
+      <ion-button color="danger" routerLink="/public/home" style="float: left; width: 30%;" [disabled]="disable">Cancel</ion-button>
+      <ion-button color="success" style="width: 60%; align-items: center; float: right !important;" (click)="makePayment(number.value, user?.fullName)" [disabled]="disable">Make Payment</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

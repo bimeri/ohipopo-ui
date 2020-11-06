@@ -1,4 +1,14 @@
-<app-header></app-header>
+<ion-header [translucent]="true">
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start" color="primary">
+      <ion-menu-button menu="menu" class="ion-text-left color"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="text-small"><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org </ion-title>
+  </ion-toolbar>
+  <div class="right">
+    <i class="fa fa-ellipsis-v"></i>
+  </div>
+</ion-header>
 <ion-progress-bar color="primary" type="indeterminate" *ngIf="loader"></ion-progress-bar>
 <ion-grid style="width: 100% !important; background-color: #ffcc00">
   <div class="pad">
@@ -9,6 +19,9 @@
 <h6 *ngIf="!subjectCheck">Seleted <b>{{ count }}</b></h6>
 <form *ngIf="!subjectCheck">
   <!-- {{ selectedSubject.value | json }} -->
+  <div *ngIf="spinner" class="spinner">
+    <ion-spinner name="lines"></ion-spinner>
+  </div>
   <ion-row *ngFor="let subject of subjects">
       <ion-col size-md="6" size-xs="6">
         <img src="{{ apiDir }}/{{ subject.logo }}" style="border-radius: 10px;">
@@ -24,7 +37,7 @@
   <ion-row>
     <ion-label class="alert" style="align-items: center; text-align: center;">You seleted a total of <b>{{ count }} </b> {{ count == 0 ||  count == 1 ? 'subject':'subjects' }} </ion-label>
     <ion-col size-xs="6" offset-xs="3">
-      <ion-button color="primary" style="width: 100%; align-items: center; text-align: center;" [disabled]="count==0" (click)="submitValue()">Submit</ion-button>
+      <ion-button color="primary" style="width: 100%; align-items: center; text-align: center;" [disabled]="count==0 || spinner" (click)="submitValue()">Submit</ion-button>
     </ion-col>
   </ion-row>
 </form>

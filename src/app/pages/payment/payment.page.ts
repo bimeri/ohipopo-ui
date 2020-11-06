@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDetail } from 'src/app/model/user-detail';
+import { StorageService } from '../../service/storage/storage.service';
+import { ShareService } from '../../service/shared/share.service';
 
 @Component({
   selector: 'app-payment',
@@ -13,9 +15,19 @@ payments = [
   {name: 'Express Union', logo: '../../../assets/img/eu.png', url: '#'},
   {name: 'Visa/Master Card', logo: '../../../assets/img/visa.png', url: '#'}
 ];
-  constructor() { }
+  userInfos: any;
+  constructor(private storageService: StorageService, private shareService: ShareService) { }
 
   ngOnInit() {
+    this.storageService.getObject('userInfo').then(result => {
+      if (result != null) {
+      this.shareService.emitUserId(result.id);
+      this.userInfos = result;
+      }
+      }).catch(e => {
+      console.log('error: ', e);
+      return e;
+      });
   }
 
 }

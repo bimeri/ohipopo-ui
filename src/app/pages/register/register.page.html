@@ -1,14 +1,10 @@
 <ion-header class="color">
-  <!-- <ion-back-button
-    [text]="buttonText"
-    [icon]="buttonIcon" color="danger">
-  </ion-back-button> -->
   <ion-toolbar color="warning">
     <ion-title>User Authentication (Registration)</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-progress-bar type="indeterminate" color="warning" *ngIf="load"></ion-progress-bar>
+  <ion-progress-bar type="indeterminate" *ngIf="load"></ion-progress-bar>
   <form [formGroup]="userRegistration" (ngSubmit)="submitForm()" style="width: 100%;">
     <ion-grid>
       <ion-row>

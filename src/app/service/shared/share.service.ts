@@ -1,24 +1,20 @@
 import { HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { StorageService } from '../storage/storage.service';
-import { from, Observable } from 'rxjs';
 
 @Injectable()
 export class ShareService {
- tokenn = localStorage.getItem('token');
 public headerRequest = new HttpHeaders({
   'Content-Type': 'application/json',
   Accept: 'application/json',
-  Authorization: 'Bearer ' + this.tokenn});
-  constructor(private storage: Storage) {
-    // this.$token.subscribe(data => {this.token = data; });
+  Authorization: `Bearer ${localStorage.getItem('token')}`});
+  constructor() {
    }
 
   $token = new EventEmitter();
   $userInfo = new EventEmitter();
   $userId = new EventEmitter();
-  $payment = new EventEmitter();
+  $success = new EventEmitter();
+  $failure = new EventEmitter();
 
   emitUserInfo(userinfo: {}, useretail: {}){
     const info = userinfo;
@@ -27,7 +23,6 @@ public headerRequest = new HttpHeaders({
   }
 
   emitToken(token){
-    // this.tokenn = token;
     this.$token.emit(token);
   }
 
@@ -35,7 +30,10 @@ public headerRequest = new HttpHeaders({
     this.$userId.emit(uid);
   }
 
-  emitPayment(value){
-    this.$payment.emit(value);
+  emitSuccess(value: string){
+    this.$success.emit(value);
+  }
+   emitFailure(value: string){
+    this.$failure.emit(value);
   }
 }

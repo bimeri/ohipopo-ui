@@ -2,7 +2,7 @@
     border: 1px solid #ccc;
 }
 h6{
-    color: rgb(95, 77, 77) !important;
+    color: #5f4d4d !important;
     text-transform: uppercase;
     font-size: 18px;
     font-weight: bold;
@@ -39,12 +39,12 @@ div.image-link {
     top: 200px;
     left: 80px;
     z-index: 1000;
-    box-shadow: 6px 6px 8px 8px  rgba(26, 25, 25, 0.3);
+    box-shadow: 6px 6px 8px 8px  #1a19194d;
     background-color: white;
 }
 .cross{
     float: right !important;
-    color: red;
+    color: #ff0000;
     font-size: 30px;
     padding: 8px;
 }
@@ -52,4 +52,8 @@ div.image-link {
     text-align: center !important;
     margin: 3px;
     padding :15px;
+}
+.white{
+    color: #ffffff;
+    font-size: 30px;
 }

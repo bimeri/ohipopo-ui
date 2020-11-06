@@ -4,7 +4,6 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { ShareModule } from '../../shared/share/share.module';
-import { HeaderComponent } from '../../components/header/header.component';
 
 @NgModule({
   imports: [
@@ -13,6 +12,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     ProfilePageRoutingModule,
     ShareModule
   ],
-  declarations: [ProfilePage, HeaderComponent]
+  declarations: [ProfilePage]
 })
 export class ProfilePageModule {}

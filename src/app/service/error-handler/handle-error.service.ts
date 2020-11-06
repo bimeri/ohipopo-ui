@@ -14,6 +14,7 @@ export class HandleErrorService {
       if (error.status === 401) {
         this.authenticateService.presentToast('danger', 'user not authorize to perform this task', 'top', 5000);
         this.authenticateService.logout();
+        this.router.navigate(['/login']);
       }
       if (error.status === 406) {
         this.authenticateService.presentToast('danger', 'fail to login. Invalid user credentials', 'top', 4000);
