@@ -7,7 +7,7 @@ import { ShareService } from '../../service/shared/share.service';
 import { StorageService } from '../../service/storage/storage.service';
 import { from } from 'rxjs';
 import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -37,12 +37,15 @@ export class LoginPage implements OnInit {
 
   isLogin(){
     return from(this.storageService.getObject('expire').then(result => {
-      const currentDate = this.dateFormat.transform(new Date(), 'd/M/y');
-      const expire = this.dateFormat.transform(result, 'd/M/y');
-      if (new Date(currentDate).getTime() > new Date(expire).getTime()) {
+      const currentDate = formatDate(new Date(), 'yyyy-MM-dd h:m:s', 'en_US');
+      const expiringGate = formatDate(result, 'yyyy-MM-dd h:m:s', 'en_US');
+      // console.log('current date', new Date(currentDate).getTime());
+      // console.log('expiring date', new Date(currentDate).getTime());
+      // console.log( new Date(currentDate).getTime() - new Date(currentDate).getTime());
+
+      if (currentDate > expiringGate) {
         this.router.navigate(['/login']);
-      }
-      else {
+      } else {
         this.router.navigate(['/public/home']);
       }
     }));

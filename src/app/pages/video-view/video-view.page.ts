@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { environment } from 'src/environments/environment';
+import { IonSlides } from '@ionic/angular';
 
 
 @Component({
@@ -11,6 +12,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./video-view.page.scss'],
 })
 export class VideoViewPage implements OnInit {
+  @ViewChild('slides', { static: false }) slider: IonSlides;
+  selectedSlide: any;
+  segment = 0;
+  slideOptions = {
+    initialSlide: 0,
+    slidePerView: 1,
+    speed: 400
+  };
+
   subjectId: number;
   allTopics = [];
   subjectName: string;
@@ -58,6 +68,16 @@ export class VideoViewPage implements OnInit {
       this.defaultUrl = url;
       this.subjectName = videoName;
     }, 1000);
-    // this.router.navigate([`video/view/${url}`]);
+  }
+
+ async segmentchange(evt){
+   await this.selectedSlide.slideTo(this.segment);
+  }
+
+ slideChanged(slides: IonSlides){
+    this.selectedSlide = slides;
+    slides.getActiveIndex().then(selectedIndex => {
+      this.segment = selectedIndex;
+    });
   }
 }

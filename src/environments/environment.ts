@@ -1,11 +1,11 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-// online server http://ohipopo.org/obca-app/public, http://127.0.0.1:8000
+// online server https://ohipopo.org/bimeri/public, http://127.0.0.1:8000
 
 export const environment = {
   production: false,
-  base_url: 'http://ohipopo.org/bimeri/public',
+  base_url: 'https://ohipopo.org/bimeri/public',
   auth_path: 'api/auth'
 };
 

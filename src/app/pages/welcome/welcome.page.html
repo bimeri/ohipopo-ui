@@ -3,10 +3,10 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="menu" class="white"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="center" style="margin-left:-70px !important">{{ levelName }}</ion-title>
+    <ion-title>{{ levelName }}</ion-title> <i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
   </ion-toolbar>
 </ion-header>
-
+ 
 <ion-content>
   <div class="container">
     <img src="../../../assets/img/goto_class.jpg">
@@ -14,7 +14,7 @@
      <div class="time">
       <h5 class="date">Welcome on campus</h5>
        {{ dates | date:'h:mm a' }}
-      <p class="date">{{ dates | date:'EEEE d MMMM y' }}</p>
+      <h5 class="date">{{ dates | date:'EEEE d MMMM y' }}</h5>
      </div>
     </div>
   </div>

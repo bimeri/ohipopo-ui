@@ -1,13 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="warning">
-    <ion-buttons slot="start" color="primary">
-      <ion-menu-button menu="menu" class="ion-text-left color"></ion-menu-button>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu" class="white"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="text-small"><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org </ion-title>
+    <ion-title><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org <i class="fa fa-ellipsis-v e-v"></i> </ion-title>
   </ion-toolbar>
-  <div class="right">
-    <i class="fa fa-ellipsis-v"></i>
-  </div>
 </ion-header>
 <ion-grid>
   <ion-row>

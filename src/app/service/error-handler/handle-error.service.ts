@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticateService } from '../authentication/authenticate.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable()
 export class HandleErrorService {
 
   constructor(private authenticateService: AuthenticateService,
-              private router: Router) { }
+              private router: Router,
+              private storageService: StorageService) { }
 
-  errorResponses(error: any){
+  errorResponses(error: HttpErrorResponse){
     console.log('the error fron handler service', error);
     if (!(error && Object.keys(error).length === 0)) {
-      if (error.status === 401) {
+      if (error.status === 0) {
+        this.authenticateService.presentToast('secondary', 'Oops! you are offline, please check your internet connection', 'top', 5000);
+      }
+      if (error.status === 401 || error.error.message === 'Unauthenticated') {
         this.authenticateService.presentToast('danger', 'user not authorize to perform this task', 'top', 5000);
-        this.authenticateService.logout();
+        this.storageService.clear();
         this.router.navigate(['/login']);
       }
       if (error.status === 406) {

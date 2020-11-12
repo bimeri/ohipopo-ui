@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { VideoViewPageRoutingModule } from './video-view-routing.module';
 import { VideoViewPage } from './video-view.page';
+import { VidoesComponent } from '../../components/vidoes/vidoes.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { VideoViewPage } from './video-view.page';
     IonicModule,
     VideoViewPageRoutingModule
   ],
-  declarations: [VideoViewPage]
+  declarations: [VideoViewPage, VidoesComponent]
 })
 export class VideoViewPageModule {}

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Ohipopo-app</string>
-    <string name="title_activity_main">Ohipopo-app</string>
-    <string name="package_name">com.ohipopo.org-app</string>
-    <string name="custom_url_scheme">com.ohipopo.org-app</string>
+    <string name="app_name">ohipopo-app</string>
+    <string name="title_activity_main">ohipopo-app</string>
+    <string name="package_name">com.ohipopo.app</string>
+    <string name="custom_url_scheme">com.ohipopo.app</string>
 </resources>

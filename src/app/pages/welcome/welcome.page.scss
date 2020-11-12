@@ -4,7 +4,7 @@
 h6{
     color: #5f4d4d !important;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 4vw;
     font-weight: bold;
     text-justify: inter-word;
     text-align: center;
@@ -22,22 +22,24 @@ div.image-link {
   }
   .centered {
     position: absolute;
-    top: 20%;
-    left: 32%;
+    top: 13px;
+    left: 26%;
     transform: translate(-15%, -15%);
   }  
   .time{
-      font-size: 50px;
+      font-size: 10vw;
   } 
   .date{
-      font-size: 20px;
+      position: relative;
+      font-size: 5vw;
+      margin-top:20px;
   }
 .card{
     height: 150px !important;
     width: fit-content;
     position: fixed;
     top: 200px;
-    left: 80px;
+    left: 70px;
     z-index: 1000;
     box-shadow: 6px 6px 8px 8px  #1a19194d;
     background-color: white;
@@ -54,6 +56,5 @@ div.image-link {
     padding :15px;
 }
 .white{
-    color: #ffffff;
     font-size: 30px;
 }

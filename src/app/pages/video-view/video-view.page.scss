@@ -1,34 +1,36 @@
 .left{
     float: left !important;
+    font-size: 5vw;
 }
 .right{
     float: right !important;
     color: #2e27279d;
+    font-size: 5vw;
 }
 .left,.right{
     padding: 10px !important;
 }
 
 i{
-    font-size: 24px;
+    font-size: 7vw;
     padding: 5px;
 }
 label{
-    font-size: 13px;
+    font-size: 4vw;
     color: #2e27279d;
 }
 ion-col{
-    width: 20%; text-align: center;
+    text-align: center;
 }
 
 div.h6{
     padding: 8px;
     color: #2e27279d;
     float: left !important;
-    font-size: 16px;
+    font-size: 4vw;
 }
 div.label{
-font-size: 10px;
+font-size: 10vw;
 margin-top: 2px !important;
 float: right !important;
 width:40%;
@@ -41,9 +43,16 @@ display: block;
 
 h5{
     color: #2c26269d;
-    padding: 5px;
+    margin: 5px;
+    margin-top: 25px;
+    font-size: 5vw;
+    text-transform: capitalize !important;
 }
-h5.active{
-    border-bottom: 2px solid orange;
-    position: relative;
+
+ion-badge{
+    border-radius: 40%;
+}
+.slide1{
+    border: 1px solid #ccc;
+   height: fit-content;
 }

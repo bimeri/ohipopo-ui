@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { StorageService } from '../../service/storage/storage.service';
 import { ShareService } from '../../service/shared/share.service';
 import { UserDetail } from 'src/app/model/user-detail';
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-user-subjects',
@@ -79,8 +79,10 @@ length: number;
       (result: UserDetail) => {
         this.success = false;
         this.fail = false;
-        const currentDate = this.dateFormat.transform(new Date(), 'd/M/y');
-        if ( result.paid_amount > 0 && new Date(result.deadLine).getTime() > new Date(currentDate).getTime()) {
+
+        const currentDate = formatDate(new Date(), 'yyyy-MM-dd h:m:s', 'en_US');
+        const expiringDate = formatDate(result.deadLine, 'yyyy-MM-dd h:m:s', 'en_US');
+        if (result.paid_amount > 0 && currentDate > expiringDate) {
           this.router.navigate(['video-view', subid]);
         } else {
           this.router.navigate(['payment']);
