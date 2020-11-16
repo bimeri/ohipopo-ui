@@ -25,46 +25,46 @@ export class AppComponent implements OnInit {
       url: '/public/home',
       icon: 'home'
     },
-    {
-      title: 'Edit Profile',
-      url: '/public/profile',
-      icon: 'create'
-    },
-    {
-      title: 'My Downloads',
-      url: '/public/downloads',
-      icon: 'arrow-down-circle'
-    },
-    {
-      title: 'Current Subscription',
-      url: '/public/subscribed',
-      icon: 'thumbs-up'
-    },
-    {
-      title: 'Notification Center',
-      url: '/public/messages',
-      icon: 'notifications'
-    },
-    {
-      title: 'My Quiz Results',
-      url: '/public/quize',
-      icon: 'bulb'
-    },
-    {
-      title: 'Settings',
-      url: '/public/settings',
-      icon: 'settings'
-    },
-    {
-      title: 'Support',
-      url: '/public/supports',
-      icon: 'umbrella'
-    },
-    {
-      title: 'About',
-      url: '/public/about',
-      icon: 'chatbubble-ellipses'
-    }
+    // {
+    //   title: 'Edit Profile',
+    //   url: '/public/profile',
+    //   icon: 'create'
+    // },
+    // {
+    //   title: 'My Downloads',
+    //   url: '/public/downloads',
+    //   icon: 'arrow-down-circle'
+    // },
+    // {
+    //   title: 'Current Subscription',
+    //   url: '/public/subscribed',
+    //   icon: 'thumbs-up'
+    // },
+    // {
+    //   title: 'Notification Center',
+    //   url: '/public/messages',
+    //   icon: 'notifications'
+    // },
+    // {
+    //   title: 'My Quiz Results',
+    //   url: '/public/quize',
+    //   icon: 'bulb'
+    // },
+    // {
+    //   title: 'Settings',
+    //   url: '/public/settings',
+    //   icon: 'settings'
+    // },
+    // {
+    //   title: 'Support',
+    //   url: '/public/supports',
+    //   icon: 'umbrella'
+    // },
+    // {
+    //   title: 'About',
+    //   url: '/public/about',
+    //   icon: 'chatbubble-ellipses'
+    // },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   showSplash = true;
@@ -82,6 +82,10 @@ export class AppComponent implements OnInit {
       {
        this.userName = data[1].fullName;
        this.login = true; });
+  }
+  navigate(){
+    this.router.navigate(['/']).then(result => {window.location.href = 'https://api.whatsapp.com/send?phone=237652137960&text=Hello%20Ohipopo,%20%20I%20need%20help!%20'; });
+    // window.location.href = '';
   }
 
   initializeApp() {

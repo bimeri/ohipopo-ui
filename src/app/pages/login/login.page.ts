@@ -39,10 +39,6 @@ export class LoginPage implements OnInit {
     return from(this.storageService.getObject('expire').then(result => {
       const currentDate = formatDate(new Date(), 'yyyy-MM-dd h:m:s', 'en_US');
       const expiringGate = formatDate(result, 'yyyy-MM-dd h:m:s', 'en_US');
-      // console.log('current date', new Date(currentDate).getTime());
-      // console.log('expiring date', new Date(currentDate).getTime());
-      // console.log( new Date(currentDate).getTime() - new Date(currentDate).getTime());
-
       if (currentDate > expiringGate) {
         this.router.navigate(['/login']);
       } else {

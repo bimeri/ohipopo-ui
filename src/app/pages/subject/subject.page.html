@@ -1,15 +1,13 @@
-<ion-progress-bar color="primary" type="indeterminate" *ngIf="loader"></ion-progress-bar>
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar color="warning">
-    <ion-buttons slot="start" color="primary">
-      <ion-menu-button menu="menu" class="ion-text-left color"></ion-menu-button>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="menu" class="white"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="text-small"><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org </ion-title>
+    <ion-title>{{ levelName }}</ion-title> <i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
   </ion-toolbar>
-  <div class="right">
-    <i class="fa fa-ellipsis-v"></i>
-  </div>
 </ion-header>
+<ion-progress-bar color="primary" type="indeterminate" *ngIf="loader"></ion-progress-bar>
+
 <ion-grid style="width: 100% !important; background-color: #ffcc00">
   <div class="pad">
     <img src="../../../assets/img/newLogo.png" width="210" class="logo">

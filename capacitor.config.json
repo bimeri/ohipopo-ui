@@ -1,6 +1,6 @@
 {
   "appId": "com.ohipopo.app",
-  "appName": "ohipopo-app",
+  "appName": "ohipopo school",
   "webDir": "www",
   "npmClient": "npm",
   "cordova": {

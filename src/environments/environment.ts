@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  base_url: 'https://ohipopo.org/bimeri/public',
+  base_url: ' http://127.0.0.1:8000',
   auth_path: 'api/auth'
 };
 
