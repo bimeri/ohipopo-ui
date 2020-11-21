@@ -4,6 +4,7 @@ import { ShareService } from '../../service/shared/share.service';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { StorageService } from '../../service/storage/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -15,11 +16,12 @@ export class WelcomePage implements OnInit {
   userType: boolean;
   dates = new Date();
   show: boolean ;
+  loading: boolean;
   constructor(private authenticationService: AuthenticateService,
-              private shareService: ShareService,
               private userService: UserService,
               private errorHandle: HandleErrorService,
-              private storageService: StorageService) { }
+              private storageService: StorageService,
+              private router: Router) { }
 
   ngOnInit() {
     this.storageService.getObject('userDetails')
@@ -31,17 +33,13 @@ export class WelcomePage implements OnInit {
       console.log('error: ', e);
       });
 
-    this.storageService.getObject('token')
-    .then(result => {
-      if (result != null) {
-        this.shareService.emitToken(result);
-      } else {
-      }
-      }).catch(e => {
-      console.log('error: ', e);
-      });
-
+    setTimeout(() => {
     this.authenticationService.isLogin();
+   }, 2000);
+  }
+  gotoClass(link){
+    this.loading = true;
+    this.router.navigate([link]);
   }
 
    getSubject(levelId){

@@ -4,6 +4,8 @@ import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { environment } from 'src/environments/environment';
 import { IonSlides } from '@ionic/angular';
+import { Video } from 'src/app/model/video';
+import { AuthenticateService } from '../../service/authentication/authenticate.service';
 
 
 @Component({
@@ -26,11 +28,16 @@ export class VideoViewPage implements OnInit {
   subjectName: string;
   subjectAuthor: string;
   defaultUrl: string;
-  videos = [];
+  videos: Video[] = [];
   logo = '';
+  vIdLike: number;
+  like = 0;
+  dislike = 0;
+  load: boolean;
   constructor(private activateRoute: ActivatedRoute,
               private userService: UserService,
-              private errorHandle: HandleErrorService ) { }
+              private errorHandle: HandleErrorService,
+              private authenticationService: AuthenticateService ) { }
   ngOnInit() {
     this.activateRoute.paramMap.subscribe(
       paramMap => {
@@ -50,7 +57,6 @@ export class VideoViewPage implements OnInit {
       (response: any) => {
         this.allTopics = response[0];
         this.videos = response[1];
-        console.log(response);
         this.subjectName = response[2].name;
         this.subjectAuthor = response[2].author;
         this.defaultUrl = response[2].url;
@@ -62,14 +68,56 @@ export class VideoViewPage implements OnInit {
     );
   }
 
-  playVideo(url: string, videoName: string){
+  playVideo(url: string, videoName: string, vid: number, likes: number, dislike: number){
     this.defaultUrl = '';
+    this.vIdLike = vid;
+    this.like = likes;
+    this.dislike = dislike;
     setTimeout(() => {
       this.defaultUrl = url;
       this.subjectName = videoName;
     }, 1000);
   }
 
+  likeVideo(status: string){
+    this.load = true;
+    if (!this.vIdLike) {
+      this.load = false;
+      this.authenticationService.presentToast('warning', 'No video selected', 'bottom', 2000);
+      return;
+    }
+    this.userService.studentLikeVideo(this.vIdLike, status).subscribe(
+      result => {
+        if (result === 'SAVED') {
+          this.authenticationService.presentToast('success', 'Saved suucessfully', 'top', 2000);
+          this.countLikesAndDislike(this.vIdLike);
+        }
+        if (result === 'UPDATED') {
+          this.authenticationService.presentToast('secondary', 'Updated successfully', 'top', 2000);
+          this.countLikesAndDislike(this.vIdLike);
+        }
+        this.load = false;
+      }, error => {
+        this.load = false;
+        this.errorHandle.errorResponses(error);
+      }
+    );
+  }
+
+  countLikesAndDislike(vidId){
+    this.userService.countLikeAndDislike(vidId).subscribe(
+      data => {
+        this.like = data.like;
+        this.dislike = data.dislike;
+        this.load = false;
+      },
+      error => {
+        this.errorHandle.errorResponses(error);
+        this.load = false;
+      }
+    );
+
+  }
  async segmentchange(evt){
    await this.selectedSlide.slideTo(this.segment);
   }

@@ -3,7 +3,7 @@
     <ion-buttons slot="start" color="primary">
       <ion-back-button defaultHref="/payment"></ion-back-button>
     </ion-buttons>
-    <ion-title class="center">You selected MTN Mobile Money</ion-title>
+    <ion-title class="center" style="font-size: 15px;">You selected MTN Mobile Money</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,15 +22,6 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <div *ngIf="spinner" class="spinner">
-      <ion-spinner name="lines"></ion-spinner>
-    </div>
-    <div *ngIf="spinner" class="spinner1">
-      <ion-spinner name="lines"></ion-spinner>
-    </div>
-    <div *ngIf="spinner" class="spinner2">
-      <ion-spinner name="lines"></ion-spinner>
-    </div>
     <ion-col size-xs="12">
       <ion-item>
        <ion-label position="floating">Enter your Phone Number:</ion-label> &nbsp;&nbsp;&nbsp;
@@ -39,7 +30,18 @@
     </ion-col>
     <ion-col size-xs="10" offset-xs="1" class="margin-top">
       <ion-button color="danger" routerLink="/public/home" style="float: left; width: 30%;" [disabled]="disable">Cancel</ion-button>
-      <ion-button color="success" style="width: 60%; align-items: center; float: right !important;" (click)="makePayment(number.value, user?.fullName)" [disabled]="disable">Make Payment</ion-button>
+      <ion-button *ngIf="!spinner" color="success" style="width: 60%; align-items: center; float: right !important;" (click)="makePayment(number.value, user?.fullName)" [disabled]="disable">Make Payment</ion-button>
+      <ion-button *ngIf="spinner" color="secondary" style="width: 60%; align-items: center; float: right !important;">
+        <div class="spinner">
+          <ion-spinner name="lines" color="danger"></ion-spinner>
+        </div>
+        <div class="spinner1">
+          <ion-spinner name="lines" color="danger"></ion-spinner>
+        </div>
+        <div class="spinner2">
+          <ion-spinner name="lines" color="danger"></ion-spinner>
+        </div>
+      </ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

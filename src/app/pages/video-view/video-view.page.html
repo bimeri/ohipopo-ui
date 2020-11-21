@@ -4,7 +4,9 @@
             width="100%"
             height="280em"
             controlsList="nodownload" 
-            seekable>   
+            seekable
+            autoplay
+            >   
 </video>
 <ion-grid no-padding style="padding: 0 !important; margin: 0 !important">
   <ion-row>
@@ -16,14 +18,16 @@
     </ion-col>
   </ion-row>
   <hr style="border-top: 1px solid #ccc; margin-top: -15px;">
+<ion-progress-bar type="indeterminate" *ngIf="load"></ion-progress-bar>
+
 
 <ion-content>
   <ion-row>
     <ion-col>
-      <i class="fa fa-thumbs-up"></i><br> <label>10k</label>
+      <i #vidLike class="fa fa-thumbs-up" (click)="likeVideo('like')"></i><br> <label>{{ like }}</label>
     </ion-col>
     <ion-col>
-      <i class="fa fa-thumbs-down"></i><br> <label>1.4k</label>
+      <i class="fa fa-thumbs-down" (click)="likeVideo('dislike')"></i><br> <label>{{ dislike }}</label>
     </ion-col>
     <!-- <ion-col>
       <i class="fa fa-share"></i><br> <label>Share</label>
@@ -51,7 +55,9 @@
         </ion-col>
         <ion-col size-xs="4">
           <ion-segment-button value="2">
-            <h5>Q&A <ion-badge color="warning">99+</ion-badge></h5>
+            <h5>Q&A 
+              <!-- <ion-badge color="warning">99+</ion-badge> -->
+            </h5>
           </ion-segment-button>
         </ion-col>
       </ion-segment>
@@ -62,27 +68,27 @@
   <ion-slides #slides pager="true" [options]="slideOptions" (ionSlideDidChange)="slideChanged(slides)" (ionSlidesdidLoad)="slideChanged(slides)">
     <ion-slide class="slide1" style="margin-bottom:auto 0px">
       <ion-item>
+      <div class="filter-search">
         <ion-label position="floating">Filter by Topic</ion-label><br>
         <input type="text" list="browsers"/>
         <datalist id="browsers">
             <option *ngFor="let topic of allTopics" [value]="topic.topicName"></option>
         </datalist>
+      </div>
         <ion-row *ngFor="let video of videos, let i = index" style="border-bottom: 1.5px solid #000;">
           <div class="ion-text-left h6"> {{ video.topicName }} {{ video.topicVideo[0] ? video.topicVideo[0].totalVideo:'' }} lecture video</div><br>
           <div *ngFor="let sub of video.topicVideo, let j = index">
-            <ion-item  (click)="playVideo(sub.videoUrl, sub.videoName)" size-xs="12" size-sm="12">
+            <ion-item  (click)="playVideo(sub.videoUrl, sub.videoName, sub.vId, sub.likes, sub.dislikes)" size-xs="12" size-sm="12">
               <ion-row style="border-bottom: 1px solid #ccc; border-radius: 7px;">
                 <ion-col size-xs="6">
                   <video playsinline preload="auto" [attr.src]="sub.videoUrl" style="border-radius: 1px;" width="100%">
-                    <!-- <source [src]="sub.videoUrl" type="video/mp4" /> -->
                   </video>
-                  <!-- <img [src]="logo" width="100%"> -->
                 </ion-col>
                 <ion-col size-xs="6">
-                  <div style=" font-size: 18px; margin-top: 10px !important; text-align: left;">
+                  <!-- <div style=" font-size: 18px; margin-top: 10px !important; text-align: left;">
                     <b>{{ sub.videoName }}</b><br> 
                     <small> {{ subjectAuthor }}</small>
-                  </div>
+                  </div> -->
                 </ion-col>
               </ion-row>
             </ion-item>

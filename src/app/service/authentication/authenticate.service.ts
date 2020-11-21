@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ShareService } from '../shared/share.service';
 import { User } from '../../model/user';
 import { ToastController } from '@ionic/angular';
 import { from, Observable } from 'rxjs';
@@ -12,9 +11,7 @@ import { formatDate } from '@angular/common';
 @Injectable()
 export class AuthenticateService {
 registerUrl = `${environment.base_url}/api/auth/register`;
-header = this.sharedService.headerRequest;
   constructor(private http: HttpClient,
-              private sharedService: ShareService,
               private toastController: ToastController,
               private storageService: StorageService,
               private router: Router) { }
@@ -53,12 +50,12 @@ header = this.sharedService.headerRequest;
   }
 
   logout(){
-      return this.http.get(`${environment.base_url}/api/auth/logout`, {headers: this.header});
+      return this.http.get(`${environment.base_url}/api/auth/logout`);
   }
   getTypes(){
-    return this.http.get<any>(`${environment.base_url}/api/types/detail`, {headers: this.header});
+    return this.http.get<any>(`${environment.base_url}/api/types/detail`);
   }
   getLevel(typeId){
-    return this.http.get<any>(`${environment.base_url}/api/level/detail?typeId=${typeId}` , {headers: this.header});
+    return this.http.get<any>(`${environment.base_url}/api/level/detail?typeId=${typeId}`);
   }
 }

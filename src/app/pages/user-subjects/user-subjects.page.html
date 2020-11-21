@@ -5,8 +5,8 @@
     </ion-buttons>
     <ion-title><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org</ion-title><i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
   </ion-toolbar>
-</ion-header>
 <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+</ion-header>
 <ion-content>
   <div class="alert-success" *ngIf="success">
    <b>Your payment was successful</b>

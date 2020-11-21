@@ -1,16 +1,10 @@
-import { HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable()
 export class ShareService {
-public headerRequest = new HttpHeaders({
-  'Content-Type': 'application/json',
-  Accept: 'application/json',
-  Authorization: `Bearer ${localStorage.getItem('token')}`});
   constructor() {
    }
 
-  $token = new EventEmitter();
   $userInfo = new EventEmitter();
   $userId = new EventEmitter();
   $success = new EventEmitter();
@@ -20,10 +14,6 @@ public headerRequest = new HttpHeaders({
     const info = userinfo;
     const detail = useretail;
     this.$userInfo.emit([info, detail]);
-  }
-
-  emitToken(token){
-    this.$token.emit(token);
   }
 
   emitUserId(uid){

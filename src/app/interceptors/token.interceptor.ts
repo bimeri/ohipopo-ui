@@ -40,11 +40,17 @@ export class InterceptorProvider implements HttpInterceptor {
                         return event;
                     }),
                     catchError((error: HttpErrorResponse) => {
-                        console.log('error caught by interceptor', error);
                         const status = error.status;
-                        const reason = error.error.message;
+                        let reason = error.error.message;
                         if (status === 0) {
                             this.authenticateService.presentToast('secondary', 'Oops! you are offline, please check your internet connection', 'top', 6000);
+                          }
+                        if (status === 422) {
+                            if (error.error.message === 'The given data was invalid.') {
+                                 reason = 'the phone Number has been taken already. please enter another one';
+                            } else{
+                                this.authenticateService.presentToast('secondary', 'Oops! you are offline, please check your internet connection', 'top', 6000);
+                            }
                           }
                         if (status < 299){
                             return throwError(error);
@@ -63,10 +69,17 @@ export class InterceptorProvider implements HttpInterceptor {
         );
     }
     async presentAlert(status, reason) {
+        let mess = reason;
+        if (status >= 500) {
+             mess = 'Server error please contact the Ohipopo.org at 678657959';
+        }
+        if (status >= 406) {
+             mess = 'Wrong user\'s Credentials';
+        }
         const alert = await this.alertCtrl.create({
-            header: status + ' Error',
+            header: ' Error',
             subHeader: 'Fail to authenticate user',
-            message: reason,
+            message: mess,
             buttons: ['OK']
         });
 

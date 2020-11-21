@@ -8,6 +8,7 @@ import { StorageService } from '../../service/storage/storage.service';
 import { ShareService } from '../../service/shared/share.service';
 import { UserDetail } from 'src/app/model/user-detail';
 import { DatePipe, formatDate } from '@angular/common';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-user-subjects',
@@ -75,22 +76,23 @@ length: number;
   }
 
   checkPayment(subid){
-    this.userService.getUserDetailBy().subscribe(
-      (result: UserDetail) => {
-        this.success = false;
-        this.fail = false;
-
-        const currentDate = formatDate(new Date(), 'yyyy-MM-dd h:m:s', 'en_US');
-        const expiringDate = formatDate(result.deadLine, 'yyyy-MM-dd h:m:s', 'en_US');
-        if (result.paid_amount > 0 && currentDate > expiringDate) {
-          this.router.navigate(['video-view', subid]);
-        } else {
-          this.router.navigate(['payment']);
-        }
-      }, error => {
-        this.handlerService.errorResponses(error);
-      }
-    );
+    this.loading = true;
+    this.storageService.getObject('userDetails')
+    .then(result => {
+      this.success = false;
+      this.fail = false;
+      this.loading = false;
+      if (result.deadLine === null) {
+            this.router.navigate(['payment']);
+          }
+      const currentDate =  Math.ceil(new Date().getTime() / 1000);
+      const expireDate =  Number(result.deadLine);
+      if (result.paid_amount > 0 && currentDate > expireDate) {
+            this.router.navigate(['payment']);
+          } else {
+            this.router.navigate(['video-view', subid]);
+          }
+      }).catch(e => {});
   }
 
   getUsersSubjects(uid){

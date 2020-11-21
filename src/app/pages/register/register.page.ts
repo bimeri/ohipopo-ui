@@ -18,6 +18,7 @@ userRegistration: FormGroup;
 levels: any = [];
 options: any;
 load: boolean;
+loader: boolean;
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticateService,
               private router: Router,
@@ -72,12 +73,14 @@ load: boolean;
 
   submitForm(){
     this.load = true;
+    this.loader = true;
     const pass = this.userRegistration.controls.password.value;
     const cpass = this.userRegistration.controls.confirmPassword.value;
     if (pass !== cpass){
       const mess = 'Password Mismatch, both password do not match.';
       this.authenticationService.presentToast('danger', mess, 'top', 5000);
       this.load = false;
+      this.loader = false;
       return;
       }
     console.log('the form value is: ', this.userRegistration.value);
@@ -92,11 +95,19 @@ load: boolean;
     this.authenticationService.registerUser(data).subscribe(
      (result: any) => {
        this.load = false;
+       this.loader = false;
        const mess = 'Your Registration was Successful, You can now sign in to your account.';
        this.authenticationService.presentToast('success', mess, 'top', 6000);
        this.router.navigate(['/login']);
      },
      (error: any) => {
+       this.loader = false;
+       if (error.error.phoneNumber) {
+       this.authenticationService.presentToast('danger', 'the phone number has already been taken', 'top', 6000);
+       }
+       if (error.error.email) {
+       this.authenticationService.presentToast('danger', 'the email address has already been taken', 'top', 6000);
+       }
        this.load = false;
        this.handlerService.errorResponses(error);
        const mes = 'Fail to register to Ohipopo School, please try again';

@@ -75,6 +75,7 @@ disable = false;
         this.errorhandle.errorResponses(error);
         this.spinner = false;
         this.disable = false;
+        this.authService.presentToast('danger', 'An error occur at the server pls contact the admin', 'top', 5000);
       }
     );
   }
@@ -109,6 +110,7 @@ disable = false;
   paymentSuccess(phone){
     this.userService.registereUserPayment(phone).subscribe(
       result => {
+        this.storageService.setObject('userDetails', result);
         this.shareService.emitSuccess('success');
         this.spinner = false;
         this.disable = false;

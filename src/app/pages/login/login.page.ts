@@ -23,8 +23,7 @@ export class LoginPage implements OnInit {
               public navCtrl: NavController,
               private router: Router,
               private shareService: ShareService,
-              private storageService: StorageService,
-              private dateFormat: DatePipe) { }
+              private storageService: StorageService) { }
 
   ngOnInit() {
     this.userLogin = this.formBuilder.group({
@@ -32,11 +31,15 @@ export class LoginPage implements OnInit {
       password: ['', Validators.required],
       remember_me: [false],
     });
-    this.isLogin();
+    setTimeout(() => {
+      this.isLogin();
+    }, 2000);
   }
 
   isLogin(){
     return from(this.storageService.getObject('expire').then(result => {
+      console.log('exp', result);
+
       const currentDate = formatDate(new Date(), 'yyyy-MM-dd h:m:s', 'en_US');
       const expiringGate = formatDate(result, 'yyyy-MM-dd h:m:s', 'en_US');
       if (currentDate > expiringGate) {

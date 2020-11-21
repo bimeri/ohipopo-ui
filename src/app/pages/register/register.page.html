@@ -72,7 +72,10 @@
               <br>
     
               <ion-button color="danger" fill="outline" (click)="clearForm()"><ion-icon slot="start" name="close"></ion-icon> clear</ion-button>
-              <ion-button color="right" class="right" type="submit" [disabled]="!userRegistration.valid">Submit</ion-button>
+              <ion-button *ngIf="!loader" color="right" class="right" type="submit" [disabled]="!userRegistration.valid">Submit</ion-button>
+              <ion-button *ngIf="loader" color="right" class="right" type="submit">
+                <ion-spinner name="crescent" color="warning"></ion-spinner>
+              </ion-button>
               <br><br>
             </ion-card-content>
           </ion-card>

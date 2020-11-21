@@ -5,6 +5,7 @@
     </ion-buttons>
     <ion-title>{{ levelName }}</ion-title> <i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
   </ion-toolbar>
+<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
 </ion-header>
  
 <ion-content>
@@ -22,7 +23,7 @@
   <ion-row>
     <ion-col size-md="6" size-xs="6">
       <div class="image-link">
-        <a routerLink="/user/subject">
+        <a (click)="gotoClass('/user/subject')">
           <img src="../../../assets/img/class.png" alt="go to class" id="image">
         </a>
         <h6>go to class</h6>
