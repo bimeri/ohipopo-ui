@@ -6,9 +6,7 @@ import { LoadingController, PopoverController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../../service/storage/storage.service';
 import { ShareService } from '../../service/shared/share.service';
-import { UserDetail } from 'src/app/model/user-detail';
-import { DatePipe, formatDate } from '@angular/common';
-import { threadId } from 'worker_threads';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-subjects',

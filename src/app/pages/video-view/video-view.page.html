@@ -5,7 +5,7 @@
             height="280em"
             controlsList="nodownload" 
             seekable
-            autoplay
+            
             >   
 </video>
 <ion-grid no-padding style="padding: 0 !important; margin: 0 !important">
@@ -13,7 +13,7 @@
     <ion-col>
       <div class="bar">
         <div class="left"><b>{{ subjectName }}</b><br><small>{{ subjectAuthor }}</small></div>
-        <div class="right">306K<br>views</div>
+        <div class="right">{{ view }}<br>views</div>
       </div>
     </ion-col>
   </ion-row>
@@ -78,7 +78,7 @@
         <ion-row *ngFor="let video of videos, let i = index" style="border-bottom: 1.5px solid #000;">
           <div class="ion-text-left h6"> {{ video.topicName }} {{ video.topicVideo[0] ? video.topicVideo[0].totalVideo:'' }} lecture video</div><br>
           <div *ngFor="let sub of video.topicVideo, let j = index">
-            <ion-item  (click)="playVideo(sub.videoUrl, sub.videoName, sub.vId, sub.likes, sub.dislikes)" size-xs="12" size-sm="12">
+            <ion-item  (click)="playVideo(sub.videoUrl, sub.videoName, sub.vId, sub.likes, sub.dislikes, sub.totalView)" size-xs="12" size-sm="12">
               <ion-row style="border-bottom: 1px solid #ccc; border-radius: 7px;">
                 <ion-col size-xs="6">
                   <video playsinline preload="auto" [attr.src]="sub.videoUrl" style="border-radius: 1px;" width="100%">

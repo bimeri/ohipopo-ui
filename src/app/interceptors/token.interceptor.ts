@@ -70,11 +70,11 @@ export class InterceptorProvider implements HttpInterceptor {
     }
     async presentAlert(status, reason) {
         let mess = reason;
+        if (status >= 406 && status !== 422) {
+            mess = 'Wrong user\'s Credentials';
+       }
         if (status >= 500) {
-             mess = 'Server error please contact the Ohipopo.org at 678657959';
-        }
-        if (status >= 406) {
-             mess = 'Wrong user\'s Credentials';
+             mess = 'Server error please contact Ohipopo.org at 678657959';
         }
         const alert = await this.alertCtrl.create({
             header: ' Error',

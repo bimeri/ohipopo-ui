@@ -38,6 +38,10 @@ pathDir = `${environment.base_url}/${environment.auth_path}`;
     return this.http.post<any>(`${this.pathDir}/count/like`, {videoId: videoid});
   }
 
+  viewedVideo(videoid: number){
+    return this.http.post<any>(`${this.pathDir}/count/video`, {videoId: videoid});
+  }
+
   makePayment(phone, userName){
     const data = {
       service: '5sMccBwuw2NDOn0Z7Iipz80tpEfEh6zg',

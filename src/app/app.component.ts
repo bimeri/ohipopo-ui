@@ -25,11 +25,11 @@ export class AppComponent implements OnInit {
       url: '/public/home',
       icon: 'home'
     },
-    // {
-    //   title: 'Edit Profile',
-    //   url: '/public/profile',
-    //   icon: 'create'
-    // },
+    {
+      title: 'Edit Profile',
+      url: '/public/profile',
+      icon: 'create'
+    },
     // {
     //   title: 'My Downloads',
     //   url: '/public/downloads',

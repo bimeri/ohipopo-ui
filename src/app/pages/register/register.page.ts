@@ -83,7 +83,6 @@ loader: boolean;
       this.loader = false;
       return;
       }
-    console.log('the form value is: ', this.userRegistration.value);
     const data: User = {fullName: this.userRegistration.controls.fullName.value,
                   phoneNumber: (this.userRegistration.controls.phoneNumber.value).toString(),
                   email: this.userRegistration.controls.email.value,
@@ -102,12 +101,6 @@ loader: boolean;
      },
      (error: any) => {
        this.loader = false;
-       if (error.error.phoneNumber) {
-       this.authenticationService.presentToast('danger', 'the phone number has already been taken', 'top', 6000);
-       }
-       if (error.error.email) {
-       this.authenticationService.presentToast('danger', 'the email address has already been taken', 'top', 6000);
-       }
        this.load = false;
        this.handlerService.errorResponses(error);
        const mes = 'Fail to register to Ohipopo School, please try again';

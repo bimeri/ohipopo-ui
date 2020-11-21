@@ -14,13 +14,11 @@
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
-            
-            
-            <ion-item (click)="navigate()" routerDirection="root" lines="none" detail="false">
-              <ion-icon slot="start" ios="chatbubbles-outline" md="chatbubbles-sharp"></ion-icon>
-              <ion-label>Talk to us</ion-label>
-            </ion-item>
           </ion-menu-toggle>
+          <ion-item (click)="navigate()" routerDirection="root" lines="none" detail="false">
+            <ion-icon slot="start" ios="chatbubbles-outline" md="chatbubbles-sharp"></ion-icon>
+            <ion-label>Talk to us</ion-label>
+          </ion-item>
         </ion-list>
 
         <!-- <ion-list id="labels-list">

@@ -1,47 +1,16 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar color="warning">
     <ion-buttons slot="start">
       <ion-menu-button menu="menu" class="white"></ion-menu-button>
     </ion-buttons>
-    <ion-title><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org <i class="fa fa-ellipsis-v e-v"></i> </ion-title>
+    <ion-title style="font-size: 16px;">
+      <b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}}, Welcome to Ohipopo.org</b>
+    </ion-title> <i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
   </ion-toolbar>
+<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
 </ion-header>
 <ion-grid>
-  <ion-row>
-    <ion-col size-md="12" size-xs="12" size-lg="12">
-      <ion-card class="card">
-        <ion-card-header>
-          <ion-card-title class="center">
-            User Profile
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item>
-            <ion-label>D MMM YYYY H:mm</ion-label>
-            <ion-datetime displayFormat="D MMM YYYY H:mm" min="1997" max="2015" value="2005-06-17T11:06Z" id="dates"></ion-datetime>
-          </ion-item>
-          <ion-item>
-            <ion-textarea position="fixed" placeholder="enter text here" id="long_text"></ion-textarea>
-          </ion-item>
-          <ion-item>
-            <ion-label position="fixed">Enter the amount</ion-label>
-            <ion-input type="number" id="num"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="fixed">Type Password</ion-label>
-            <ion-input type="password" id="password"></ion-input>
-          </ion-item>
-          <ion-button color="danger" fill="outline" id="clear_btn"><ion-icon slot="start" name="close"></ion-icon> clear</ion-button>
-          <ion-button color="primary right" id="submit_btn"><ion-icon slot="start" name="add"></ion-icon> Submit</ion-button>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <div class="button" (click)="goBack()">
-      <i class="fa fa-arrow-left black"></i> Go Back to Home
-    </div>
-  </ion-row>
-  <!-- <ion-alert-controller></ion-alert-controller> -->
-  
+  <ion-content class="content-color" padding>
+    
+  </ion-content>
 </ion-grid>

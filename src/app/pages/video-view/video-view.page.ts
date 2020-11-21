@@ -33,6 +33,7 @@ export class VideoViewPage implements OnInit {
   vIdLike: number;
   like = 0;
   dislike = 0;
+  view = 0;
   load: boolean;
   constructor(private activateRoute: ActivatedRoute,
               private userService: UserService,
@@ -68,15 +69,49 @@ export class VideoViewPage implements OnInit {
     );
   }
 
-  playVideo(url: string, videoName: string, vid: number, likes: number, dislike: number){
+  playVideo(url: string, videoName: string, vid: number, likes: number, dislike: number, totalView: number){
     this.defaultUrl = '';
     this.vIdLike = vid;
     this.like = likes;
     this.dislike = dislike;
+    this.view = totalView;
+    this.numberVideo(vid);
     setTimeout(() => {
       this.defaultUrl = url;
       this.subjectName = videoName;
     }, 1000);
+  }
+
+  numberVideo(vidId){
+    this.userService.viewedVideo(vidId).subscribe(
+      data => {
+        this.view = this.fnum(data);
+        this.load = false;
+      },
+      error => {
+        this.errorHandle.errorResponses(error);
+        this.load = false;
+      }
+    );
+  }
+  fnum(x) {
+    if (isNaN(x)) { return x; }
+    if (x < 9999) {
+      return x;
+    }
+    if (x < 1000000) {
+      return Math.round(x / 1000) + 'K';
+    }
+    if ( x < 10000000) {
+      return (x / 1000000).toFixed(2) + 'M';
+    }
+    if (x < 1000000000) {
+      return Math.round((x / 1000000)) + 'M';
+    }
+    if (x < 1000000000000) {
+      return Math.round((x / 1000000000)) + 'B';
+    }
+    return '1T+';
   }
 
   likeVideo(status: string){
@@ -116,8 +151,8 @@ export class VideoViewPage implements OnInit {
         this.load = false;
       }
     );
-
   }
+
  async segmentchange(evt){
    await this.selectedSlide.slideTo(this.segment);
   }

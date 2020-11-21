@@ -26,6 +26,10 @@ import { PaymentPageModule } from './pages/payment/payment.module';
 import { MtnPageModule } from './pages/payment/mtn/mtn.module';
 import { WelcomePageModule } from './pages/welcome/welcome.module';
 import { ProfilePageModule } from './pages/profile/profile.module';
+import { Camera } from '@ionic-native/camera/ngx';
+// import { File } from '@ionic-native/file/ngx';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
+// import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [AppComponent, SplashComponent],
@@ -55,6 +59,8 @@ import { ProfilePageModule } from './pages/profile/profile.module';
     InterceptorProvider,
     DatePipe,
     VideoPlayer,
+    Camera,
+    FileTransfer,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],

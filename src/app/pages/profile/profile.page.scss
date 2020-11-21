@@ -1,24 +1,46 @@
-.center{
-    text-align: center;
-}
-.card{
-    background-color: #ffcc00;
-}
-.right{
-    float: right;
-}
-ion-slides {
-    height: 100%;
+page-home {
+    ion-icon {
+      color: #FFF !important;
+      font-size: 30px;
+    }
+    .zoom-btn{
+      color:#000 !important;
+    }
+    .center{
+        text-align: center;
+    }
+    .menu-btn,
+    .button-md.activated {
+      background-color: transparent;
+    }
+    .content-color {
+      background-image: url("../../../assets/img/splash.jpg");
+      background-repeat: none;
+      background-size: cover;
+      font-size: 17px !important;
+      text-align: center;
+  
+      .button-row{
+        margin-top:20px;
+      }
+      .square{
+        height: 482px;
+        border-radius: 42px;
+        background-color:#FFF;
+      }
+      .zoom{
+        height:50px;
+        width:50px;
+        background-color: #FFF;
+        border-radius: 100%;
+        color:#000;
+      }
+      .camera-circle{
+        background-color: #fff;
+        border:2px solid #000;
+        border-radius: 100%;
+        height:80px;
+        width:80px;
+      }
+    }
   }
-div.button{
-    text-align: center;
-    align-items: center;
-    padding: 10px;
-    box-shadow: 2px 2px 4px 4px rgba(51, 48, 48, 0.5);
-    margin-left: 30%;
-    background-color: #ffcc00;
-    color: white;
-}
-.black{
-    color: #221e1e;
-}

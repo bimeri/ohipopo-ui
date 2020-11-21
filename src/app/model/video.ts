@@ -7,6 +7,7 @@ export class Video {
         vId: number,
         videoName: string,
         videoUrl: string,
+        totalView: string,
     }
         ];
 
