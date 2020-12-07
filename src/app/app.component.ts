@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { StorageService } from './service/storage/storage.service';
 import { ShareService } from './service/shared/share.service';
+const { App } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -71,8 +72,6 @@ export class AppComponent implements OnInit {
   hide: boolean;
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
     private authService: AuthenticateService,
     private router: Router,
     private storageService: StorageService,
@@ -83,7 +82,7 @@ export class AppComponent implements OnInit {
        this.userName = data[1].fullName;
        this.login = true; });
   }
-  navigate(){
+  navigateTo(){
     this.router.navigate(['/']).then(result => {window.location.href = 'https://api.whatsapp.com/send?phone=237652137960&text=Hello%20Ohipopo,%20%20I%20need%20help!%20'; });
     // window.location.href = '';
   }
@@ -95,6 +94,10 @@ export class AppComponent implements OnInit {
       }
       timer(3000).subscribe(() => this.showSplash = false);
     });
+  }
+
+  exitApplication() {
+      App.exitApp();
   }
 
   ngOnInit() {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
-import { ShareService } from '../../service/shared/share.service';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { StorageService } from '../../service/storage/storage.service';
@@ -15,8 +14,8 @@ export class WelcomePage implements OnInit {
   levelName: string;
   userType: boolean;
   dates = new Date();
-  show: boolean ;
-  loading: boolean;
+  show: boolean;
+  loader = true;
   constructor(private authenticationService: AuthenticateService,
               private userService: UserService,
               private errorHandle: HandleErrorService,
@@ -29,16 +28,10 @@ export class WelcomePage implements OnInit {
       if (result != null) {
       this.getSubject(result.level_id);
       }
-      }).catch(e => {
-      console.log('error: ', e);
-      });
-
-    setTimeout(() => {
+      }).catch(e => {});
     this.authenticationService.isLogin();
-   }, 2000);
   }
   gotoClass(link){
-    this.loading = true;
     this.router.navigate([link]);
   }
 
@@ -47,19 +40,24 @@ export class WelcomePage implements OnInit {
        (response: any) => {
          if (response.levelName === 'aLevelScience') {
           this.levelName = 'Advanced Level Science';
+          this.loader = false;
          }
          else if (response.levelName === 'aLevelArt') {
           this.levelName = 'Advanced Level Art';
+          this.loader = false;
          }
          else {
           this.levelName = 'Ordinary Level';
+          this.loader = false;
          }
          if (response.typeName === 'partTime') {
            this.userType = true;
+           this.loader = false;
          }
        },
        error => {
          this.errorHandle.errorResponses(error);
+         this.loader = false;
        }
      );
    }

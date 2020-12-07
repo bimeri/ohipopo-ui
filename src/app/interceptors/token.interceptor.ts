@@ -1,7 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import { Observable, throwError, from } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -47,7 +46,7 @@ export class InterceptorProvider implements HttpInterceptor {
                           }
                         if (status === 422) {
                             if (error.error.message === 'The given data was invalid.') {
-                                 reason = 'the phone Number has been taken already. please enter another one';
+                                 reason = 'the user name has been taken already. please enter another one';
                             } else{
                                 this.authenticateService.presentToast('secondary', 'Oops! you are offline, please check your internet connection', 'top', 6000);
                             }
@@ -74,7 +73,7 @@ export class InterceptorProvider implements HttpInterceptor {
             mess = 'Wrong user\'s Credentials';
        }
         if (status >= 500) {
-             mess = 'Server error please contact Ohipopo.org at 678657959';
+             mess = 'Server error please contact Ohipopo.org at 237652137960';
         }
         const alert = await this.alertCtrl.create({
             header: ' Error',

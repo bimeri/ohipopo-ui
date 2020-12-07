@@ -35,6 +35,7 @@ export class VideoViewPage implements OnInit {
   dislike = 0;
   view = 0;
   load: boolean;
+  videoLength: boolean;
   constructor(private activateRoute: ActivatedRoute,
               private userService: UserService,
               private errorHandle: HandleErrorService,
@@ -56,8 +57,10 @@ export class VideoViewPage implements OnInit {
   getTopics(subjectId){
     this.userService.getAllSubjectsTopicById(subjectId).subscribe(
       (response: any) => {
+        console.log(response);
         this.allTopics = response[0];
         this.videos = response[1];
+        this.videoLength = response[1].length === 0;
         this.subjectName = response[2].name;
         this.subjectAuthor = response[2].author;
         this.defaultUrl = response[2].url;

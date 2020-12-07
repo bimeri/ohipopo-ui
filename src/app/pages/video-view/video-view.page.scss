@@ -1,36 +1,43 @@
 .left{
     float: left !important;
-    font-size: 5vw;
+    font-size: 15px;
+    max-width: 50%;
 }
 .right{
     float: right !important;
     color: #2e27279d;
-    font-size: 5vw;
+    font-size: 15px;
 }
 .left,.right{
     padding: 10px !important;
 }
 
 i{
-    font-size: 7vw;
+    font-size: 18px;
     padding: 5px;
 }
 label{
-    font-size: 4vw;
+    font-size: 15px;
     color: #2e27279d;
 }
 ion-col{
     text-align: center;
 }
 
-div.h6{
-    padding: 8px;
-    color: #2e27279d;
-    float: left !important;
-    font-size: 4vw;
+ion-label.h6{
+    padding: 10px;
+    color: #1814149d;
+    text-align: center !important;
+    font-size: 15px;
+}
+h6.label{
+    font-size: 18px; 
+    padding-top: 3px !important; 
+    padding: 10px; 
+    text-align: left;
 }
 div.label{
-font-size: 10vw;
+font-size: 18px;
 margin-top: 2px !important;
 float: right !important;
 width:40%;
@@ -45,14 +52,14 @@ h5{
     color: #2c26269d;
     margin: 5px;
     margin-top: 25px;
-    font-size: 5vw;
+    font-size: 18px;
     text-transform: capitalize !important;
 }
 
 ion-badge{
     border-radius: 40%;
 }
-.slide1{
+.slide{
     border: 1px solid #ccc;
    height: fit-content;
 }
@@ -61,3 +68,21 @@ ion-badge{
     left: 20px;
     padding: 10px;
 }
+ion-slides{
+    min-height: 130vh;
+}
+.indicator{
+    color: green;
+    font-size: 30px;
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+}
+.alert{
+    width: 100%;
+    color: #cf3939;
+    background-color: #eec8c8;
+    padding-top:10px;
+    padding-bottom:10px;
+    text-align: center;
+  }

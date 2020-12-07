@@ -39,9 +39,12 @@ registerUrl = `${environment.base_url}/api/auth/register`;
 
   isLogin(){
     return from(this.storageService.getObject('expire').then(result => {
+
       const currentDate = formatDate(new Date(), 'yyyy-MM-dd h:m:s', 'en_US');
-      const expiringGate = formatDate(result, 'yyyy-MM-dd h:m:s', 'en_US');
-      if (currentDate > expiringGate) {
+      const expiringDate = formatDate(result, 'yyyy-MM-dd h:m:s', 'en_US');
+      const current = new Date(currentDate).getTime();
+      const expire = new Date(expiringDate).getTime();
+      if (current > expire) {
         this.router.navigate(['/login']);
       } else {
         this.router.navigate(['/public/home']);

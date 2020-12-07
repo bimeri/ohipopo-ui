@@ -4,7 +4,7 @@
 h6{
     color: #5f4d4d !important;
     text-transform: uppercase;
-    font-size: 4vw;
+    font-size: 3vw;
     font-weight: bold;
     text-justify: inter-word;
     text-align: center;
@@ -27,12 +27,12 @@ div.image-link {
     transform: translate(-15%, -15%);
   }  
   .time{
-      font-size: 10vw;
+      font-size: 4vw;
   } 
   .date{
       position: relative;
-      font-size: 5vw;
-      margin-top:20px;
+      font-size: 4vw;
+      margin-top:30px;
   }
 .card{
     height: 150px !important;
@@ -57,4 +57,8 @@ div.image-link {
 }
 .white{
     font-size: 30px;
+}
+.loader{
+    margin-left: 150px !important;
+
 }

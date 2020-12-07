@@ -31,6 +31,11 @@
                 <ion-label position="floating">email (optional)</ion-label>
                 <ion-input type="email" name="email" formControlName="email"></ion-input>
               </ion-item>
+              
+              <ion-item>
+                <ion-label position="floating">user name (equired to login)</ion-label>
+                <ion-input type="email" name="userName" formControlName="userName"></ion-input>
+              </ion-item>
     
               <ion-item>
                 <ion-label>select Category</ion-label>
@@ -71,9 +76,9 @@
               </ion-item>
               <br>
     
-              <ion-button color="danger" fill="outline" (click)="clearForm()"><ion-icon slot="start" name="close"></ion-icon> clear</ion-button>
+              <ion-button color="danger" fill="outline" (click)="clearForm()">reset <i class="fa fa-eraser" style="font-size: 18px; margin-left: 10px;"></i></ion-button>
               <ion-button *ngIf="!loader" color="right" class="right" type="submit" [disabled]="!userRegistration.valid">Submit</ion-button>
-              <ion-button *ngIf="loader" color="right" class="right" type="submit">
+              <ion-button *ngIf="loader" color="right" class="right" type="button">
                 <ion-spinner name="crescent" color="warning"></ion-spinner>
               </ion-button>
               <br><br>

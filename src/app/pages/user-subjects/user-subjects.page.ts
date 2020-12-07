@@ -6,7 +6,8 @@ import { LoadingController, PopoverController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../../service/storage/storage.service';
 import { ShareService } from '../../service/shared/share.service';
-import { DatePipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UserDetail } from 'src/app/model/user-detail';
 
 @Component({
   selector: 'app-user-subjects',
@@ -33,7 +34,7 @@ length: number;
               public popoverController: PopoverController,
               public storageService: StorageService,
               public loadingController: LoadingController,
-              private dateFormat: DatePipe,
+              public domSanitizer: DomSanitizer,
               private shareService: ShareService) {
                 this.shareService.$success.subscribe(data => {
                   if (data) {
@@ -76,25 +77,27 @@ length: number;
   checkPayment(subid){
     this.loading = true;
     this.storageService.getObject('userDetails')
-    .then(result => {
+    .then(res => {
+      const result: UserDetail = res;
       this.success = false;
       this.fail = false;
       this.loading = false;
-      if (result.deadLine === null) {
-            this.router.navigate(['payment']);
-          }
       const currentDate =  Math.ceil(new Date().getTime() / 1000);
       const expireDate =  Number(result.deadLine);
-      if (result.paid_amount > 0 && currentDate > expireDate) {
+      if (result.deadLine === null) {
             this.router.navigate(['payment']);
           } else {
-            this.router.navigate(['video-view', subid]);
+            if (result.paid_amount > 0 && currentDate > expireDate) {
+                  this.router.navigate(['payment']);
+                } else {
+                  this.router.navigate(['video-view', subid]);
+                }
           }
       }).catch(e => {});
   }
 
   getUsersSubjects(uid){
-    this.presentLoading();
+    // this.presentLoading();
     this.userService.getUserRegisteredSubject(uid).subscribe(
       (response: any) => {
         this.subjects = response;
@@ -111,16 +114,16 @@ length: number;
     );
   }
 
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Please wait...',
-      duration: 2000
-    });
-    await loading.present();
+  // async presentLoading() {
+  //   const loading = await this.loadingController.create({
+  //     cssClass: 'my-custom-class',
+  //     message: 'Please wait...',
+  //     duration: 3000
+  //   });
+  //   await loading.present();
 
-    const { role, data } = await loading.onDidDismiss();
-  }
+  //   const { role, data } = await loading.onDidDismiss();
+  // }
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({
@@ -131,50 +134,4 @@ length: number;
     });
     return await popover.present();
   }
-
-  star_one(){
-    this.star1 = true;
-    this.star2 = false;
-    this.star3 = false;
-    this.star4 = false;
-    this.star5 = false;
-    this.number = 1;
-    }
-
-    star_two(){
-      this.star1 = true;
-      this.star2 = true;
-      this.star3 = false;
-      this.star4 = false;
-      this.star5 = false;
-      this.number = 2;
-    }
-
-    star_three(){
-      this.star1 = true;
-      this.star2 = true;
-      this.star3 = true;
-      this.star4 = false;
-      this.star5 = false;
-      this.number = 3;
-    }
-
-    star_four(){
-      this.star1 = true;
-      this.star2 = true;
-      this.star3 = true;
-      this.star4 = true;
-      this.star5 = false;
-      this.number = 4;
-    }
-
-    star_five(){
-      this.star1 = true;
-      this.star2 = true;
-      this.star3 = true;
-      this.star4 = true;
-      this.star5 = true;
-      this.number = 5;
-    }
-
 }

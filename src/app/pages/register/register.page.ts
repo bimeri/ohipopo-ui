@@ -29,6 +29,7 @@ loader: boolean;
     this.userRegistration = this.formBuilder.group({
       fullName: ['', [Validators.required, Validators.minLength(3)]],
       phoneNumber: ['', [Validators.required, Validators.minLength(9)]],
+      userName: ['', [Validators.required, Validators.minLength(3)]],
       email: [''],
       category: ['', [Validators.required]],
       level: ['', [Validators.required]],
@@ -72,10 +73,12 @@ loader: boolean;
   }
 
   submitForm(){
+    let mail = '';
     this.load = true;
     this.loader = true;
     const pass = this.userRegistration.controls.password.value;
     const cpass = this.userRegistration.controls.confirmPassword.value;
+    const credential = this.userRegistration.controls.email.value;
     if (pass !== cpass){
       const mess = 'Password Mismatch, both password do not match.';
       this.authenticationService.presentToast('danger', mess, 'top', 5000);
@@ -83,14 +86,21 @@ loader: boolean;
       this.loader = false;
       return;
       }
+    if (credential === '') {
+        mail = 'student@ohipopo.org';
+      } else {
+        mail = this.userRegistration.controls.email.value;
+      }
     const data: User = {fullName: this.userRegistration.controls.fullName.value,
                   phoneNumber: (this.userRegistration.controls.phoneNumber.value).toString(),
-                  email: this.userRegistration.controls.email.value,
+                  userName: this.userRegistration.controls.userName.value,
+                  email: mail,
                   level: this.userRegistration.controls.level.value,
                   address: this.userRegistration.controls.address.value,
                   dateOfBirth: this.userRegistration.controls.dateOfBirth.value,
                   password: this.userRegistration.controls.password.value,
                 };
+
     this.authenticationService.registerUser(data).subscribe(
      (result: any) => {
        this.load = false;

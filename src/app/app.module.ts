@@ -13,7 +13,6 @@ import { ShareModule } from './shared/share/share.module';
 import { UserService } from './service/users/user.service';
 import { AuthenticateService } from './service/authentication/authenticate.service';
 import { HandleErrorService } from './service/error-handler/handle-error.service';
-import { VideoPlayer } from '@ionic-native/video-player/ngx';
 import { SplashComponent } from './components/splash/splash.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './service/storage/storage.service';
@@ -26,10 +25,8 @@ import { PaymentPageModule } from './pages/payment/payment.module';
 import { MtnPageModule } from './pages/payment/mtn/mtn.module';
 import { WelcomePageModule } from './pages/welcome/welcome.module';
 import { ProfilePageModule } from './pages/profile/profile.module';
-import { Camera } from '@ionic-native/camera/ngx';
-// import { File } from '@ionic-native/file/ngx';
-import { FileTransfer } from '@ionic-native/file-transfer/ngx';
-// import { File } from '@ionic-native/file';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, SplashComponent],
@@ -46,7 +43,8 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
     PaymentPageModule,
     MtnPageModule,
     WelcomePageModule,
-    ProfilePageModule
+    ProfilePageModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     StatusBar,
@@ -58,9 +56,6 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
     ShareService,
     InterceptorProvider,
     DatePipe,
-    VideoPlayer,
-    Camera,
-    FileTransfer,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],

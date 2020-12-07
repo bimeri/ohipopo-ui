@@ -15,7 +15,7 @@
               <ion-label>{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <ion-item (click)="navigate()" routerDirection="root" lines="none" detail="false">
+          <ion-item (click)="navigateTo()" routerDirection="root" lines="none" detail="false">
             <ion-icon slot="start" ios="chatbubbles-outline" md="chatbubbles-sharp"></ion-icon>
             <ion-label>Talk to us</ion-label>
           </ion-item>
@@ -33,6 +33,11 @@
             <ion-label>Logout &nbsp;&nbsp;
             <i class="fa fa-sign-out" style="color: #d45656; font-size: 18px;"></i>
             </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+         <ion-menu-toggle auto-hide="false">
+          <ion-item routerDirection="/" lines="none" detail="false">
+            <ion-button color="secondary" (click)="exitApplication()" style="width: 100% !important; position: fixed; bottom: 0px; left: 0px; right: 0px;">Exit App <i class="fa fa-times" style="color: #cc2121ee; font-size: 15px; margin-left: 70%;"></i></ion-button>
           </ion-item>
         </ion-menu-toggle>
       </ion-content>

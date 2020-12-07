@@ -1,7 +1,8 @@
 export class User {
     id?: number;
     fullName?: string;
-    phoneNumber?: number;
+    phoneNumber?: string;
+    userName?: string;
     email?: string;
     level?: [any];
     address?: string;

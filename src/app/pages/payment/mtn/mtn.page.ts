@@ -43,7 +43,7 @@ disable = false;
         if (!(Object.keys(result).length > 0) ) {
           this.disable = false;
           this.spinner = false;
-          this.authService.presentToast('warning', 'Server Failure, please check your internet connection!', 'top', 4000);
+          this.authService.presentToast('secondary', 'Server Failure, please check your internet connection!', 'top', 4000);
         }
         if (result.status === 'INVALID_MSISDN'){
           this.authService.presentToast('danger', 'Invalid Phone Number, please check and try again', 'top', 5000);
@@ -68,7 +68,7 @@ disable = false;
         if (result.message === 'payment pending') {
           setTimeout(() => {
             this.checkPaymentStatus(result.paymentId, phone);
-          }, 10000);
+          }, 8000);
         }
       }, error => {
         console.log('error payment status', error);
@@ -84,25 +84,34 @@ disable = false;
     const tid = id;
     this.userService.paymentStatus(id).subscribe(
       (result: any) => {
-        console.log('payment status', result);
+        console.log('check payment status', result);
       }, error => {
-        console.log('payment status errors', error);
+        console.log('check payment status errors', error);
         if (error.error.text === 'PAYMENT_SUCCESSFUL'){
           this.paymentSuccess(phone);
-        } else if (error.error.text === 'TRANSACTION_CANCIL'){
+        } else if (error.error.text === 'ZERO_STATUS') {
           this.spinner = false;
           this.disable = false;
+          this.shareService.emitFailure('fail');
+          // tslint:disable-next-line: max-line-length
+          this.authService.presentToast('danger', 'Your You do not have enough money in your account, please recharge your account', 'top', 7000);
+          this.router.navigate(['user/subject']);
+        }
+         else if (error.error.text === 'TRANSACTION_CANCIL'){
+          this.spinner = false;
+          this.disable = false;
+          this.authService.presentToast('danger', 'Your payment was not Successful, transaction has been cancil', 'top', 6000);
+          this.router.navigate(['user/subject']);
         } else if (error.error.text === 'PAYMENT_FAIL'){
           this.shareService.emitFailure('fail');
           this.spinner = false;
           this.disable = false;
-          this.authService.presentToast('danger', 'Your payment was not Successful, please try again in about 5 minis time', 'top', 6000);
+          this.authService.presentToast('danger', 'Your payment was not Successful, please try again in about 5 mins time', 'top', 6000);
           this.router.navigate(['user/subject']);
         } else if (error.error.text === 'TRANSACTION_IN_PROGRESS') {
           console.log('transaction in progress');
           setTimeout(() => { this.checkPaymentStatus(tid, phone); }, 2000);
         }
-        console.log('error from checking status', JSON.parse(JSON.stringify(error)));
       }
     );
   }
