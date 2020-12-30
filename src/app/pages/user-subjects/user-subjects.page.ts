@@ -98,32 +98,36 @@ length: number;
 
   getUsersSubjects(uid){
     // this.presentLoading();
-    this.userService.getUserRegisteredSubject(uid).subscribe(
-      (response: any) => {
+    this.storageService.getObject('userSubject').then(
+      response => {
+        if (!response || response.length === 0) {
+          this.userService.getUserRegisteredSubject(uid).subscribe(
+            (result: any) => {
+              this.storageService.setObject('userSubject', result);
+              this.subjects = result;
+              this.length = result.length;
+              this.loading = false;
+              if (result.length === 0) {
+                this.router.navigate(['subject/all']);
+              }
+            },
+            (error: any) => {
+              this.handlerService.errorResponses(error);
+              this.loading = false;
+            }
+          );
+          return;
+        }
         this.subjects = response;
         this.length = response.length;
         this.loading = false;
-        if (response.length === 0) {
-          this.router.navigate(['subject/all']);
-        }
-      },
-      (error: any) => {
-        this.handlerService.errorResponses(error);
-        this.loading = false;
+        if (Object.keys(response).length === 0) {
+            this.router.navigate(['subject/all']);
+          }
       }
-    );
+    ).catch(e => { console.log('error');
+     });
   }
-
-  // async presentLoading() {
-  //   const loading = await this.loadingController.create({
-  //     cssClass: 'my-custom-class',
-  //     message: 'Please wait...',
-  //     duration: 3000
-  //   });
-  //   await loading.present();
-
-  //   const { role, data } = await loading.onDidDismiss();
-  // }
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({

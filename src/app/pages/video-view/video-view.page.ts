@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { IonSlides } from '@ionic/angular';
 import { Video } from 'src/app/model/video';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class VideoViewPage implements OnInit {
   constructor(private activateRoute: ActivatedRoute,
               private userService: UserService,
               private errorHandle: HandleErrorService,
-              private authenticationService: AuthenticateService ) { }
+              private authenticationService: AuthenticateService,
+              public donSanitizer: DomSanitizer) { }
   ngOnInit() {
     this.activateRoute.paramMap.subscribe(
       paramMap => {
@@ -50,7 +52,7 @@ export class VideoViewPage implements OnInit {
         // tslint:disable-next-line: radix
         this.subjectId = parseInt(paramMap.get('topicId'));
       }
-    );
+    ).unsubscribe();
     this.getTopics(this.subjectId);
   }
 

@@ -30,7 +30,7 @@
     <ion-col>
       <i class="fa fa-thumbs-down" (click)="likeVideo('dislike')"></i><br> <label>{{ dislike }}</label>
     </ion-col>
-    <ion-col>
+    <!-- <ion-col>
       <i class="fa fa-share"></i><br> <label>Share</label>
     </ion-col>
     <ion-col>
@@ -38,7 +38,7 @@
     </ion-col>
     <ion-col>
       <i class="fa fa-ellipsis-v"></i><br> <label>More</label>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
   <hr style="border-top:1px solid #ccc; width:100%; position: absolute; left: 0;z-index: 9999;">
   <ion-toolbar no-header>
@@ -49,7 +49,7 @@
             <h5>Curriculum</h5>
           </ion-segment-button>
         </ion-col>
-        <ion-col size-xs="4">
+        <!-- <ion-col size-xs="4">
           <ion-segment-button value="1">
             <h5>Overview </h5>
           </ion-segment-button>
@@ -57,10 +57,10 @@
         <ion-col size-xs="4">
           <ion-segment-button value="2">
             <h5>Q&A 
-              <!-- <ion-badge color="warning">99+</ion-badge> -->
+               <ion-badge color="warning">99+</ion-badge> 
             </h5>
           </ion-segment-button>
-        </ion-col>
+        </ion-col> -->
       </ion-segment>
     </ion-row>
   </ion-toolbar>
@@ -91,8 +91,9 @@
           style="border-top: 0.5px solid #ccc; width: 100%;"
           >
             <ion-col size-xs="6">
-              <video playsinline preload="auto" [attr.src]="sub.videoUrl+'#t=0.5'" style="border-radius: 5px; width: 100%;">
-              </video>
+              <img [src]="donSanitizer.bypassSecurityTrustUrl(logo)" style="border-radius: 5px; width: 100%;">
+              <!-- <video playsinline preload="auto" [attr.src]="sub.videoUrl+'#t=0.5'" style="border-radius: 5px; width: 100%;">
+              </video> -->
             </ion-col>
             <ion-col size-xs="6">
               <h6 class="label">
@@ -106,7 +107,7 @@
       </ion-row>
     </ion-slide>
     <!-- slide two overview -->
-    <ion-slide class="slide">
+    <!-- <ion-slide class="slide">
       <ion-row>
         <ion-col>
           <h5 class="ion-text-center">
@@ -114,9 +115,9 @@
           </h5>
         </ion-col>
       </ion-row>
-    </ion-slide>
+    </ion-slide> -->
     <!-- slide three question and answer -->
-    <ion-slide class="slide">
+    <!-- <ion-slide class="slide">
       <ion-row>
         <ion-col>
           <h5 class="ion-text-center">
@@ -124,7 +125,7 @@
           </h5>
         </ion-col>
       </ion-row>
-    </ion-slide>
+    </ion-slide> -->
   </ion-slides>
 </ion-content>
 </ion-grid>

@@ -62,6 +62,8 @@ export class LoginPage implements OnInit {
     this.loading = true;
     this.authenticateService.loginUser(this.userLogin.value).subscribe(
      (response: any) => {
+       console.log('response', response);
+       
        this.load = false;
        this.loading = false;
        this.storageService.setObject('userInfo', response[0].userInfo);
@@ -70,7 +72,17 @@ export class LoginPage implements OnInit {
        this.storageService.setObject('expire', (response.expires_at));
        this.authenticateService.presentToast('success', 'Login Successfully. Welcome ' + response[0].userInfo.fullName + '', 'top', 4000);
        this.shareService.emitUserInfo(response[1].userDetails, response[0].userInfo);
-       this.router.navigateByUrl('public/home');
+
+       this.storageService.get('check').then(
+         result => {
+           if (result === 'checked') {
+            this.router.navigateByUrl('public/home');
+           } else {
+           this.router.navigateByUrl('/slider');
+           }
+         }
+       ).catch(e => {console.log('error');
+       });
      },
      (error: any) => {
        this.handleService.errorResponses(error);

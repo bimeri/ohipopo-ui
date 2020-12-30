@@ -13,7 +13,6 @@ import { ShareModule } from './shared/share/share.module';
 import { UserService } from './service/users/user.service';
 import { AuthenticateService } from './service/authentication/authenticate.service';
 import { HandleErrorService } from './service/error-handler/handle-error.service';
-import { SplashComponent } from './components/splash/splash.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { StorageService } from './service/storage/storage.service';
 import { ShareService } from './service/shared/share.service';
@@ -29,7 +28,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent, SplashComponent],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

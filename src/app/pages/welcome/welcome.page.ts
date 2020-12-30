@@ -4,6 +4,7 @@ import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { StorageService } from '../../service/storage/storage.service';
 import { Router } from '@angular/router';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-welcome',
@@ -36,30 +37,55 @@ export class WelcomePage implements OnInit {
   }
 
    getSubject(levelId){
-     this.userService.getAllSubject(levelId).subscribe(
-       (response: any) => {
-         if (response.levelName === 'aLevelScience') {
-          this.levelName = 'Advanced Level Science';
-          this.loader = false;
+     this.storageService.getObject('allSubject').then(
+       subject => {
+         if (!subject){
+          this.userService.getAllSubject(levelId).subscribe(
+            (response: any) => {
+              this.storageService.setObject('allSubject', response);
+              if (response.levelName === 'aLevelScience') {
+               this.levelName = 'Advanced Level Science';
+               this.loader = false;
+              }
+              else if (response.levelName === 'aLevelArt') {
+               this.levelName = 'Advanced Level Art';
+               this.loader = false;
+              }
+              else if (response.levelName === 'oLevel') {
+               this.levelName = 'Ordinary Level';
+               this.loader = false;
+              }
+              if (response.typeName === 'partTime') {
+                this.userType = true;
+                this.loader = false;
+              }
+            },
+            (err: any) => {
+              this.errorHandle.errorResponses(err);
+              this.loader = false;
+            }
+          );
+          return;
          }
-         else if (response.levelName === 'aLevelArt') {
-          this.levelName = 'Advanced Level Art';
-          this.loader = false;
-         }
-         else {
-          this.levelName = 'Ordinary Level';
-          this.loader = false;
-         }
-         if (response.typeName === 'partTime') {
-           this.userType = true;
-           this.loader = false;
-         }
+         if (subject.levelName === 'aLevelScience') {
+                this.levelName = 'Advanced Level Science';
+                this.loader = false;
+               }
+            else if (subject.levelName === 'aLevelArt') {
+            this.levelName = 'Advanced Level Art';
+            this.loader = false;
+            }
+            else if (subject.levelName === 'oLevel') {
+            this.levelName = 'Ordinary Level';
+            this.loader = false;
+            }
+         if (subject.typeName === 'partTime') {
+              this.userType = true;
+              this.loader = false;
+            }
        },
-       error => {
-         this.errorHandle.errorResponses(error);
-         this.loader = false;
-       }
-     );
+      ).catch(e => {console.log(this.errorHandle.errorResponses(e));
+     });
    }
 
    toastMessage(type: string){
@@ -74,5 +100,9 @@ export class WelcomePage implements OnInit {
 
    close(){
      this.show = false;
+   }
+
+   enroll(){
+    this.router.navigate(['/']).then(result => {window.location.href = 'https://api.whatsapp.com/send?phone=237652137960&text=Hello%20Ohipopo,%20%20I%20need%20help!%20'; });
    }
 }

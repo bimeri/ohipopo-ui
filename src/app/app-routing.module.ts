@@ -8,8 +8,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'splash',
-    loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
+    path: 'slider',
+    loadChildren: () => import('./pages/slider/slider.module').then( m => m.SliderPageModule)
   },
   {
     path: 'register',

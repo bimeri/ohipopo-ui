@@ -29,25 +29,21 @@
       <ion-label class="ion-text-right right" style="float: right !important; font-size: 20px; padding: 3px;">
         <ion-icon slot="icon-only" ios="ellipsis-vertical" md="ellipsis-vertical"></ion-icon>
       </ion-label>
-      <p><b style="padding-bottom: 5px; font-size: 18px; margin: 4px;">{{ subject.name }}</b><br> 
+      <p><b style="padding-bottom: 5px; font-size: 17px; margin: 4px;">{{ subject.name }}</b><br> 
         {{ subject.author }} <br> {{ subject.topics }} topics
       </p>
-      <div class="left" style="margin-top: -8px;">
+      <div class="left" style="margin-top: -20px;">
         <i class="fa fa-star big" [class]="star1 == true ? 'star' : '' "></i>
         <i class="fa fa-star big" [class]="star2 == true ? 'star' : '' "></i>
         <i class="fa fa-star big" [class]="star3 == true ? 'star' : '' "></i>
         <i class="fa fa-star big" [class]="star4 == true ? 'star' : '' "></i>
         <i class="fa fa-star big" [class]="star5 == true ? 'star' : '' "></i>
-        <i class="fa fa-thumbs-up black"></i>
-        &nbsp;&nbsp;
+        <i class="fa fa-thumbs-up black padding-right"></i>
         <br>
-        <div class="">
-          <i class="fa fa-group people"></i>
-          &nbsp;
-          <i style="color: #1d7734; font-size: 16px;">{{ subject.students }}</i>
-          &nbsp;
-          <i style="color: #e44a4a;">Notes</i>
-          &nbsp;
+        <div class="ion-nowrap">
+          <i class="fa fa-group people padding-right"></i>
+          <i class="padding-right" style="color: #1d7734; font-size: 16px;">{{ subject.students }}</i>
+          <i class="padding-right" style="color: #e44a4a; padding-right: 10px !important;">Notes</i>
           <i class="fa fa-book book"></i>
         </div>
       </div>

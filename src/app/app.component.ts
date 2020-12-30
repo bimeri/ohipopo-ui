@@ -26,11 +26,11 @@ export class AppComponent implements OnInit {
       url: '/public/home',
       icon: 'home'
     },
-    {
-      title: 'Edit Profile',
-      url: '/public/profile',
-      icon: 'create'
-    },
+    // {
+    //   title: 'Edit Profile',
+    //   url: '/public/profile',
+    //   icon: 'create'
+    // },
     // {
     //   title: 'My Downloads',
     //   url: '/public/downloads',
@@ -127,8 +127,12 @@ export class AppComponent implements OnInit {
   logoutUser(){
     this.authService.logout().subscribe(
       val => {
-        this.storageService.clear();
-        localStorage.clear();
+        this.storageService.remove('allSubject');
+        this.storageService.remove('userSubject');
+        this.storageService.remove('expire');
+        this.storageService.remove('token');
+        this.storageService.remove('userDetails');
+        this.storageService.remove('userInfo');
         this.authService.presentToast('success', 'logout successfully', 'bottom', 2000);
         this.login = false;
         this.router.navigateByUrl('login');

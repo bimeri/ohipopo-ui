@@ -38,15 +38,17 @@ div.image-link {
     height: 150px !important;
     width: fit-content;
     position: fixed;
-    top: 200px;
-    left: 34px;
+    top: 70px;
+    padding: 15px;
+    margin-left: 4%;
     z-index: 1000;
-    box-shadow: 6px 6px 8px 8px  #1a19194d;
+    box-shadow: 4px 4px 6px 6px  #2b29294d;
     background-color: white;
 }
 .cross{
     float: right !important;
     color: #ff0000;
+    margin-top: -10px;
     font-size: 30px;
     padding: 8px;
 }
@@ -59,6 +61,7 @@ div.image-link {
     font-size: 30px;
 }
 .loader{
-    margin-left: 150px !important;
+    margin-left: 100px !important;
+    color: #fff;
 
 }

@@ -16,7 +16,7 @@
             </ion-item>
           </ion-menu-toggle>
           <ion-item (click)="navigateTo()" routerDirection="root" lines="none" detail="false">
-            <ion-icon slot="start" ios="chatbubbles-outline" md="chatbubbles-sharp"></ion-icon>
+            <ion-icon slot="start" ios="logo-whatsapp" md="logo-whatsapp" style="color: #4edb4e;"></ion-icon>
             <ion-label>Talk to us</ion-label>
           </ion-item>
         </ion-list>
@@ -37,7 +37,7 @@
         </ion-menu-toggle>
          <ion-menu-toggle auto-hide="false">
           <ion-item routerDirection="/" lines="none" detail="false">
-            <ion-button color="secondary" (click)="exitApplication()" style="width: 100% !important; position: fixed; bottom: 0px; left: 0px; right: 0px;">Exit App <i class="fa fa-times" style="color: #cc2121ee; font-size: 15px; margin-left: 70%;"></i></ion-button>
+            <ion-button color="warning" (click)="exitApplication()" style="width: 100% !important; position: fixed; bottom: 0px; left: 0px; right: 0px;">Exit App <i class="fa fa-times" style="color: #cc2121ee; font-size: 15px; margin-left: 70%;"></i></ion-button>
           </ion-item>
         </ion-menu-toggle>
       </ion-content>

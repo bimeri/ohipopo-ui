@@ -4,6 +4,7 @@ import { AuthenticateService } from '../../service/authentication/authenticate.s
 import { User } from '../../model/user';
 import { Router } from '@angular/router';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
+import { StorageService } from '../../service/storage/storage.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ loader: boolean;
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticateService,
               private router: Router,
-              private handlerService: HandleErrorService ) { }
+              private handlerService: HandleErrorService,
+              private storageService: StorageService ) { }
 
   ngOnInit() {
     this.load = true;
@@ -102,12 +104,15 @@ loader: boolean;
                 };
 
     this.authenticationService.registerUser(data).subscribe(
-     (result: any) => {
+     () => {
        this.load = false;
        this.loader = false;
        const mess = 'Your Registration was Successful, You can now sign in to your account.';
-       this.authenticationService.presentToast('success', mess, 'top', 6000);
-       this.router.navigate(['/login']);
+       this.authenticationService.presentToast('success', mess, 'top', 3000);
+       this.storageService.clear();
+       setTimeout(() => {
+        window.location.href = '/login';
+       }, 3000);
      },
      (error: any) => {
        this.loader = false;

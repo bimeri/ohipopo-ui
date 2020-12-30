@@ -81,7 +81,6 @@ export class InterceptorProvider implements HttpInterceptor {
             message: mess,
             buttons: ['OK']
         });
-
         await alert.present();
     }
 
@@ -98,7 +97,6 @@ export class InterceptorProvider implements HttpInterceptor {
             });
             return clone;
         }
-
         return request;
     }
 }
