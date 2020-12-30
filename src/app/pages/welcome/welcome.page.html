@@ -8,6 +8,14 @@
 </ion-header>
  
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
   <div class="container">
     <img src="../../../assets/img/goto_class.jpg">
     <div class="centered">

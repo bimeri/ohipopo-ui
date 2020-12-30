@@ -9,6 +9,7 @@ import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { Plugins } from '@capacitor/core';
+import { BackButtonEvent } from '@ionic/core';
 const { App } = Plugins;
 @Component({
   selector: 'app-login',
@@ -36,6 +37,15 @@ export class LoginPage implements OnInit {
     setTimeout(() => {
       this.isLogin();
     }, 1000);
+
+    document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
+      ev.detail.register(-1, () => {
+        const path = window.location.pathname;
+        if (path === 'login' || path === 'public/home') {
+          App.exitApp();
+        }
+      });
+    });
   }
 
   isLogin(){

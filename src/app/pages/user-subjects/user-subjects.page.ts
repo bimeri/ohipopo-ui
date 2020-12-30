@@ -138,4 +138,11 @@ length: number;
     });
     return await popover.present();
   }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      window.location.reload();
+      event.target.complete();
+    }, 2000);
+  }
 }

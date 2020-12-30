@@ -1,9 +1,7 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay" menuId="menu" *ngIf="login">
-
       <img src="../assets/img/newLogo.png" height="220px" width="100%" style="border-bottom: 1px solid #ccc">
-
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>hello,<em *ngIf="userName">&nbsp;&nbsp;{{ userName }}</em></ion-list-header>

@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { Plugins, Capacitor } from '@capacitor/core';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticateService } from './service/authentication/authenticate.service';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { StorageService } from './service/storage/storage.service';
 import { ShareService } from './service/shared/share.service';
+import { BackButtonEvent } from '@ionic/core';
 const { App } = Plugins;
 
 @Component({
@@ -84,7 +83,6 @@ export class AppComponent implements OnInit {
   }
   navigateTo(){
     this.router.navigate(['/']).then(result => {window.location.href = 'https://api.whatsapp.com/send?phone=237652137960&text=Hello%20Ohipopo,%20%20I%20need%20help!%20'; });
-    // window.location.href = '';
   }
 
   initializeApp() {
@@ -94,7 +92,17 @@ export class AppComponent implements OnInit {
       }
       timer(3000).subscribe(() => this.showSplash = false);
     });
+
+    document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
+      ev.detail.register(-1, () => {
+        const path = window.location.pathname;
+        if (path === 'login' || path === 'public/home') {
+          App.exitApp();
+        }
+      });
+    });
   }
+
 
   exitApplication() {
       App.exitApp();

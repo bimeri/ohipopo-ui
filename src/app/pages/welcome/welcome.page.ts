@@ -105,4 +105,11 @@ export class WelcomePage implements OnInit {
    enroll(){
     this.router.navigate(['/']).then(result => {window.location.href = 'https://api.whatsapp.com/send?phone=237652137960&text=Hello%20Ohipopo,%20%20I%20need%20help!%20'; });
    }
+
+   doRefresh(event) {
+    setTimeout(() => {
+      window.location.reload();
+      event.target.complete();
+    }, 2000);
+  }
 }

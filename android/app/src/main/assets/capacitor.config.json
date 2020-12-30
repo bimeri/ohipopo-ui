@@ -13,7 +13,7 @@
       "SplashScreen": "screen",
       "AutoHideShowSplashScreen": "false",
       "ShowSplashScreen": "true",
-      "SplashScreenDelay": "5000",
+      "SplashScreenDelay": "3000",
       "FadeSplashScreen": "true"
     }
   }
