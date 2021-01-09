@@ -46,7 +46,6 @@ export class VideoViewPage implements OnInit {
     this.activateRoute.paramMap.subscribe(
       paramMap => {
         if (!paramMap.has('topicId')){
-          // redirect
           return;
         }
         // tslint:disable-next-line: radix
@@ -59,7 +58,6 @@ export class VideoViewPage implements OnInit {
   getTopics(subjectId){
     this.userService.getAllSubjectsTopicById(subjectId).subscribe(
       (response: any) => {
-        console.log(response);
         this.allTopics = response[0];
         this.videos = response[1];
         this.videoLength = response[1].length === 0;

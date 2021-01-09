@@ -9,8 +9,8 @@ import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { Plugins } from '@capacitor/core';
-import { BackButtonEvent } from '@ionic/core';
 const { App } = Plugins;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -34,18 +34,7 @@ export class LoginPage implements OnInit {
       password: ['', Validators.required],
       remember_me: [false],
     });
-    setTimeout(() => {
-      this.isLogin();
-    }, 1000);
-
-    document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
-      ev.detail.register(-1, () => {
-        const path = window.location.pathname;
-        if (path === 'login' || path === 'public/home') {
-          App.exitApp();
-        }
-      });
-    });
+    this.isLogin();
   }
 
   isLogin(){
@@ -62,7 +51,6 @@ export class LoginPage implements OnInit {
     }));
   }
 
-
   exitApplication() {
     App.exitApp();
 }
@@ -72,8 +60,6 @@ export class LoginPage implements OnInit {
     this.loading = true;
     this.authenticateService.loginUser(this.userLogin.value).subscribe(
      (response: any) => {
-       console.log('response', response);
-       
        this.load = false;
        this.loading = false;
        this.storageService.setObject('userInfo', response[0].userInfo);
@@ -104,5 +90,11 @@ export class LoginPage implements OnInit {
 
   public OpenListing() {
     this.navCtrl.navigateForward('/register');
+}
+doRefresh(event) {
+  setTimeout(() => {
+    window.location.reload();
+    event.target.complete();
+  }, 2000);
 }
 }

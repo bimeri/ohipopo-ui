@@ -94,12 +94,10 @@ export class AppComponent implements OnInit {
     });
 
     document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
-      ev.detail.register(-1, () => {
         const path = window.location.pathname;
-        if (path === 'login' || path === 'public/home') {
+        if (path === 'login' || path === '/public/home') {
           App.exitApp();
         }
-      });
     });
   }
 

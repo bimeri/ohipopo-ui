@@ -1,12 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="warning">
-    <ion-buttons slot="start">
-      <ion-menu-button menu="menu" class="white"></ion-menu-button>
-    </ion-buttons>
-    <ion-title><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org</ion-title><i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
-  </ion-toolbar>
-<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
-</ion-header>
+<app-header></app-header>
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
     <ion-refresher-content

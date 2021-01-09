@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../service/storage/storage.service';
 import { ShareService } from '../../service/shared/share.service';
+import { BackButtonEvent } from '@ionic/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -16,7 +18,7 @@ payments = [
 ];
   userInfos: any;
   loading: boolean;
-  constructor(private storageService: StorageService, private shareService: ShareService) { }
+  constructor(private storageService: StorageService, private shareService: ShareService, private router: Router) { }
 
   ngOnInit() {
     this.loading = true;
@@ -30,6 +32,13 @@ payments = [
       console.log('error: ', e);
       return e;
       });
+    this.backButton();
+  }
+
+  backButton(){
+    document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
+      this.router.navigate(['/user/subject']);
+    });
   }
 
 }

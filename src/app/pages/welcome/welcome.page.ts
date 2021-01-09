@@ -4,7 +4,7 @@ import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { StorageService } from '../../service/storage/storage.service';
 import { Router } from '@angular/router';
-import { error } from 'protractor';
+import { BackButtonEvent } from '@ionic/core';
 
 @Component({
   selector: 'app-welcome',
@@ -24,6 +24,7 @@ export class WelcomePage implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    const path = window.location.pathname;
     this.storageService.getObject('userDetails')
     .then(result => {
       if (result != null) {
@@ -31,7 +32,15 @@ export class WelcomePage implements OnInit {
       }
       }).catch(e => {});
     this.authenticationService.isLogin();
+    this.clickBackButton();
   }
+
+  clickBackButton(){
+    document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
+          this.router.navigate(['/public/home']);
+    });
+  }
+
   gotoClass(link){
     this.router.navigate([link]);
   }

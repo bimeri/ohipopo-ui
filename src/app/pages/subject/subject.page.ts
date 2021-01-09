@@ -39,7 +39,6 @@ export class SubjectPage implements OnInit {
       this.userInfos = result;
       }
       }).catch(e => {
-      console.log('error: ', e);
       return e;
       });
   }
@@ -49,7 +48,6 @@ export class SubjectPage implements OnInit {
         this.getSubject( result.level_id);
       }
       }).catch(e => {
-      console.log('error: ', e);
       return e;
       });
    }

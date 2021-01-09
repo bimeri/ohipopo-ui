@@ -8,6 +8,7 @@ import { StorageService } from '../../service/storage/storage.service';
 import { ShareService } from '../../service/shared/share.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserDetail } from 'src/app/model/user-detail';
+import { BackButtonEvent } from '@ionic/core';
 
 @Component({
   selector: 'app-user-subjects',
@@ -27,7 +28,6 @@ loading: boolean;
 success: boolean;
 fail: boolean;
 length: number;
-  userInfos: any;
   constructor(private userService: UserService,
               private handlerService: HandleErrorService,
               private router: Router,
@@ -53,15 +53,12 @@ length: number;
   ngOnInit() {
     this.loading = true;
     this.getUserId();
-    this.storageService.getObject('userInfo').then(result => {
-      if (result != null) {
-      this.shareService.emitUserId(result.id);
-      this.userInfos = result;
-      }
-      }).catch(e => {
-      console.log('error: ', e);
-      return e;
-      });
+    this.backButton();
+  }
+  backButton(){
+    document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
+      this.router.navigate(['/public/home']);
+    });
   }
 
   getUserId(){

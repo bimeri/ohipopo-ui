@@ -5,6 +5,14 @@
 </ion-header>
 <ion-content>
 <ion-progress-bar type="indeterminate" *ngIf="load"></ion-progress-bar>
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+  <ion-refresher-content
+    pullingIcon="chevron-down-circle-outline"
+    pullingText="Pull to refresh"
+    refreshingSpinner="circles"
+    refreshingText="Loading data...">
+  </ion-refresher-content>
+</ion-refresher>
 
   <form [formGroup]="userLogin" (ngSubmit)="loginForm()" style="width: 100%;">
     <ion-grid>
