@@ -9,6 +9,7 @@ import { from } from 'rxjs';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { Plugins } from '@capacitor/core';
+import { BackButtonEvent } from '@ionic/core';
 const { App } = Plugins;
 
 @Component({
@@ -35,6 +36,7 @@ export class LoginPage implements OnInit {
       remember_me: [false],
     });
     this.isLogin();
+    this.clickBackButton();
   }
 
   isLogin(){
@@ -54,7 +56,11 @@ export class LoginPage implements OnInit {
   exitApplication() {
     App.exitApp();
 }
-
+clickBackButton(){
+  document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
+    App.exitApp();
+  });
+}
   loginForm(){
     this.load = true;
     this.loading = true;

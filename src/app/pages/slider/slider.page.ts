@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../service/storage/storage.service';
 import { Router } from '@angular/router';
-
+import { Plugins } from '@capacitor/core';
+import { BackButtonEvent } from '@ionic/core';
+import { AuthenticateService } from 'src/app/service/authentication/authenticate.service';
+const { App } = Plugins;
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.page.html',
@@ -164,14 +167,23 @@ export class SliderPage implements OnInit {
     }
   };
   constructor(private storageService: StorageService,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthenticateService) { }
 
   ngOnInit() {
+    this.clickBackButton();
+  }
+  clickBackButton(){
+    document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
+      App.exitApp();
+    });
   }
 
-  ckeck(){
+  check(){
     this.storageService.set('check', 'checked');
+    this.authService.presentToast('primary', 'Welcome to Ohipopo Bilingual Comprehensive Academy', 'bottom', 4000);
     this.router.navigateByUrl('public/home');
+
   }
 
 }

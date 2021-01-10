@@ -24,8 +24,11 @@
     <ion-slide>
       <img src="../../../assets/img/newLogo.png"/>
       <h2>Ready to Play?</h2>
-      <ion-button fill="clear" (click)="ckeck()">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
+      <ion-button fill="clear" (click)="check()">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
     </ion-slide>
 
   </ion-slides>
+  <ion-label>
+    <a class="btn" (click)="check()">skip >></a>
+  </ion-label>
 </ion-content>

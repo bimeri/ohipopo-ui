@@ -12,7 +12,7 @@ import { BackButtonEvent } from '@ionic/core';
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage implements OnInit {
-  levelName: string;
+  levelName: string = null;
   userType: boolean;
   dates = new Date();
   show: boolean;
@@ -23,12 +23,12 @@ export class WelcomePage implements OnInit {
               private storageService: StorageService,
               private router: Router) { }
 
-  ngOnInit() {
-    const path = window.location.pathname;
+  ngOnInit(): void {
     this.storageService.getObject('userDetails')
     .then(result => {
-      if (result != null) {
+      if (Object.keys(result).length !== 0) {
       this.getSubject(result.level_id);
+      return;
       }
       }).catch(e => {});
     this.authenticationService.isLogin();
