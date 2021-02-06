@@ -5,6 +5,8 @@ import { HandleErrorService } from '../../service/error-handler/handle-error.ser
 import { StorageService } from '../../service/storage/storage.service';
 import { Router } from '@angular/router';
 import { BackButtonEvent } from '@ionic/core';
+import { ModalController } from '@ionic/angular';
+import { ModalPageComponent } from 'src/app/components/modal-page/modal-page.component';
 
 @Component({
   selector: 'app-welcome',
@@ -21,9 +23,11 @@ export class WelcomePage implements OnInit {
               private userService: UserService,
               private errorHandle: HandleErrorService,
               private storageService: StorageService,
-              private router: Router) { }
+              private router: Router,
+              public modalController: ModalController) { }
 
   ngOnInit(): void {
+    this.show = false;
     this.storageService.getObject('userDetails')
     .then(result => {
       if (Object.keys(result).length !== 0) {
@@ -107,6 +111,10 @@ export class WelcomePage implements OnInit {
      return;
    }
 
+   notification(){
+     this.authenticationService.presentToast('secondary', 'You don\'t have any new notification', 'bottom', 10000, 'notifications');
+   }
+
    close(){
      this.show = false;
    }
@@ -114,6 +122,14 @@ export class WelcomePage implements OnInit {
    enroll(){
     this.router.navigate(['/']).then(result => {window.location.href = 'https://api.whatsapp.com/send?phone=237652137960&text=Hello%20Ohipopo,%20%20I%20need%20help!%20'; });
    }
+
+   async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalPageComponent,
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
 
    doRefresh(event) {
     setTimeout(() => {

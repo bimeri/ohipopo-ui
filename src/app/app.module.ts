@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -26,6 +24,7 @@ import { WelcomePageModule } from './pages/welcome/welcome.module';
 import { ProfilePageModule } from './pages/profile/profile.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,6 +52,7 @@ import { environment } from '../environments/environment';
     HandleErrorService,
     StorageService,
     ShareService,
+    SocialSharing,
     InterceptorProvider,
     DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },

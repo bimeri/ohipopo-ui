@@ -56,7 +56,7 @@ export class InterceptorProvider implements HttpInterceptor {
                         } else {
                         if (status === 401) {
                             this.authenticateService.presentToast('danger', 'user not authorize to perform this task', 'top', 5000);
-                            this.storageService.clear();
+                            this.storageService.removeElements();
                             this.router.navigate(['/login']);
                         }
                         this.presentAlert(status, reason);

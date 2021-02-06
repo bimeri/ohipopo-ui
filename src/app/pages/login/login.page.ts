@@ -33,6 +33,7 @@ export class LoginPage implements OnInit {
     this.userLogin = this.formBuilder.group({
       userName: ['', Validators.required],
       password: ['', Validators.required],
+      userId: [''],
       remember_me: [false],
     });
     this.isLogin();
@@ -61,6 +62,24 @@ clickBackButton(){
     App.exitApp();
   });
 }
+
+tryLogin(){
+  this.storageService.getObject('userDetails')
+  .then(result => {
+    if (result) {
+      this.userLogin.patchValue({
+        userId: result.user_id
+      });
+      this.loginForm();
+    } else {
+      this.userLogin.patchValue({
+        userId: null
+      });
+      this.loginForm();
+    }
+    }).catch(e => {});
+}
+
   loginForm(){
     this.load = true;
     this.loading = true;
@@ -68,6 +87,11 @@ clickBackButton(){
      (response: any) => {
        this.load = false;
        this.loading = false;
+
+       if (response === 'IS_LOGGED_IN') {
+         this.authenticateService.presentToast('danger', 'Some body is currently logged in with your account, two people can\'t access one account', 'top', 7000);
+         return;
+       }
        this.storageService.setObject('userInfo', response[0].userInfo);
        this.storageService.setObject('userDetails', response[1].userDetails);
        this.storageService.setObject('token', response.accessToken);
@@ -97,6 +121,7 @@ clickBackButton(){
   public OpenListing() {
     this.navCtrl.navigateForward('/register');
 }
+
 doRefresh(event) {
   setTimeout(() => {
     window.location.reload();

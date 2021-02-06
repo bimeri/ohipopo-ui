@@ -16,12 +16,28 @@ registerUrl = `${environment.base_url}/api/auth/register`;
               private storageService: StorageService,
               private router: Router) { }
 
-  async presentToast(colors: string, messages: string, pos, time: number) {
+  async presentToast(colors: string, messages: string, pos, time: number, icons?: string) {
     const toast = await this.toastController.create({
       message: messages,
       duration: time,
       color: colors,
       position: pos,
+      buttons: [
+        {
+          side: 'start',
+          icon: icons,
+          text: '',
+          handler: () => {
+            // add a method
+          }
+        }, {
+          text: 'ok',
+          role: 'cancel',
+          handler: () => {
+            // add a method
+          }
+        }
+      ],
       keyboardClose: true
     });
 
@@ -61,4 +77,5 @@ registerUrl = `${environment.base_url}/api/auth/register`;
   getLevel(typeId){
     return this.http.get<any>(`${environment.base_url}/api/level/detail?typeId=${typeId}`);
   }
+
 }

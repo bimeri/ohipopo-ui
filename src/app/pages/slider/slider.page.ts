@@ -175,7 +175,8 @@ export class SliderPage implements OnInit {
   }
   clickBackButton(){
     document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
-      App.exitApp();
+      this.router.navigate(['/public/home']);
+      this.authService.presentToast('primary', 'Welcome to Ohipopo Bilingual Comprehensive Academy', 'bottom', 4000);
     });
   }
 

@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'mtn-payment',
     loadChildren: () => import('./mtn/mtn.module').then( m => m.MtnPageModule)
   },
+  {
+    path: 'orange-payment',
+    loadChildren: () => import('./orange/orange.module').then( m => m.OrangePageModule)
+  },
 ];
 
 @NgModule({

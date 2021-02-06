@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { Plugins, Capacitor } from '@capacitor/core';
 import { AuthenticateService } from './service/authentication/authenticate.service';
 import { Router } from '@angular/router';
@@ -19,11 +19,17 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   userName: string;
   login = false;
+  t0 = performance.now();
   public appPages = [
     {
       title: 'Home',
       url: '/public/home',
       icon: 'home'
+    },
+    {
+      title: 'Transactions',
+      url: '/transaction',
+      icon: 'cash'
     },
     // {
     //   title: 'Edit Profile',
@@ -74,7 +80,8 @@ export class AppComponent implements OnInit {
     private authService: AuthenticateService,
     private router: Router,
     private storageService: StorageService,
-    private shareService: ShareService) {
+    private shareService: ShareService,
+    public loadingController: LoadingController) {
     this.initializeApp();
     this.shareService.$userInfo.subscribe(data =>
       {
@@ -102,9 +109,9 @@ export class AppComponent implements OnInit {
   }
 
 
-  exitApplication() {
-      App.exitApp();
-  }
+  // exitApplication() {
+  //     App.exitApp();
+  // }
 
   ngOnInit() {
     const path = window.location.pathname.split('folder/')[1];
@@ -130,9 +137,22 @@ export class AppComponent implements OnInit {
     });
   }
 
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Please wait...',
+      duration: 5000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+  }
+
+
   logoutUser(){
+    this.presentLoading();
     this.authService.logout().subscribe(
-      val => {
+      () => {
         this.storageService.remove('allSubject');
         this.storageService.remove('userSubject');
         this.storageService.remove('expire');

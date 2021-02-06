@@ -5,7 +5,7 @@
 }
 .right{
     float: right !important;
-    color: #2e27279d;
+    color: #288828;
     font-size: 15px;
 }
 .left,.right{
@@ -26,23 +26,30 @@ ion-col{
 
 ion-label.h6{
     padding: 10px;
-    color: #1814149d;
+    color: #000;
     text-align: center !important;
     font-size: 15px;
+    font-weight: bold;
 }
 h6.label{
     font-size: 18px; 
-    padding-top: 3px !important; 
+    padding-top: 0px !important; 
     padding: 10px; 
     text-align: left;
 }
+small{
+    color: #110f0fc7;
+    margin-top: 5px !important;
+}
 div.label{
 font-size: 18px;
-margin-top: 2px !important;
 float: right !important;
 width:40%;
 position: relative;
-
+}
+.heading{
+    color: black;
+    font-size: 3.5vw;
 }
 .swiper-slide {
 display: block;
@@ -69,7 +76,7 @@ ion-badge{
     padding: 10px;
 }
 ion-slides{
-    min-height: 130vh;
+    min-height: fit-content !important;
 }
 .indicator{
     color: green;
@@ -80,9 +87,23 @@ ion-slides{
 }
 .alert{
     width: 100%;
-    color: #cf3939;
-    background-color: #eec8c8;
-    padding-top:10px;
-    padding-bottom:10px;
+    color: #4f74d8;
+    background-color: #dceef8;
+    padding-top:3px;
+    padding-bottom:2px;
     text-align: center;
+    font-family: 'Comic Sans MS';
+    font-style: italic;
   }
+  .loader{
+      font-size: 30px !important;
+      color: orange;
+      margin-left: 40%;
+  }
+  .eye{
+    float: left !important;
+    padding: 5px;
+    margin-top: -14px !important;
+    margin: 4px;
+    color: #288828;
+}

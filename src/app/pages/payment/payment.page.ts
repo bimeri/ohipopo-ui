@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class PaymentPage implements OnInit {
 payments = [
   {name: 'MTN Mobile Money', logo: '../../../assets/img/momo.jpeg', url: 'mtn-payment'},
-  {name: 'Orange Money', logo: '../../../assets/img/orange.png', url: '/payment'},
+  {name: 'Orange Money', logo: '../../../assets/img/orange.png', url: 'orange-payment'},
   {name: 'Express Union', logo: '../../../assets/img/eu.png', url: '/payment'},
   {name: 'Visa/Master Card', logo: '../../../assets/img/visa.png', url: '/payment'}
 ];

@@ -19,7 +19,7 @@ export class HandleErrorService {
       }
       if (error.status === 401 || error.error.message === 'Unauthenticated') {
         this.authenticateService.presentToast('danger', 'user not authorize to perform this task', 'top', 5000);
-        this.storageService.clear();
+        this.storageService.removeElements();
         this.router.navigate(['/login']);
       }
       if (error.status === 406) {

@@ -40,7 +40,7 @@ div.image-link {
     position: fixed;
     top: 70px;
     padding: 15px;
-    margin-left: 4%;
+    margin-left: 7%;
     z-index: 1000;
     box-shadow: 4px 4px 6px 6px  #2b29294d;
     background-color: white;
@@ -63,5 +63,10 @@ div.image-link {
 .loader{
     margin-left: 100px !important;
     color: #fff;
-
+}
+ion-title{
+    font-size: 4vw;
+}
+ion-button.button{
+    color: white !important;
 }

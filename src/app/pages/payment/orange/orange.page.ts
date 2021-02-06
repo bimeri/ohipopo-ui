@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user';
 import { StorageService } from '../../../service/storage/storage.service';
@@ -8,11 +9,11 @@ import { AuthenticateService } from '../../../service/authentication/authenticat
 import { HandleErrorService } from '../../../service/error-handler/handle-error.service';
 
 @Component({
-  selector: 'app-mtn',
-  templateUrl: './mtn.page.html',
-  styleUrls: ['./mtn.page.scss'],
+  selector: 'app-orange',
+  templateUrl: './orange.page.html',
+  styleUrls: ['./orange.page.scss'],
 })
-export class MtnPage implements OnInit {
+export class OrangePage implements OnInit {
 user: User;
 spinner: boolean;
 disable = false;

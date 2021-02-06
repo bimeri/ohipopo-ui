@@ -3,7 +3,21 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="menu" class="white"></ion-menu-button>
     </ion-buttons>
-    <ion-title><ion-spinner name="crescent" *ngIf="loader" class="loader"></ion-spinner>{{ levelName }}</ion-title> <i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
+    <ion-title>
+      <ion-spinner name="crescent" *ngIf="loader" class="loader"></ion-spinner>{{ levelName }}
+    </ion-title> 
+    <ion-buttons slot="end" class="buttons">
+      <ion-button (click)="notification()" style="box-shadow: 1px 0 0 rgba(87, 90, 73, 0.5);">
+        <ion-icon name="notifications"></ion-icon>
+      </ion-button>
+      <ion-button (click)="presentModal()" style="box-shadow: 0 0 1px rgba(87, 90, 73, 0.5);">
+        <ion-icon name="call"></ion-icon>
+      </ion-button>
+      <!-- <ion-button>
+        <ion-icon name="language-outline"></ion-icon>
+        <ion-label>EN</ion-label>
+      </ion-button> -->
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
  

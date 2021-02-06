@@ -7,7 +7,7 @@ import { IonSlides } from '@ionic/angular';
 import { Video } from 'src/app/model/video';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-video-view',
@@ -25,6 +25,7 @@ export class VideoViewPage implements OnInit {
   };
 
   subjectId: number;
+  videoId: number;
   allTopics = [];
   subjectName: string;
   subjectAuthor: string;
@@ -36,12 +37,14 @@ export class VideoViewPage implements OnInit {
   dislike = 0;
   view = 0;
   load: boolean;
+  loader = true;
   videoLength: boolean;
   constructor(private activateRoute: ActivatedRoute,
               private userService: UserService,
               private errorHandle: HandleErrorService,
               private authenticationService: AuthenticateService,
-              public donSanitizer: DomSanitizer) { }
+              public donSanitizer: DomSanitizer,
+              private socialSharing: SocialSharing) { }
   ngOnInit() {
     this.activateRoute.paramMap.subscribe(
       paramMap => {
@@ -58,6 +61,9 @@ export class VideoViewPage implements OnInit {
   getTopics(subjectId){
     this.userService.getAllSubjectsTopicById(subjectId).subscribe(
       (response: any) => {
+        console.log(response[1]);
+
+        this.loader = false;
         this.allTopics = response[0];
         this.videos = response[1];
         this.videoLength = response[1].length === 0;
@@ -67,6 +73,7 @@ export class VideoViewPage implements OnInit {
         this.logo = `${environment.base_url}/${response[2].logo}`;
       },
       (error: any) => {
+        this.loader = false;
         this.errorHandle.errorResponses(error);
       }
     );
@@ -75,6 +82,7 @@ export class VideoViewPage implements OnInit {
   playVideo(url: string, videoName: string, vid: number, likes: number, dislike: number, totalView: number){
     this.defaultUrl = '';
     this.vIdLike = vid;
+    this.videoId = vid;
     this.like = likes;
     this.dislike = dislike;
     this.view = totalView;
@@ -127,11 +135,11 @@ export class VideoViewPage implements OnInit {
     this.userService.studentLikeVideo(this.vIdLike, status).subscribe(
       result => {
         if (result === 'SAVED') {
-          this.authenticationService.presentToast('success', 'Saved suucessfully', 'top', 2000);
+          this.authenticationService.presentToast('success', 'Saved sucessfully', 'bottom', 2000);
           this.countLikesAndDislike(this.vIdLike);
         }
         if (result === 'UPDATED') {
-          this.authenticationService.presentToast('secondary', 'Updated successfully', 'top', 2000);
+          this.authenticationService.presentToast('secondary', 'Updated successfully', 'bottom', 2000);
           this.countLikesAndDislike(this.vIdLike);
         }
         this.load = false;
@@ -165,5 +173,26 @@ export class VideoViewPage implements OnInit {
     slides.getActiveIndex().then(selectedIndex => {
       this.segment = selectedIndex;
     });
+  }
+
+  share(){
+    // Check if sharing via email is supported
+    const logo = '../../../assets/img/newLogo.png';
+    this.socialSharing.share('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore', 'ohipopo.org', logo, 'https://play.google.com/store/apps').then(() => { }).catch(() => {});
+    // this.socialSharing.shareViaTwitter('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore', logo, 'https://play.google.com/store/apps').then(() => {}).catch(() => {});
+    // this.socialSharing.shareViaWhatsApp('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
+    //  logo, 'https://play.google.com/store/apps').then(() => {}).catch((error) => {console.log(error); });
+    // this.socialSharing.shareViaSMS('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
+    //  '678657959').then(() => {}).catch(() => {});
+    // this.socialSharing.shareViaFacebook('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
+    //  logo, 'https://play.google.com/store/apps').then(() => {}).catch(() => {});
+    // this.socialSharing.shareViaInstagram('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
+    //  logo).then(() => {}).catch(() => {});
+    // this.socialSharing.canShareViaEmail().then(() => {
+    //   this.socialSharing.shareViaEmail('Body', 'Subject', ['recipient@example.org']).then(() => {
+    //   }).catch(() => {
+    //   });
+    // }).catch(() => {
+    // });
   }
 }

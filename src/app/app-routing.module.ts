@@ -44,6 +44,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/video-view/video-view.module').then( m => m.VideoViewPageModule)
   },
   {
+    path: 'transaction',
+    loadChildren: () => import('./pages/transaction/transaction.module').then( m => m.TransactionPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
   },
