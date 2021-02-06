@@ -42,7 +42,7 @@
                 <ion-label><b> &nbsp;&nbsp; Keep me signed in</b></ion-label>
               </ion-item>
               <br>    
-              <ion-label><a routerLink="/login">forgot Password <ion-icon slot="start" name=""></ion-icon> </a></ion-label>
+              <ion-label><a routerLink="/login">Forgot Password <ion-icon slot="start" name="lock"></ion-icon> </a></ion-label>
               <ion-button class="right" type="submit" [disabled]="!userLogin.valid" *ngIf="!loading">Submit</ion-button>
               <ion-button class="right" type="button" *ngIf="loading"><ion-spinner name="crescent"></ion-spinner></ion-button>
               <br><br>
@@ -53,4 +53,3 @@
     </ion-grid>
   </form>  
 </ion-content>
-<ion-button color="secondary" (click)="exitApplication()" style="width: 100% !important; position: fixed; bottom: 0px;">Exit App</ion-button>

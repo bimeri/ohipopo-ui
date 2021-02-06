@@ -102,8 +102,8 @@
                 <small> {{ subjectAuthor }}</small>
               </h6>
               <ion-label class="eye">
-                <i style="font-family: 'Comic Sans Ms'; margin-top:-8px !important">{{ sub.totalView }}</i>
-                <ion-icon name="eye-outline"></ion-icon>
+                <i style="font-family: 'Comic Sans Ms'; margin-top:-8px !important; font-size: 13px !important;">{{ sub.totalView }}</i>
+                <ion-label>views</ion-label>
               </ion-label>
               <ion-label *ngIf="sub.vId === videoId" class="fa fa-check-circle indicator"></ion-label>
             </ion-col>
