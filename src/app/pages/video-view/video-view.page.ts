@@ -176,23 +176,9 @@ export class VideoViewPage implements OnInit {
   }
 
   share(){
-    // Check if sharing via email is supported
-    const logo = '../../../assets/img/newLogo.png';
-    this.socialSharing.share('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore', 'ohipopo.org', logo, 'https://play.google.com/store/apps').then(() => { }).catch(() => {});
-    // this.socialSharing.shareViaTwitter('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore', logo, 'https://play.google.com/store/apps').then(() => {}).catch(() => {});
-    // this.socialSharing.shareViaWhatsApp('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
-    //  logo, 'https://play.google.com/store/apps').then(() => {}).catch((error) => {console.log(error); });
-    // this.socialSharing.shareViaSMS('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
-    //  '678657959').then(() => {}).catch(() => {});
-    // this.socialSharing.shareViaFacebook('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
-    //  logo, 'https://play.google.com/store/apps').then(() => {}).catch(() => {});
-    // this.socialSharing.shareViaInstagram('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
-    //  logo).then(() => {}).catch(() => {});
-    // this.socialSharing.canShareViaEmail().then(() => {
-    //   this.socialSharing.shareViaEmail('Body', 'Subject', ['recipient@example.org']).then(() => {
-    //   }).catch(() => {
-    //   });
-    // }).catch(() => {
-    // });
+    this.socialSharing.share('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
+                              'ohipopo.org',
+                              'https://play.google.com/store/apps')
+                              .then(() => { }).catch(() => {});
   }
 }

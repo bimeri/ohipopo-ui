@@ -11,8 +11,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Loading data...">
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-grid>
-    <ion-row style="border-bottom: 0.01rem solid #8d8675;">
+    <ion-row style="border-bottom: 0.01rem solid #8d8675; box-shadow: 4px 8px 8px 8px solid rgba(53, 49, 46, 0.5);">
       <ion-col size-xs="12">
           <h3 class="ion-text-center">All Transactions</h3>
       </ion-col>
@@ -30,7 +38,7 @@
         </ion-item>
         <ion-item lines="none">
           <ion-label class="ion-text-left i">Payment Amount:</ion-label>
-          <ion-label class="ion-text-right i">{{ transaction.amount }}</ion-label>
+          <ion-label class="ion-text-right i">{{ transaction.amount }} CFA</ion-label>
         </ion-item>
         <ion-item lines="none">
           <ion-label class="ion-text-left i">Telephone Number:</ion-label>
@@ -48,7 +56,7 @@
           <ion-label class="ion-text-left i">Payment Channel:</ion-label>
           <ion-label class="ion-text-right i">
             <img *ngIf="transaction.paymentChannel" [src]="getImage(transaction.paymentChannel)" height="45" width="80" alt="{{ transaction.paymentChannel }}" style="border-radius: 4px;">
-          <ion-label *ngIf="!transaction.paymentChannel" class="ion-text-right i">Ohips Pay</ion-label>
+          <ion-label *ngIf="!transaction.paymentChannel" class="ion-text-right i">OhipsPay</ion-label>
           </ion-label>
         </ion-item>   
         <ion-item lines="none">

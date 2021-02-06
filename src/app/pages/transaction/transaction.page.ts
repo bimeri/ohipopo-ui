@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../service/users/user.service';
 import { StorageService } from '../../service/storage/storage.service';
-import { formatDate } from '@angular/common';
 import { Transaction } from 'src/app/model/transaction';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 
@@ -38,6 +37,8 @@ transactions: Transaction[] = [];
     this.userService.transactionDetail(userId).subscribe(
       (result) => {
         this.transactions = result;
+        console.log(result);
+
         if (this.transactions.length === 0) {
         this.message = 'You don\'t have any transaction history';
        }
@@ -61,6 +62,13 @@ transactions: Transaction[] = [];
       image = '';
     }
     return image;
+  }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      window.location.reload();
+      event.target.complete();
+    }, 2000);
   }
 
 }

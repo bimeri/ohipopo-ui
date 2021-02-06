@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from '../../components/header/header.component';
+import { ModalPageComponent } from '../../components/modal-page/modal-page.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, ModalPageComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -17,7 +18,8 @@ import { HeaderComponent } from '../../components/header/header.component';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    HeaderComponent
+    HeaderComponent,
+    ModalPageComponent
     ]
 })
 export class ShareModule { }
