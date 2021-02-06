@@ -67,7 +67,7 @@ disable = false;
         }
         if (result.message === 'payment pending') {
           setTimeout(() => {
-            this.checkPaymentStatus(result.paymentId, phone);
+            this.checkPaymentStatus(result.paymentId, phone, result.channel_name);
           }, 8000);
         }
       }, error => {
@@ -79,13 +79,13 @@ disable = false;
     );
   }
 
-  checkPaymentStatus(id, phone){
+  checkPaymentStatus(id, phone, channel){
     const tid = id;
     this.userService.paymentStatus(id).subscribe(
       (result: any) => {
       }, error => {
         if (error.error.text === 'PAYMENT_SUCCESSFUL'){
-          this.paymentSuccess(phone);
+          this.paymentSuccess(phone, channel);
         } else if (error.error.text === 'ZERO_STATUS') {
           this.spinner = false;
           this.disable = false;
@@ -106,14 +106,14 @@ disable = false;
           this.authService.presentToast('danger', 'Your payment was not Successful, please try again in about 5 mins time', 'top', 6000);
           this.router.navigate(['user/subject']);
         } else if (error.error.text === 'TRANSACTION_IN_PROGRESS') {
-          setTimeout(() => { this.checkPaymentStatus(tid, phone); }, 2000);
+          setTimeout(() => { this.checkPaymentStatus(tid, phone, channel); }, 2000);
         }
       }
     );
   }
 
-  paymentSuccess(phone){
-    this.userService.registereUserPayment(phone).subscribe(
+  paymentSuccess(phone, channel){
+    this.userService.registereUserPayment(phone, channel).subscribe(
       result => {
         this.storageService.setObject('userDetails', result);
         this.shareService.emitSuccess('success');

@@ -1,1 +1,22 @@
 @import '../../components/modal-page/modal-page.component.scss';
+.spin {
+    margin-left: 40%;
+    font-size: 4px !important;
+}
+ion-label.i{
+    font-size: 11px !important;
+    text-align: left !important;
+    color: #534c3ef1 !important;
+}
+ion-item{
+    margin-top: -17px !important;
+}
+ion-label.i.download{
+    font-size: 10px !important;
+    margin-left: 15%;
+    padding-top: 14px;
+}
+
+.message{
+    padding: 10px;
+}

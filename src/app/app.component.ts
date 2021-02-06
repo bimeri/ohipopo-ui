@@ -141,7 +141,7 @@ export class AppComponent implements OnInit {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
-      duration: 5000
+      duration: 3000
     });
     await loading.present();
 

@@ -42,8 +42,8 @@ pathDir = `${environment.base_url}/${environment.auth_path}`;
     return this.http.post<any>(`${this.pathDir}/count/video`, {videoId: videoid});
   }
 
-  transactionDetail(userId){
-    return this.http.get<any>(`${environment.base_url}/api/transaction/detail?userId=${userId}`);
+  transactionDetail(userid: number){
+    return this.http.post<any>(`${this.pathDir}/transaction/detail`, {userId: userid});
   }
 
   makePayment(phone, userName){
@@ -53,7 +53,7 @@ pathDir = `${environment.base_url}/${environment.auth_path}`;
       phoneNumber: phone,
       country: 'CM',
       currency: 'XAF',
-      user: userName,
+      user: userName
       };
     return this.http.post<any>(`${this.pathDir}/payment`, data);
   }
@@ -62,8 +62,8 @@ pathDir = `${environment.base_url}/${environment.auth_path}`;
     return this.http.post<any>(`${this.pathDir}/check`, data);
   }
 
-  registereUserPayment(phone: number){
-    const data = {phoneNumber: phone};
+  registereUserPayment(phone: number, channel: string){
+    const data = {phoneNumber: phone, paymentChannel: channel};
     return this.http.post<any>(`${this.pathDir}/registerPayment`, data);
   }
 }
