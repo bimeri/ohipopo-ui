@@ -61,7 +61,6 @@ export class VideoViewPage implements OnInit {
   getTopics(subjectId){
     this.userService.getAllSubjectsTopicById(subjectId).subscribe(
       (response: any) => {
-        console.log(response[1]);
 
         this.loader = false;
         this.allTopics = response[0];
@@ -177,7 +176,7 @@ export class VideoViewPage implements OnInit {
 
   share(){
     this.socialSharing.share('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
-                              'ohipopo.org',
+                              'ohipopo.org', '',
                               'https://play.google.com/store/apps')
                               .then(() => { }).catch(() => {});
   }
