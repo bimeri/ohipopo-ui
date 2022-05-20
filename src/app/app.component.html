@@ -32,6 +32,7 @@
                         <ion-label>{{ label }}</ion-label>
                     </ion-item>
                 </ion-list>
+                <ion-list>{{ version }}</ion-list>
                 <ion-menu-toggle auto-hide="false" *ngIf="login">
                     <ion-item (click)="logoutUser()" routerDirection="root" lines="none" detail="false" class="logout">
                         <ion-label>{{ "logout" | translate }} &nbsp;&nbsp;

@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   userName: string;
   login = false;
+  version = environment.app_version;
   t0 = performance.now();
   imageUpload: FormGroup;
   public appPages = [
