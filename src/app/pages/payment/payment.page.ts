@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './payment.page.html',
   styleUrls: ['./payment.page.scss'],
 })
-export class PaymentPage implements OnInit {
+export class PaymentPage {
 payments = [
   {name: 'MTN Mobile Money', logo: '../../../assets/img/momo.jpeg', url: 'mtn-payment'},
   {name: 'Orange Money', logo: '../../../assets/img/orange.png', url: 'orange-payment'},
@@ -20,19 +20,34 @@ payments = [
   loading: boolean;
   constructor(private storageService: StorageService, private shareService: ShareService, private router: Router) { }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.loading = true;
-    this.storageService.getObject('userInfo').then(result => {
-      this.loading = false;
-      if (result != null) {
-      this.shareService.emitUserId(result.id);
-      this.userInfos = result;
+    this.loading = true;
+    this.storageService.getObject("free").then(
+      response => {
+        
+        if(response){
+          this.router.navigate(['/user/subject']);
+        } else {
+          this.storageService.getObject('userInfo').then(result => {
+            this.loading = false;
+            if (result != null) {
+            this.shareService.emitUserId(result.id);
+            this.userInfos = result;
+            }
+            }).catch(e => {
+            console.log('error: ', e);
+            return e;
+            });
+        }
       }
-      }).catch(e => {
-      console.log('error: ', e);
-      return e;
-      });
+    ).catch(e => console.log(e));
     this.backButton();
+  };
+
+
+  ngAfterViewInit(){
+    this.ionViewDidEnter();
   }
 
   backButton(){

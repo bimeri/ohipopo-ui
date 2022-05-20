@@ -31,7 +31,7 @@ registerUrl = `${environment.base_url}/api/auth/register`;
             // add a method
           }
         }, {
-          text: 'ok',
+          text: 'Ok',
           role: 'cancel',
           handler: () => {
             // add a method

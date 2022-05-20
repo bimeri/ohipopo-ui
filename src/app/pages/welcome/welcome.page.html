@@ -1,103 +1,101 @@
 <ion-header>
-  <ion-toolbar color="warning">
-    <ion-buttons slot="start">
-      <ion-menu-button menu="menu" class="white"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      <ion-spinner name="crescent" *ngIf="loader" class="loader"></ion-spinner>{{ levelName }}
-    </ion-title> 
-    <ion-buttons slot="end" class="buttons">
-      <ion-button (click)="notification()" style="box-shadow: 1px 0 0 rgba(87, 90, 73, 0.5);">
-        <ion-icon name="notifications"></ion-icon>
-      </ion-button>
-      <ion-button (click)="presentModal()" style="box-shadow: 0 0 1px rgba(87, 90, 73, 0.5);">
-        <ion-icon name="call"></ion-icon>
-      </ion-button>
-      <!-- <ion-button>
-        <ion-icon name="language-outline"></ion-icon>
-        <ion-label>EN</ion-label>
-      </ion-button> -->
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="menu" class="white"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-spinner name="crescent" *ngIf="loader" class="loader"></ion-spinner>
+            <ion-label *ngIf="!loader">{{ levelName }}</ion-label>
+        </ion-title>
+        <ion-buttons slot="end" class="buttons">
+            <ion-button (click)="notification()" style="box-shadow: 1px 0 0 rgba(87, 90, 73, 0.5);">
+                <ion-icon name="notifications"></ion-icon>
+            </ion-button>
+            <ion-button (click)="presentModal()" style="box-shadow: 0 0 1px rgba(87, 90, 73, 0.5);">
+                <ion-icon name="call"></ion-icon>
+            </ion-button>
+            <ion-button (click)="onClick('ui/language')">
+                <ion-icon name="language-outline"></ion-icon>
+                <ion-label>{{"en" | translate}}</ion-label>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
- 
+
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
-    <ion-refresher-content
-      pullingIcon="chevron-down-circle-outline"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Loading data...">
-    </ion-refresher-content>
-  </ion-refresher>
-  <div class="container">
-    <img src="../../../assets/img/goto_class.jpg">
-    <div class="centered">
-     <div class="time">
-      <h5 class="date">Welcome on campus</h5>
-       {{ dates | date:'h:mm a' }}
-      <h5 class="date">{{ dates | date:'EEEE d MMMM y' }}</h5>
-     </div>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+        <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="{{ 'pull_refresh' | translate }}" refreshingSpinner="circles" refreshingText="{{ 'loading_data' | translate}}">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="container">
+        <img src="../../../assets/img/goto_class.jpg">
+        <div class="centered">
+            <div class="time">
+                <h4 class="date">{{ "welcome_home" | translate }}</h4>
+                {{ dates | date:'h:mm:ss a' }}
+                <h4 class="date">{{ dates | date:'EEEE d MMMM y' }}</h4>
+            </div>
+        </div>
     </div>
-  </div>
-<ion-grid>
-  <ion-row>
-    <ion-col size-md="6" size-xs="6">
-      <div class="image-link">
-        <a (click)="gotoClass('/user/subject')">
-          <img src="../../../assets/img/class.png" alt="go to class" id="image">
-        </a>
-        <h6>go to class</h6>
-      </div>
-    </ion-col>
-    <ion-col size-md="6" size-xs="6">
-      <div class="image-link">
-        <a (click)="toastMessage('link')">
-          <img src="../../../assets/img/contact.png" alt="Talk to a councelor" id="image">
-        </a>
-        <h6 style="margin-top:-8px !important">talk to a councelor</h6>
-      </div>
-    </ion-col>
-    <ion-col size-md="6" size-xs="6">
-      <div class="image-link" alt="disciline Master" id="image">
-        <a (click)="toastMessage('link')">
-          <img src="../../../assets/img/admin.png" alt="Discipline master">
-        </a>
-        <h6>discipline master</h6>
-      </div>
-    </ion-col>
-    <ion-col size-md="6" size-xs="6">
-      <div class="image-link">
-        <a (click)="toastMessage('link')">
-          <img src="../../../assets/img/shop.png" alt="buy text books" id="image">
-        </a>
-        <h6>buy text books</h6>
-      </div>
-    </ion-col>
-    <ion-col size-md="6" size-xs="6">
-      <div class="image-link">
-        <a (click)="toastMessage('link')">
-          <img src="../../../assets/img/library.png" alt="go to class" id="image">
-        </a>
-        <h6>school library</h6>
-      </div>
-    </ion-col>
-    <ion-col size-md="6" size-xs="6">
-      <div class="image-link">
-        <a routerLink="/public/home">
-          <img src="../../../assets/img/calendar.png" alt="go to class" id="image">
-        </a>
-        <h6>time table</h6>
-      </div>
-    </ion-col>
-    <div class="card" id="hide" *ngIf="show">
-      <span onclick="document.getElementById('hide').style.display='none'" class="cross" (click)="close()">&times;</span>
-      <div class="card-content">
-        Available only for Full Time Students
-        <hr>
-        <ion-button slot="start" color="warning" (click)="enroll()" style="font-size: 13px; text-transform: lowercase;">Contact us to enroll for full time <i class="fa fa-whatsapp" style="color: #399b39; padding-left: 3px;"></i> </ion-button>
-      </div>
-    </div>
-  </ion-row>
-</ion-grid>
+    <ion-grid class="cal">
+        <ion-row>
+            <ion-col size-md="6" size-xs="6">
+                <div class="image-link">
+                    <a (click)="gotoClass('/user/subject')">
+                        <img src="../../../assets/img/class.png" alt="go to class" id="image">
+                    </a>
+                    <h5>{{ "go_to_class" | translate }}</h5>
+                </div>
+            </ion-col>
+            <ion-col size-md="6" size-xs="6">
+                <div class="image-link">
+                    <a (click)="toastMessage('link')">
+                        <img src="../../../assets/img/contact.png" alt="Talk to a councelor" id="image">
+                    </a>
+                    <h5 style="margin-top:-8px !important">{{ "talk_to_councelor" | translate }}</h5>
+                </div>
+            </ion-col>
+            <ion-col size-md="6" size-xs="6">
+                <div class="image-link" alt="disciline Master" id="image">
+                    <a (click)="toastMessage('link')">
+                        <img src="../../../assets/img/admin.png" alt="Discipline master">
+                    </a>
+                    <h5>{{ "discipline_master" | translate}}</h5>
+                </div>
+            </ion-col>
+            <ion-col size-md="6" size-xs="6">
+                <div class="image-link">
+                    <a (click)="toastMessage('link')">
+                        <img src="../../../assets/img/shop.png" alt="buy text books" id="image">
+                    </a>
+                    <h5>{{ "buy_text_book" | translate }}</h5>
+                </div>
+            </ion-col>
+            <ion-col size-md="6" size-xs="6">
+                <div class="image-link">
+                    <a (click)="toastMessage('link')">
+                        <img src="../../../assets/img/library.png" alt="go to class" id="image">
+                    </a>
+                    <h5>{{ "school_library" | translate }}</h5>
+                </div>
+            </ion-col>
+            <ion-col size-md="6" size-xs="6">
+                <div class="image-link">
+                    <a routerLink="/public/home">
+                        <img src="../../../assets/img/calendar.png" alt="go to class" id="image">
+                    </a>
+                    <h5>{{ "time_table" | translate }}</h5>
+                </div>
+            </ion-col>
+            <!-- <div class="card" id="hide" *ngIf="show">
+                <span onclick="document.getElementById('hide').style.display='none'" class="cross" (click)="close()">&times;</span>
+                <div class="card-content">
+                    {{ "for_full_time_student" | translate }}
+                    <hr>
+                    <ion-button slot="start" color="warning" (click)="enroll()" style="font-size: 13px; text-transform: lowercase;">{{ "contact_us" | translate}} <i class="fa fa-whatsapp" style="color: #399b39; padding-left: 3px;"></i> </ion-button>
+                </div>
+            </div> -->
+        </ion-row>
+    </ion-grid>
+    <app-footer></app-footer>
 </ion-content>

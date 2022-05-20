@@ -1,31 +1,32 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="warning">
-    <ion-buttons slot="start">
-      <ion-menu-button menu="menu" class="white"></ion-menu-button>
-    </ion-buttons>
-    <ion-title><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org</ion-title><i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
-  </ion-toolbar>
-<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="menu" class="white"></ion-menu-button>
+        </ion-buttons>
+        <ion-title><b *ngIf="userInfos">{{userInfos.fullName.split(' ')[0] | uppercase}},</b> Welcome to Ohipopo.org</ion-title><i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
+    </ion-toolbar>
+    <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
 </ion-header>
 <ion-content>
-<ion-grid>
-  <ion-item>
-    <div class="alert">
-      You have not yet paid lecture fees
-    </div>
-  </ion-item>
-  <h5 class="center" style="border-top: 2px;">Select Method of Payment</h5>
-  <ion-row>
-    <ion-col *ngFor="let payment of payments" size-xs="6" size-md="6">
-      <ion-card no-padding>
-        <ion-card-header>{{ payment.name }}</ion-card-header>
-        <ion-card-content>
-          <a [routerLink]="payment.url">
-            <img [src]="payment.logo">
-          </a>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+    <ion-grid class="cal">
+        <ion-item>
+            <div class="alert">
+                You have not yet paid lecture fees
+            </div>
+        </ion-item>
+        <h5 class="center" style="border-top: 2px;">Select Method of Payment</h5>
+        <ion-row>
+            <ion-col *ngFor="let payment of payments" size-xs="6" size-md="6">
+                <ion-card no-padding>
+                    <ion-card-header>{{ payment.name }}</ion-card-header>
+                    <ion-card-content>
+                        <a [routerLink]="payment.url">
+                            <img [src]="payment.logo">
+                        </a>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <app-footer></app-footer>
 </ion-content>

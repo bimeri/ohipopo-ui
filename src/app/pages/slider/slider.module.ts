@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { SliderPageRoutingModule } from './slider-routing.module';
 
 import { SliderPage } from './slider.page';
+import { ShareModule } from 'src/app/shared/share/share.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    ShareModule,
     SliderPageRoutingModule
   ],
   declarations: [SliderPage]

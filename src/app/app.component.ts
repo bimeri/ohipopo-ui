@@ -8,7 +8,11 @@ import { timer } from 'rxjs';
 import { StorageService } from './service/storage/storage.service';
 import { ShareService } from './service/shared/share.service';
 import { BackButtonEvent } from '@ionic/core';
+import { environment } from 'src/environments/environment';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { TranslationService } from './service/translation/translation.service';
 const { App } = Plugins;
+const prefix = environment.prefix;
 
 @Component({
   selector: 'app-root',
@@ -20,66 +24,69 @@ export class AppComponent implements OnInit {
   userName: string;
   login = false;
   t0 = performance.now();
+  imageUpload: FormGroup;
   public appPages = [
     {
-      title: 'Home',
-      url: '/public/home',
+      title: this.translate.getMessage("home"),
+      url: `${prefix}/home`,
       icon: 'home'
     },
     {
-      title: 'Transactions',
-      url: '/transaction',
+      title: this.translate.getMessage("transaction"),
+      url: `${prefix}/transaction`,
       icon: 'cash'
     },
-    // {
-    //   title: 'Edit Profile',
-    //   url: '/public/profile',
-    //   icon: 'create'
-    // },
-    // {
-    //   title: 'My Downloads',
-    //   url: '/public/downloads',
-    //   icon: 'arrow-down-circle'
-    // },
-    // {
-    //   title: 'Current Subscription',
-    //   url: '/public/subscribed',
-    //   icon: 'thumbs-up'
-    // },
-    // {
-    //   title: 'Notification Center',
-    //   url: '/public/messages',
-    //   icon: 'notifications'
-    // },
-    // {
-    //   title: 'My Quiz Results',
-    //   url: '/public/quize',
-    //   icon: 'bulb'
-    // },
-    // {
-    //   title: 'Settings',
-    //   url: '/public/settings',
-    //   icon: 'settings'
-    // },
-    // {
-    //   title: 'Support',
-    //   url: '/public/supports',
-    //   icon: 'umbrella'
-    // },
-    // {
-    //   title: 'About',
-    //   url: '/public/about',
-    //   icon: 'chatbubble-ellipses'
-    // },
+    {
+      title: this.translate.getMessage("edit_profile"),
+      url: `${prefix}/profile`,
+      icon: 'create'
+    },
+    {
+      title: this.translate.getMessage("my_download"),
+      url: `${prefix}/downloads`,
+      icon: 'arrow-down-circle'
+    },
+    {
+    title: this.translate.getMessage("current_subscription"),
+      url: `${prefix}/subscribed`,
+      icon: 'thumbs-up'
+    },
+    {
+      title: this.translate.getMessage("notification_center"),
+      url: `${prefix}/messages`,
+      icon: 'notifications'
+    },
+    {
+      title: this.translate.getMessage("my_quiz"),
+      url: `${prefix}/quize`,
+      icon: 'bulb'
+    },
+    {
+      title: this.translate.getMessage("settings"),
+      url: `${prefix}/settings`,
+      icon: 'settings'
+    },
+    {
+      title: this.translate.getMessage("support"),
+      url: `${prefix}/supports`,
+      icon: 'heart'
+    },
+    {
+      title: this.translate.getMessage("about"),
+      url: `${prefix}/about`,
+      icon: 'chatbubble-ellipses'
+    },
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+  public labels = [this.translate.getMessage("family"), this.translate.getMessage("friends"), this.translate.getMessage("notes"), this.translate.getMessage("work"), this.translate.getMessage("travel"), this.translate.getMessage("reminder")];
   showSplash = true;
   hide: boolean;
   constructor(
     private platform: Platform,
     private authService: AuthenticateService,
     private router: Router,
+    private formBuilder: FormBuilder,
     private storageService: StorageService,
+    private translate: TranslationService,
     private shareService: ShareService,
     public loadingController: LoadingController) {
     this.initializeApp();
@@ -114,6 +121,7 @@ export class AppComponent implements OnInit {
   // }
 
   ngOnInit() {
+    this.imageUpload = this.formBuilder.group({});
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
@@ -140,7 +148,7 @@ export class AppComponent implements OnInit {
   async presentLoading() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Please wait...',
+      message: this.translate.getMessage("signing_out"),
       duration: 3000
     });
     await loading.present();
@@ -148,6 +156,11 @@ export class AppComponent implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
+  onFileUplaod(event){
+    const file = event.target.files[0];
+    console.log("the file", file);
+    
+  }
 
   logoutUser(){
     this.presentLoading();
@@ -159,7 +172,7 @@ export class AppComponent implements OnInit {
         this.storageService.remove('token');
         this.storageService.remove('userDetails');
         this.storageService.remove('userInfo');
-        this.authService.presentToast('success', 'logout successfully', 'bottom', 2000);
+        this.authService.presentToast('success', this.translate.getMessage("logout_success"), 'bottom', 2000);
         this.login = false;
         this.router.navigateByUrl('login');
       },

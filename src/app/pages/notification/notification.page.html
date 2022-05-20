@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button class="white" defaultHref="/public/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-spinner name="danger" class="loader"></ion-spinner>
+            <i class="fa ion-text-lg-right ion-text-md-right"></i>
+            <ion-label class="contact">{{ "Notification" }}</ion-label>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-progress-bar type="indeterminate" *ngIf="loader"></ion-progress-bar>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+        <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Loading data...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid class="cal">
+        <ion-row style="border-bottom: 0.01rem solid #8d8675; box-shadow: 4px 8px 8px 8px solid rgba(53, 49, 46, 0.5);">
+            <ion-col size-xs="12">
+                <h3 class="ion-text-center">All notifications</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding: 10px; margin-top: 5px;">
+            <ion-col size-xs="12" *ngIf="loader">
+                <ion-spinner class="spin" name="circles" color="warning"></ion-spinner>
+            </ion-col>
+            <ion-label *ngIf="message" class="message" color="warning">{{ message }}</ion-label>
+            <ion-col size-xs="12" *ngFor="let download of downloads" style="border-bottom: 0.5px solid #ccc;">
+                <ion-list>
+                    <!-- all downloaded items -->
+                    <!-- <ion-item lines="none">
+                  <ion-label class="ion-text-left i">Payment Motive:</ion-label>
+                  <ion-label class="ion-text-right i">Lecture Fees</ion-label>
+              </ion-item> -->
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <app-footer></app-footer>
+</ion-content>

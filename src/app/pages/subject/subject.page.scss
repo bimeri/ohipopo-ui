@@ -1,32 +1,54 @@
-.right{
+.right {
     text-align: right !important;
-    margin-right:5px;
+    margin-right: 5px;
 }
-.center{
+
+.center {
     text-align: center;
 }
-.pad{
+
+.pad {
     padding: 0;
     align-items: center !important;
     text-align: center;
 }
-*{
+
+* {
     overflow-y: auto;
     overflow-x: hidden;
 }
-.alert{
+
+.alert {
     color: #348a1f;
     font-size: 5vw;
     padding: 10px;
     margin-left: 10%;
 }
-input[type="checkbox"]{
+
+input[type="checkbox"] {
     font-size: 35px !important;
 }
-.check{
-    font-size: 20px !important;
+
+.alert-danger {
+    color: #d15656;
+    background-color: #ebd3d3;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
 }
-.spinner{
+
+.check {
+    font-size: 30px !important;
+}
+
+input.remove {
+    margin: 5px;
+    background-color: #d15656;
+    color: #ebd3d3;
+    border-radius: 10px;
+}
+
+.spinner {
     position: fixed;
     top: 95%;
     left: 10%;

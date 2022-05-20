@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../service/storage/storage.service';
 import { Router } from '@angular/router';
-import { Plugins } from '@capacitor/core';
 import { BackButtonEvent } from '@ionic/core';
 import { AuthenticateService } from 'src/app/service/authentication/authenticate.service';
-const { App } = Plugins;
+import { TranslationService } from 'src/app/service/translation/translation.service';
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.page.html',
   styleUrls: ['./slider.page.scss'],
 })
-export class SliderPage implements OnInit {
+export class SliderPage {
    slideOpts = {
     grabCursor: true,
     cubeEffect: {
@@ -168,21 +167,22 @@ export class SliderPage implements OnInit {
   };
   constructor(private storageService: StorageService,
               private router: Router,
+              private translate: TranslationService,
               private authService: AuthenticateService) { }
 
-  ngOnInit() {
+  ionViewDidEnter() {
     this.clickBackButton();
   }
   clickBackButton(){
     document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
       this.router.navigate(['/public/home']);
-      this.authService.presentToast('primary', 'Welcome to Ohipopo Bilingual Comprehensive Academy', 'bottom', 4000);
+      this.authService.presentToast('primary', this.translate.getMessage('ohipopo_comprehensive'), 'bottom', 4000, 'checkmark-outline');
     });
   }
 
   check(){
     this.storageService.set('check', 'checked');
-    this.authService.presentToast('primary', 'Welcome to Ohipopo Bilingual Comprehensive Academy', 'bottom', 4000);
+    this.authService.presentToast('primary', this.translate.getMessage('ohipopo_comprehensive'), 'bottom', 4000, 'checkmark-outline');
     this.router.navigateByUrl('public/home');
 
   }

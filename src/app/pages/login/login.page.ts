@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { Plugins } from '@capacitor/core';
 import { BackButtonEvent } from '@ionic/core';
+import { TranslationService } from 'src/app/service/translation/translation.service';
 const { App } = Plugins;
 
 @Component({
@@ -26,6 +27,7 @@ export class LoginPage implements OnInit {
               private handleService: HandleErrorService,
               public navCtrl: NavController,
               private router: Router,
+              private translate: TranslationService,
               private shareService: ShareService,
               private storageService: StorageService) { }
 
@@ -89,14 +91,15 @@ tryLogin(){
        this.loading = false;
 
        if (response === 'IS_LOGGED_IN') {
-         this.authenticateService.presentToast('danger', 'Some body is currently logged in with your account, two people can\'t access one account', 'top', 7000);
+         this.authenticateService.presentToast('danger', this.translate.getMessage('some_body_login'), 'top', 7000, 'alert-circle-ouline');
          return;
        }
        this.storageService.setObject('userInfo', response[0].userInfo);
        this.storageService.setObject('userDetails', response[1].userDetails);
        this.storageService.setObject('token', response.accessToken);
+       this.storageService.setObject('free', response.free);
        this.storageService.setObject('expire', (response.expires_at));
-       this.authenticateService.presentToast('success', 'Login Successfully. Welcome ' + response[0].userInfo.fullName + '', 'top', 4000);
+       this.authenticateService.presentToast('success', this.translate.getMessage('welcome_login') + response[0].userInfo.fullName + '', 'top', 4000, 'checkmark-outline');
        this.shareService.emitUserInfo(response[1].userDetails, response[0].userInfo);
 
        this.storageService.get('check').then(
@@ -116,6 +119,10 @@ tryLogin(){
        this.loading = false;
      }
    );
+  }
+
+  ngAfterViewInit(){
+    this.ngOnInit();
   }
 
   public OpenListing() {

@@ -68,12 +68,4 @@ remove(key: string) {
   this.storage.clear();
   }
 
-  removeElements(){
-    this.storage.remove('allSubject');
-    this.storage.remove('userSubject');
-    this.storage.remove('expire');
-    this.storage.remove('token');
-    this.storage.remove('userInfo');
-  }
-
 }

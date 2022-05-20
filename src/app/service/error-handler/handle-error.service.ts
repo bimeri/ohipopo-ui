@@ -3,38 +3,40 @@ import { Router } from '@angular/router';
 import { AuthenticateService } from '../authentication/authenticate.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
+import { TranslationService } from '../translation/translation.service';
 
 @Injectable()
 export class HandleErrorService {
 
   constructor(private authenticateService: AuthenticateService,
               private router: Router,
+              private translate: TranslationService,
               private storageService: StorageService) { }
 
   errorResponses(error: HttpErrorResponse){
     console.log('the error fron handler service', error);
     if (!(error && Object.keys(error).length === 0)) {
       if (error.status === 0) {
-        this.authenticateService.presentToast('secondary', 'Oops! you are offline, please check your internet connection', 'top', 5000);
+        this.authenticateService.presentToast('secondary', this.translate.getMessage('offline_message'), 'top', 6000, 'warning-outline');
       }
       if (error.status === 401 || error.error.message === 'Unauthenticated') {
-        this.authenticateService.presentToast('danger', 'user not authorize to perform this task', 'top', 5000);
-        this.storageService.removeElements();
+        this.authenticateService.presentToast('danger', this.translate.getMessage('not_authorized'), 'top', 5000, 'alert-circle-outline');
+        this.storageService.clear();
         this.router.navigate(['/login']);
       }
       if (error.status === 406) {
-        this.authenticateService.presentToast('danger', 'fail to login. Invalid user credentials', 'top', 4000);
+        this.authenticateService.presentToast('danger', this.translate.getMessage('invalid_credentials'), 'top', 4000, 'alert-circle-outline');
       }
       if (error.status === 500) {
-        this.authenticateService.presentToast('danger', 'Please the server cannot be access at this time, try later', 'top', 5000);
+        this.authenticateService.presentToast('danger', this.translate.getMessage('server_error'), 'top', 5000, 'alert-circle-outline');
       }
       if (error.status === 404) {
         this.authenticateService.presentToast('danger',
-                                              'Oops! the page could not be found from the server, please contact th admin',
-                                              'top', 8000);
+                                              this.translate.getMessage('page_not_found'),
+                                              'top', 8000, 'alert-circle-outline');
       }
       if (error.status === 422) {
-        this.authenticateService.presentToast('danger', 'fail to login. All the field are required', 'top', 500);
+        this.authenticateService.presentToast('danger', this.translate.getMessage('login_fail'), 'top', 1000, 'alert-circle-outline');
       }
     }
   }

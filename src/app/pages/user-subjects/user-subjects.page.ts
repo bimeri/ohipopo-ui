@@ -36,6 +36,7 @@ length: number;
               public loadingController: LoadingController,
               public domSanitizer: DomSanitizer,
               private shareService: ShareService) {
+                this.loading = true;
                 this.shareService.$success.subscribe(data => {
                   if (data) {
                     this.success = true;
@@ -50,11 +51,20 @@ length: number;
               });
               }
 
-  ngOnInit() {
-    this.loading = true;
+    ngOnInit(): void {
+      this.loading = true;
+    }
+
+    ionViewDidEnter() {
     this.getUserId();
     this.backButton();
   }
+
+  ngAfterViewInit() {
+    this.ionViewDidEnter();
+  }
+
+
   backButton(){
     document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
       this.router.navigate(['/public/home']);
@@ -64,7 +74,7 @@ length: number;
   getUserId(){
     this.storageService.getObject('userDetails').then(result => {
       if (result != null) {
-        this.getUsersSubjects( result.user_id);
+        this.getUsersSubjects(result.user_id);
       }
       }).catch(e => {
       return e;
@@ -73,49 +83,58 @@ length: number;
 
   checkPayment(subid){
     this.loading = true;
-    this.storageService.getObject('userDetails')
-    .then(res => {
-      const result: UserDetail = res;
-      this.success = false;
-      this.fail = false;
-      this.loading = false;
-      const currentDate =  Math.ceil(new Date().getTime() / 1000);
-      const expireDate =  Number(result.deadLine);
-      if (result.deadLine === null) {
-            this.router.navigate(['payment']);
-          } else {
-            if (result.paid_amount > 0 && currentDate > expireDate) {
+    // check id its free is true
+    this.storageService.getObject("free").then(
+      response => {
+        if(response){
+          this.router.navigate(['video-view', subid]);
+        } else {
+          this.storageService.getObject('userDetails').then(res => {
+        const result: UserDetail = res;
+        this.success = false;
+        this.fail = false;
+        this.loading = false;
+        const currentDate =  Math.ceil(new Date().getTime() / 1000);
+        const expireDate =  Number(result.deadLine);
+        if (result.deadLine === null) {
+              this.router.navigate(['payment']);
+              // this.router.navigate(['video-view', subid]);
+            } else {
+              if (result.paid_amount > 0 && currentDate > expireDate) {
                   this.router.navigate(['payment']);
-                } else {
-                  this.router.navigate(['video-view', subid]);
-                }
-          }
-      }).catch(e => {});
+                  // this.router.navigate(['video-view', subid]);
+                  } else {
+                    this.router.navigate(['video-view', subid]);
+                  }
+            }
+          }).catch(e => {});
+        }
+      }
+    ).catch(e => console.log(e));
   }
 
   getUsersSubjects(uid){
-    // this.presentLoading();
     this.storageService.getObject('userSubject').then(
       response => {
         if (!response || response.length === 0) {
           this.userService.getUserRegisteredSubject(uid).subscribe(
             (result: any) => {
-              this.storageService.setObject('userSubject', result);
-              this.subjects = result;
-              this.length = result.length;
-              this.loading = false;
               if (result.length === 0) {
                 this.router.navigate(['subject/all']);
               }
+              this.storageService.setObject('userSubject', result);
+              this.subjects = result;
+              this.length = result.length;
             },
             (error: any) => {
               this.handlerService.errorResponses(error);
-              this.loading = false;
             }
           );
+          this.loading = false;
           return;
         }
         this.subjects = response;
+        
         this.length = response.length;
         this.loading = false;
         if (Object.keys(response).length === 0) {

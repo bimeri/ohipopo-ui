@@ -5,11 +5,13 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './not-found.page.html',
   styleUrls: ['./not-found.page.scss'],
 })
-export class NotFoundPage implements OnInit {
+export class NotFoundPage {
 
   constructor() { }
 
-  ngOnInit() {
+  ionViewDidEnter() {
   }
-
+  ngAfterViewInit(){
+    this.ionViewDidEnter();
+  }
 }

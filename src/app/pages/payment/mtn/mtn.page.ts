@@ -12,7 +12,7 @@ import { HandleErrorService } from '../../../service/error-handler/handle-error.
   templateUrl: './mtn.page.html',
   styleUrls: ['./mtn.page.scss'],
 })
-export class MtnPage implements OnInit {
+export class MtnPage {
 user: User;
 spinner: boolean;
 disable = false;
@@ -23,7 +23,7 @@ disable = false;
               private authService: AuthenticateService,
               private errorhandle: HandleErrorService) { }
 
-  ngOnInit(): void {
+    ionViewDidEnter() {
     this.storageService.getObject('userInfo').then(result => {
       if (result != null) {
         this.user = result;
@@ -32,6 +32,10 @@ disable = false;
       console.log('error: ', e);
       return e;
       });
+  }
+
+  ngAfterViewInit(){
+    this.ionViewDidEnter();
   }
 
   makePayment(phone, userName){

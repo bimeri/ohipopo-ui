@@ -1,12 +1,11 @@
-<ion-header color="warning">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button color="primary" defaultHref="/public/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>not-found</ion-title>
-  </ion-toolbar>
+<ion-header class="color">
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-back-button class="white" defaultHref="/public/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ "not_found" | translate }}</ion-title>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+    <app-footer></app-footer>
 </ion-content>

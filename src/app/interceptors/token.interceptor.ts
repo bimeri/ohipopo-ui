@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { StorageService } from '../service/storage/storage.service';
 import { AuthenticateService } from '../service/authentication/authenticate.service';
 import { Router } from '@angular/router';
+import { TranslationService } from '../service/translation/translation.service';
 
 @Injectable()
 export class InterceptorProvider implements HttpInterceptor {
@@ -16,6 +17,7 @@ export class InterceptorProvider implements HttpInterceptor {
     constructor(private alertCtrl: AlertController,
                 private storageService: StorageService,
                 private authenticateService: AuthenticateService,
+                private translate: TranslationService,
                 private router: Router) { }
 
     // Intercepts all HTTP requests!
@@ -42,21 +44,21 @@ export class InterceptorProvider implements HttpInterceptor {
                         const status = error.status;
                         let reason = error.error.message;
                         if (status === 0) {
-                            this.authenticateService.presentToast('secondary', 'Oops! you are offline, please check your internet connection', 'top', 6000);
+                            this.authenticateService.presentToast('secondary', this.translate.getMessage('offline_message'), 'top', 6000, 'warning-outline');
                           }
                         if (status === 422) {
-                            if (error.error.message === 'The given data was invalid.') {
-                                 reason = 'the user name has been taken already. please enter another one';
+                            if (error.error.message === this.translate.getMessage('invalid_data')) {
+                                 reason = this.translate.getMessage('user_name_taken');
                             } else{
-                                this.authenticateService.presentToast('secondary', 'Oops! you are offline, please check your internet connection', 'top', 6000);
+                                this.authenticateService.presentToast('secondary', this.translate.getMessage('offline_message'), 'top', 6000);
                             }
                           }
                         if (status < 299){
                             return throwError(error);
                         } else {
                         if (status === 401) {
-                            this.authenticateService.presentToast('danger', 'user not authorize to perform this task', 'top', 5000);
-                            this.storageService.removeElements();
+                            this.authenticateService.presentToast('danger', this.translate.getMessage('not_authorized'), 'top', 5000, 'alert-circle-outline');
+                            this.storageService.clear();
                             this.router.navigate(['/login']);
                         }
                         this.presentAlert(status, reason);
@@ -70,14 +72,14 @@ export class InterceptorProvider implements HttpInterceptor {
     async presentAlert(status, reason) {
         let mess = reason;
         if (status >= 406 && status !== 422) {
-            mess = 'Wrong user\'s Credentials';
+            mess = this.translate.getMessage('wrong_credentials');
        }
         if (status >= 500) {
-             mess = 'Server error please contact Ohipopo.org at 237652137960';
+             mess = this.translate.getMessage('contact_ohipopo');
         }
         const alert = await this.alertCtrl.create({
-            header: ' Error',
-            subHeader: 'Fail to authenticate user',
+            header: this.translate.getMessage('error'),
+            subHeader: this.translate.getMessage('fail_to_authenticate'),
             message: mess,
             buttons: ['OK']
         });

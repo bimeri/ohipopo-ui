@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { environment } from 'src/environments/environment';
@@ -8,13 +8,16 @@ import { Video } from 'src/app/model/video';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { BackButtonEvent } from '@ionic/core';
+import { TranslationService } from 'src/app/service/translation/translation.service';
+import { StorageService } from 'src/app/service/storage/storage.service';
 
 @Component({
   selector: 'app-video-view',
   templateUrl: './video-view.page.html',
   styleUrls: ['./video-view.page.scss'],
 })
-export class VideoViewPage implements OnInit {
+export class VideoViewPage {
   @ViewChild('slides', { static: false }) slider: IonSlides;
   selectedSlide: any;
   segment = 0;
@@ -43,9 +46,13 @@ export class VideoViewPage implements OnInit {
               private userService: UserService,
               private errorHandle: HandleErrorService,
               private authenticationService: AuthenticateService,
+              private router: Router,
+              public storageService: StorageService,
+              private translate: TranslationService,
               public donSanitizer: DomSanitizer,
               private socialSharing: SocialSharing) { }
-  ngOnInit() {
+  ionViewDidEnter() {
+    this.loader = true;
     this.activateRoute.paramMap.subscribe(
       paramMap => {
         if (!paramMap.has('topicId')){
@@ -55,27 +62,52 @@ export class VideoViewPage implements OnInit {
         this.subjectId = parseInt(paramMap.get('topicId'));
       }
     ).unsubscribe();
-    this.getTopics(this.subjectId);
+    this.storageService.getObject("subjectId_" + this.subjectId).then(
+      result => {
+        if(!result) {
+          this.getTopics(this.subjectId);
+        } else {
+          this.setSubjectsViewDetail(result);
+        }
+      }
+    ).catch(error => { console.log("error getting subjects, root cause: ", error);
+    });
+    
+    this.backButton();
+  }
+
+  ngAfterViewInit(){
+    this.ionViewDidEnter();
+  }
+
+  backButton(){
+    document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {
+      this.router.navigate(['/user/subject']);
+    });
   }
 
   getTopics(subjectId){
     this.userService.getAllSubjectsTopicById(subjectId).subscribe(
-      (response: any) => {
-
-        this.loader = false;
-        this.allTopics = response[0];
-        this.videos = response[1];
-        this.videoLength = response[1].length === 0;
-        this.subjectName = response[2].name;
-        this.subjectAuthor = response[2].author;
-        this.defaultUrl = response[2].url;
-        this.logo = `${environment.base_url}/${response[2].logo}`;
+      (response: any) => {   
+        response[1].length === 0? null : this.storageService.setObject("subjectId_" + this.subjectId, response);
+        this.setSubjectsViewDetail(response);
       },
       (error: any) => {
         this.loader = false;
         this.errorHandle.errorResponses(error);
       }
     );
+  }
+
+  setSubjectsViewDetail(response: any){
+        this.allTopics = response[0];
+        this.videos = response[1];
+        this.videoLength = response[1].length === 0;
+        this.subjectName = response[2][0].name;
+        this.subjectAuthor = response[2][0].author;
+        this.defaultUrl = response[2][0].url;
+        this.logo = response[2][0].logo;
+        this.loader = false;
   }
 
   playVideo(url: string, videoName: string, vid: number, likes: number, dislike: number, totalView: number){
@@ -128,17 +160,17 @@ export class VideoViewPage implements OnInit {
     this.load = true;
     if (!this.vIdLike) {
       this.load = false;
-      this.authenticationService.presentToast('warning', 'No video selected', 'bottom', 2000);
+      this.authenticationService.presentToast('warning', this.translate.getMessage('no_video_selected'), 'bottom', 2000);
       return;
     }
     this.userService.studentLikeVideo(this.vIdLike, status).subscribe(
       result => {
         if (result === 'SAVED') {
-          this.authenticationService.presentToast('success', 'Saved sucessfully', 'bottom', 2000);
+          this.authenticationService.presentToast('success', this.translate.getMessage('save_success'), 'bottom', 2000);
           this.countLikesAndDislike(this.vIdLike);
         }
         if (result === 'UPDATED') {
-          this.authenticationService.presentToast('secondary', 'Updated successfully', 'bottom', 2000);
+          this.authenticationService.presentToast('secondary', this.translate.getMessage('update_success'), 'bottom', 2000);
           this.countLikesAndDislike(this.vIdLike);
         }
         this.load = false;
@@ -163,8 +195,8 @@ export class VideoViewPage implements OnInit {
     );
   }
 
- async segmentchange(evt){
-   await this.selectedSlide.slideTo(this.segment);
+ async segmentchange(evt){   
+   await this.selectedSlide.slideTo(evt.target.value);
   }
 
  slideChanged(slides: IonSlides){
@@ -175,9 +207,9 @@ export class VideoViewPage implements OnInit {
   }
 
   share(){
-    this.socialSharing.share('Hey there! I am studying online with Ohipopo. Can you join me? Download the Ohipopo App on playstore',
+    this.socialSharing.share(this.translate.getMessage('social_sharing_message'),
                               'ohipopo.org', '',
-                              'https://play.google.com/store/apps')
+                              'https://play.google.com/store/apps/details?id=com.ohipopo.app')
                               .then(() => { }).catch(() => {});
   }
 }

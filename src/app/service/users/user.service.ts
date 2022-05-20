@@ -15,12 +15,12 @@ pathDir = `${environment.base_url}/${environment.auth_path}`;
     return this.http.get<any>(`${this.pathDir}/user/subject?userId=${userId}`);
   }
 
-  getUserDetailByUserId(userId: number){
-    return this.http.get<any>(`${this.pathDir}/user/detail?userId=${userId}`);
-  }
-  getUserDetailBy(){
-    return this.http.get<any>(`${this.pathDir}/user/paymentDetal`);
-  }
+  // getUserDetailByUserId(userId: number){
+  //   return this.http.get<any>(`${this.pathDir}/user/detail?userId=${userId}`);
+  // }
+  // getUserDetailBy(){
+  //   return this.http.get<any>(`${this.pathDir}/user/paymentDetal`);
+  // }
 
   getAllSubjectsTopicById(subjectId: number){
     return this.http.get<any>(`${this.pathDir}/subject/topics?subjectId=${subjectId}`);

@@ -1,33 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticateService } from '../../service/authentication/authenticate.service';
 import { UserService } from '../../service/users/user.service';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { StorageService } from '../../service/storage/storage.service';
 import { Router } from '@angular/router';
 import { BackButtonEvent } from '@ionic/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ModalPageComponent } from 'src/app/components/modal-page/modal-page.component';
-
+import { TranslationService } from 'src/app/service/translation/translation.service';
+import { Subscription } from 'rxjs';
+// import { log } from 'console';
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.page.html',
   styleUrls: ['./welcome.page.scss'],
 })
-export class WelcomePage implements OnInit {
+export class WelcomePage implements OnInit, OnDestroy  {
   levelName: string = null;
   userType: boolean;
-  dates = new Date();
   show: boolean;
   loader = true;
+  dates = new Date();
+  intervalId;
+  subscription: Subscription;
   constructor(private authenticationService: AuthenticateService,
               private userService: UserService,
               private errorHandle: HandleErrorService,
               private storageService: StorageService,
               private router: Router,
-              public modalController: ModalController) { }
+              private alertCtrl: AlertController,
+              private translate: TranslationService,
+              public modalController: ModalController) { this.loader = true; }
 
   ngOnInit(): void {
-    this.show = false;
+    this.intervalId = setInterval(() => {
+      this.dates = new Date();
+    });
+  }
+
+  ngOnDestroy(){
+    clearInterval(this.intervalId);
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+  }
+
+  ionViewDidEnter() {
+    this.loader = true;    
     this.storageService.getObject('userDetails')
     .then(result => {
       if (Object.keys(result).length !== 0) {
@@ -37,6 +56,10 @@ export class WelcomePage implements OnInit {
       }).catch(e => {});
     this.authenticationService.isLogin();
     this.clickBackButton();
+  }
+
+  ngAfterViewInit(){
+    this.ionViewDidEnter();
   }
 
   clickBackButton(){
@@ -56,21 +79,9 @@ export class WelcomePage implements OnInit {
           this.userService.getAllSubject(levelId).subscribe(
             (response: any) => {
               this.storageService.setObject('allSubject', response);
-              if (response.levelName === 'aLevelScience') {
-               this.levelName = 'Advanced Level Science';
-               this.loader = false;
-              }
-              else if (response.levelName === 'aLevelArt') {
-               this.levelName = 'Advanced Level Art';
-               this.loader = false;
-              }
-              else if (response.levelName === 'oLevel') {
-               this.levelName = 'Ordinary Level';
-               this.loader = false;
-              }
+              response.levelName === 'aLevelScience' ? (this.levelName = 'A-Level Science'): (response.levelName === 'aLevelArt' ? (this.levelName = 'A-Level Art') : (this.levelName = 'Ordinary Level'));
               if (response.typeName === 'partTime') {
                 this.userType = true;
-                this.loader = false;
               }
             },
             (err: any) => {
@@ -78,20 +89,10 @@ export class WelcomePage implements OnInit {
               this.loader = false;
             }
           );
+          this.loader = false;
           return;
          }
-         if (subject.levelName === 'aLevelScience') {
-                this.levelName = 'Advanced Level Science';
-                this.loader = false;
-               }
-            else if (subject.levelName === 'aLevelArt') {
-            this.levelName = 'Advanced Level Art';
-            this.loader = false;
-            }
-            else if (subject.levelName === 'oLevel') {
-            this.levelName = 'Ordinary Level';
-            this.loader = false;
-            }
+         subject.levelName === 'aLevelScience' ? (this.levelName = 'A-Level Science'): (subject.levelName === 'aLevelArt' ? (this.levelName = 'A-Level Art') : (this.levelName = 'Ordinary Level'));
          if (subject.typeName === 'partTime') {
               this.userType = true;
               this.loader = false;
@@ -103,16 +104,17 @@ export class WelcomePage implements OnInit {
 
    toastMessage(type: string){
      if (this.userType) {
-       this.authenticationService.presentToast('danger', 'Available only for Full Time Students', 'bottom', 2500);
+      this.alertDisplay();
+       this.authenticationService.presentToast('danger', this.translate.getMessage("available_for_parttime"), 'bottom', 2500, 'alert-circle-outline');
        this.show = true;
      } else {
-      this.authenticationService.presentToast('tertiary', 'Coming soon...', 'bottom', 1000);
+      this.authenticationService.presentToast('tertiary', this.translate.getMessage("comming_soon"), 'bottom', 1000, 'code-outline');
      }
      return;
    }
 
    notification(){
-     this.authenticationService.presentToast('secondary', 'You don\'t have any new notification', 'bottom', 10000, 'notifications');
+     this.authenticationService.presentToast('secondary', this.translate.getMessage("no_notification"), 'bottom', 10000, 'notifications');
    }
 
    close(){
@@ -131,10 +133,24 @@ export class WelcomePage implements OnInit {
     return await modal.present();
   }
 
+  async alertDisplay() {
+    const alert = await this.alertCtrl.create({
+        header: this.translate.getMessage('service_not_found'),
+        subHeader: this.translate.getMessage('for_full_time_student'),
+        message: this.translate.getMessage('contact_us'),
+        buttons: ['OK']
+    });
+    await alert.present();
+}
+
    doRefresh(event) {
     setTimeout(() => {
       window.location.reload();
       event.target.complete();
     }, 2000);
+  }
+
+  onClick(route: string){
+    this.router.navigate([route]);
   }
 }

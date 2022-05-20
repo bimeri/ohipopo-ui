@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button class="white" defaultHref="/public/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-spinner name="danger" class="loader"></ion-spinner>
+            <i class="fa ion-text-lg-right ion-text-md-right"></i>
+            <ion-label class="contact">{{ "about" | translate }}</ion-label>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-progress-bar type="indeterminate" *ngIf="loader"></ion-progress-bar>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+        <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="{{ 'pull_refresh' | translate}}" refreshingSpinner="circles" refreshingText="{{'loading_data' | translate}}">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid class="cal">
+        <ion-row style="border-bottom: 0.01rem solid #8d8675; box-shadow: 4px 8px 8px 8px solid rgba(53, 49, 46, 0.5);">
+            <ion-col size-xs="12">
+                <h2 class="ion-text-center" style="color: #302b2b91; font-style: italic;">“{{"creative_power"|translate}} ”</h2>
+                <p style="text-align: center;">Apostle Divine C. Okafor, {{"founder"|translate}} LTM int.</p>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding: 10px; margin-top: 5px;">
+            <ion-col size-xs="12" style="border-bottom: 0.5px solid #a1a0a0;">
+                <h3 style="text-align: center;">{{ who_are_we | uppercase }}</h3>
+                <p class="text">{{ "description_one" | translate }}.</p>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding: 10px; margin-top: 5px;">
+            <ion-col size-xs="12" style="border-bottom: 0.5px solid #a1a0a0;">
+                <h3 style="text-align: center;">{{ who_are_we_for | uppercase }}</h3>
+                <p class="text">{{"description_two"|translate}}.</p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <app-footer></app-footer>
+</ion-content>

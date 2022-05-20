@@ -1,42 +1,60 @@
-<ion-header>
-  <ion-toolbar color="warning">
-    <ion-buttons slot="start">
-      <ion-menu-button menu="menu" class="white"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{ levelName }}</ion-title> <i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
-  </ion-toolbar>
+<ion-header style="overflow-y: hidden;">
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start">
+            <ion-menu-button menu="menu" class="white"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{ userName }}</ion-title> <i class="fa fa-ellipsis-v e-v ion-text-lg-right ion-text-md-right"></i>
+    </ion-toolbar>
 </ion-header>
 <ion-progress-bar color="primary" type="indeterminate" *ngIf="loader"></ion-progress-bar>
-
-<ion-grid style="width: 100% !important; background-color: #ffcc00">
-  <div class="pad">
-    <img src="../../../assets/img/newLogo.png" width="210" class="logo">
-    <h5 class="center"> {{ levelName }}/Select your Subjects</h5>
-  </div>
-  <hr style="border-top: 1px solid #49483d;">
-<h6 *ngIf="!subjectCheck">Seleted <b>{{ count }}</b></h6>
-<form *ngIf="!subjectCheck">
-  <!-- {{ selectedSubject.value | json }} -->
-  <div *ngIf="spinner" class="spinner">
-    <ion-spinner name="lines"></ion-spinner>
-  </div>
-  <ion-row *ngFor="let subject of subjects">
-      <ion-col size-md="6" size-xs="6">
-        <img src="{{ apiDir }}/{{ subject.logo }}" style="border-radius: 10px;">
-      </ion-col>
-      <ion-col size-md="6" size-xs="6">
-        <p><b style="padding-bottom: 5px; font-size: 18px;">{{ subject.name }}</b><br> {{ subject.author }} <br> {{ subject.topic }} topics</p>
-        <div class="right" >
-          <input type="checkbox" name="options" color="primary" (click)="pushId(subject.id)" class="check">
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+        <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="{{ 'pull_refresh' | translate }}" refreshingSpinner="circles" refreshingText="{{ 'loading_data' | translate}}">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid style="width: 100% !important; background-color: #dee8fc;">
+        <div class="pad">
+            <img src="../../../assets/img/newLogo.png" width="210" class="logo">
+            <h5 class="center">{{"selected_subjects"|translate}}</h5>
         </div>
-      </ion-col>
-      <hr style="border-top: 1px solid #f7f6eb; width: 100%;">
-  </ion-row>
-  <ion-row>
-    <ion-label class="alert" style="align-items: center; text-align: center;">You seleted a total of <b>{{ count }} </b> {{ count == 0 ||  count == 1 ? 'subject':'subjects' }} </ion-label>
-    <ion-col size-xs="6" offset-xs="3">
-      <ion-button color="primary" style="width: 100%; align-items: center; text-align: center;" [disabled]="count==0 || spinner" (click)="submitValue()">Submit</ion-button>
-    </ion-col>
-  </ion-row>
-</form>
-</ion-grid>
+        <hr style="border-top: 1px solid #49483d;">
+        <ion-row style="background-color: rgba(22, 21, 20, 0.664)">
+            <ion-col size="8">
+                <h6 *ngIf="!subjectCheck" style="color: #dee8fc; float: left !important;"><b>{{subjectCount}} {{ levelName }} {{"label_subjects"|translate}}</b></h6>
+            </ion-col>
+            <ion-col size="4">
+                <h6 *ngIf="!subjectCheck" style="color: #dee8fc; float: right !important;">{{"selected"|translate}} <b>{{ count }}</b></h6>
+            </ion-col>
+        </ion-row>
+        <ion-row class="alert-danger" *ngIf="message">
+            {{message}}
+        </ion-row>
+        <hr style="border-top: 1px solid #49483d;">
+        <form *ngIf="!subjectCheck" style="background-color: #ffcc00; min-height: 400px;">
+            <!-- {{ selectedSubject.value | json }} -->
+            <ion-row *ngFor="let subject of subjects">
+                <ion-col size-md="6" size-xs="6">
+                    <img [src]="donSanitizer.bypassSecurityTrustUrl(subject.img)" style="border-radius: 10px;">
+                </ion-col>
+                <ion-col size-md="6" size-xs="6">
+                    <p><b style="padding-bottom: 5px; font-size: 18px;">{{ subject.name }}</b><br> {{ subject.author }} <br> {{ subject.topic }} {{"topics"|translate}}</p>
+                    <div class="right" style="margin-top: -9% !important">
+                        <input type="checkbox" name="options" color="primary" id="DD{{subject.id}}" (click)="pushId(subject.id, $event.target.checked)" class="check" [attr.disabled]="maximumSubject == count ? true:null">
+                        <input type="button" fill="outline" name="remove" (click)="pushId(subject.id, false)" value="{{'remove'|translate}}" class="remove" *ngIf="maximumSubject == count && newArrray.includes(subject.id)">
+                    </div>
+                </ion-col>
+                <hr style="border-top: 1px solid #f7f6eb; width: 100%;">
+            </ion-row>
+            <ion-row>
+                <ion-label class="alert" style="align-items: center; text-align: center;">{{ "selected_total_of" | translate }} <b>{{ count }} </b> {{ count == 0 || count == 1 ? label_subject : label_subjects }} </ion-label>
+                <ion-col size-xs="12">
+                    <ion-button color="primary" style="width: 100%; align-items: center; text-align: center;" [disabled]="count==0" *ngIf="!spinner" (click)="submitValue()">{{"submit"|translate}}</ion-button>
+                    <ion-button class="right" *ngIf="spinner" style="width: 100%; align-items: center; text-align: center;">
+                        <ion-spinner name="crescent"></ion-spinner>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </form>
+    </ion-grid>
+    <app-footer></app-footer>
+</ion-content>

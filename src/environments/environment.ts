@@ -5,8 +5,9 @@
 
 export const environment = {
   production: false,
-  base_url: ' https://ohipopo.org/ohipopo-mobile/public',
-  auth_path: 'api/auth'
+  base_url: ' http://127.0.0.1:8000',
+  auth_path: 'api/auth',
+  prefix:'/public'
 };
 
 /*

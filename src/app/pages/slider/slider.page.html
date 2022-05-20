@@ -1,34 +1,39 @@
 <ion-content fullscreen class="ion-no-padding" scroll-y="false">
-  <ion-slides  pager="true" [options]="slideOpts">
+    <ion-slides pager="true" [options]="slideOpts">
 
-    <ion-slide>
-      <div class="slide">
-        <img src="../../../assets/img/slide1.png"/>
-        <h2>Welcome</h2>
-        <p class="white"><b>To Ohipopo Bilingual Comprehensive Academy</b>. Start building your carrier for a better success</p>
-      </div>
-    </ion-slide>
+        <ion-slide>
+            <div class="slide">
+                <img src="../../../assets/img/slide1.png" />
+                <h2>{{ "welcome" | translate }}</h2>
+                <p class="white"><b>{{ "welcome_to_ophipopo" | translate }}</b>. {{ "start_building_career" | translate }}</p>
+            </div>
+        </ion-slide>
 
-    <ion-slide>
-      <img src="../../../assets/img/slide2.png"/>
-      <h2>What is Ohipopo?</h2>
-      <p class="white"><b>Not only about School</b>, Ohipopo is more than fun, an open school 100% students requirement and live talk to us. Age has no barrier in studies. the sky be our limit</p>
-    </ion-slide>
+        <ion-slide>
+            <img src="../../../assets/img/slide2.png" />
+            <h2>{{ "what_is_ohipopo" | translate }}</h2>
+            <p class="white"><b>{{ "not_only_school" | translate }}</b>, {{ "ohips_more_than_studies" | translate }}</p>
+        </ion-slide>
 
-    <ion-slide>
-      <img src="../../../assets/img/slide3.png"/>
-      <h2>Learning right at your door?</h2>
-      <p class="white"><b>Only with Ohipopo</b>, study with ohipopo where ever you are, just download the app and keep going. </p>
-    </ion-slide>
+        <ion-slide>
+            <img src="../../../assets/img/slide3.png" />
+            <h2>{{ "learn_at_door" | translate }}</h2>
+            <p class="white"><b>{{ "only_with_ohipopo" | translate }}</b>,{{ "study_with_ohipopo" | translate }}</p>
+        </ion-slide>
 
-    <ion-slide>
-      <img src="../../../assets/img/newLogo.png"/>
-      <h2>Ready to Play?</h2>
-      <ion-button fill="clear" (click)="check()">Continue <ion-icon slot="end" name="arrow-forward"></ion-icon></ion-button>
-    </ion-slide>
+        <ion-slide>
+            <img src="../../../assets/img/newLogo.png" />
+            <h2>{{ "ready_to_learn" | translate }}</h2>
+            <ion-button fill="clear" (click)="check()">{{ "continue" | translate }}
+                <ion-icon slot="end" name="arrow-forward"></ion-icon>
+            </ion-button>
+            <!-- <ion-icon slot="end" class="white" style="font-size: 8rem; align-items: center;" name="book"></ion-icon> -->
+        </ion-slide>
 
-  </ion-slides>
-  <ion-label>
-    <a class="btn" (click)="check()">skip >></a>
-  </ion-label>
+    </ion-slides>
+    <!-- <ion-label>
+        <ion-button fill="clear" class="btn" (click)="check()">skip >>>
+            <ion-icon slot="end" color="primary" name="book"></ion-icon>
+        </ion-button>
+    </ion-label> -->
 </ion-content>

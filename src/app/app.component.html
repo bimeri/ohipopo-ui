@@ -1,40 +1,46 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay" menuId="menu" *ngIf="login">
-      <img src="../assets/img/newLogo.png" height="220px" width="100%" style="border-bottom: 1px solid #ccc">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>hello,<em *ngIf="userName">&nbsp;&nbsp;{{ userName }}</em></ion-list-header>
-          <ion-note>Ohipopo Bilingual Comprehensive Academy </ion-note>
+    <ion-split-pane contentId="main-content">
+        <ion-menu contentId="main-content" type="overlay" menuId="menu" *ngIf="login">
+            <img src="../assets/img/newLogo.png" height="220px" width="100%" style="border-bottom: 1px solid #ccc">
+            <!-- <form [formGroup]="imageUpload">
+                <ion-item height="220px" width="100%" style="border-bottom: 1px solid #ccc">
+                    <ion-label position="">select file</ion-label>
+                    <ion-input name="file" (change)="onFileUplaod($event)" type="file" #selectFile></ion-input>
+                </ion-item>
+            </form> -->
+            <ion-content>
+                <ion-list id="inbox-list">
+                    <ion-list-header>{{ "hello" | translate}},<em *ngIf="userName">&nbsp;&nbsp;{{ userName }}</em></ion-list-header>
+                    <ion-note>Ohipopo Bilingual Comprehensive Academy </ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          <ion-item (click)="navigateTo()" routerDirection="root" lines="none" detail="false">
-            <ion-icon slot="start" ios="logo-whatsapp" md="logo-whatsapp" style="color: #4edb4e;"></ion-icon>
-            <ion-label>Talk to us</ion-label>
-          </ion-item>
-        </ion-list>
+                    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+                        <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
+                            <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+                            <ion-label>{{ p.title }}</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-item (click)="navigateTo()" routerDirection="root" lines="none" detail="false">
+                        <ion-icon slot="start" ios="logo-whatsapp" md="logo-whatsapp" style="color: #4edb4e;"></ion-icon>
+                        <ion-label>{{ "talk_to_us" | translate }}</ion-label>
+                    </ion-item>
+                </ion-list>
 
-        <!-- <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list> -->
-        <ion-menu-toggle auto-hide="false" *ngIf="login">
-          <ion-item (click)="logoutUser()" routerDirection="root" lines="none" detail="false" class="logout">
-            <ion-label>Logout &nbsp;&nbsp;
-            <i class="fa fa-sign-out" style="color: #d45656; font-size: 18px;"></i>
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
-</ion-app>\
+                <ion-list id="labels-list">
+                    <ion-list-header>{{ "tags" | translate }}</ion-list-header>
+                    <ion-item *ngFor="let label of labels" lines="none">
+                        <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
+                        <ion-label>{{ label }}</ion-label>
+                    </ion-item>
+                </ion-list>
+                <ion-menu-toggle auto-hide="false" *ngIf="login">
+                    <ion-item (click)="logoutUser()" routerDirection="root" lines="none" detail="false" class="logout">
+                        <ion-label>{{ "logout" | translate }} &nbsp;&nbsp;
+                            <i class="fa fa-sign-out" style="color: #d45656; font-size: 18px;"></i>
+                        </ion-label>
+                    </ion-item>
+                </ion-menu-toggle>
+            </ion-content>
+        </ion-menu>
+        <ion-router-outlet id="main-content"></ion-router-outlet>
+    </ion-split-pane>
+</ion-app>

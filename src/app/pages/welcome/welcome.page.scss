@@ -1,7 +1,8 @@
-.image-link{
+.image-link {
     border: 1px solid #ccc;
 }
-h6{
+
+h5 {
     color: #5f4d4d !important;
     text-transform: uppercase;
     font-size: 3vw;
@@ -15,26 +16,31 @@ div.image-link {
     align-items: center;
     height: 250px !important;
 }
+
 .container {
     position: relative;
     text-align: center;
     color: black;
-  }
-  .centered {
+}
+
+.centered {
     position: absolute;
     top: 13px;
     left: 26%;
     transform: translate(-15%, -15%);
-  }  
-  .time{
-      font-size: 4vw;
-  } 
-  .date{
-      position: relative;
-      font-size: 4vw;
-      margin-top:30px;
-  }
-.card{
+}
+
+.time {
+    font-size: 4vw;
+}
+
+.date {
+    position: relative;
+    font-size: 4vw;
+    margin-top: 30px;
+}
+
+.card {
     height: 150px !important;
     width: fit-content;
     position: fixed;
@@ -42,31 +48,37 @@ div.image-link {
     padding: 15px;
     margin-left: 7%;
     z-index: 1000;
-    box-shadow: 4px 4px 6px 6px  #2b29294d;
+    box-shadow: 4px 4px 6px 6px #2b29294d;
     background-color: white;
 }
-.cross{
+
+.cross {
     float: right !important;
     color: #ff0000;
     margin-top: -10px;
     font-size: 30px;
     padding: 8px;
 }
-.card-content{
+
+.card-content {
     text-align: center !important;
     margin: 3px;
-    padding :15px;
+    padding: 15px;
 }
-.white{
+
+.white {
     font-size: 30px;
 }
-.loader{
+
+.loader {
     margin-left: 100px !important;
     color: #fff;
 }
-ion-title{
+
+ion-title {
     font-size: 4vw;
 }
-ion-button.button{
+
+ion-button.button {
     color: white !important;
 }

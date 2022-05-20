@@ -10,5 +10,6 @@ export class User {
     password?: string;
     profile?: string;
     satus?: string;
+    school_idCrd?: string;
     termsAndCondition?: boolean;
 }

@@ -1,61 +1,72 @@
-.left{
+$color: orange;
+.left {
     float: left !important;
     font-size: 15px;
     max-width: 50%;
 }
-.right{
+
+.right {
     float: right !important;
     color: #288828;
     font-size: 15px;
 }
-.left,.right{
+
+.left,
+.right {
     padding: 10px !important;
 }
 
-i{
+i {
     font-size: 18px;
     padding: 5px;
 }
-label{
+
+label {
     font-size: 15px;
     color: #2e27279d;
 }
-ion-col{
+
+ion-col {
     text-align: center;
 }
 
-ion-label.h6{
+ion-label.h6 {
     padding: 10px;
     color: #000;
     text-align: center !important;
     font-size: 15px;
     font-weight: bold;
 }
-h6.label{
-    font-size: 18px; 
-    padding-top: 0px !important; 
-    padding: 10px; 
+
+h6.label {
+    font-size: 18px;
+    padding-top: 0px !important;
+    padding: 10px;
     text-align: left;
 }
-small{
+
+small {
     color: #110f0fc7;
     margin-top: 5px !important;
 }
-div.label{
-font-size: 18px;
-float: right !important;
-width:40%;
-position: relative;
+
+div.label {
+    font-size: 18px;
+    float: right !important;
+    width: 40%;
+    position: relative;
 }
-.heading{
+
+.heading {
     color: black;
     font-size: 3.5vw;
 }
+
 .swiper-slide {
-display: block;
+    display: block;
 }
 
-h5{
+h5 {
     color: #2c26269d;
     margin: 5px;
     margin-top: 25px;
@@ -63,44 +74,51 @@ h5{
     text-transform: capitalize !important;
 }
 
-ion-badge{
+ion-badge {
     border-radius: 40%;
 }
-.slide{
+
+.slide {
     border: 1px solid #ccc;
-   height: fit-content;
+    // height: fit-content;
 }
-.filter-search{
-    position: relative;
-    left: 20px;
-    padding: 10px;
+
+.filter-search {
+    // position: relative;
+    left: 5%;
+    padding: 0;
 }
-ion-slides{
-    min-height: fit-content !important;
-}
-.indicator{
-    color: green;
+
+// ion-slides {
+//     min-height: fit-content !important;
+// }
+.indicator {
+    color: $color;
     font-size: 20px;
     position: absolute;
     bottom: 10px;
     right: 5px;
 }
-.alert{
+
+.alert {
     width: 100%;
-    color: #4f74d8;
-    background-color: #dceef8;
-    padding-top:3px;
-    padding-bottom:2px;
+    color: $color;
+    background-color: #f8f6dc;
+    font-size: 20px !important;
     text-align: center;
-    font-family: 'Comic Sans MS';
-    font-style: italic;
-  }
-  .loader{
-      font-size: 30px !important;
-      color: orange;
-      margin-left: 40%;
-  }
-  .eye{
+    font-family: 'Times New Roman';
+    padding: 0px;
+}
+
+.loader {
+    font-size: 40px !important;
+    color: $color;
+    margin-left: 40%;
+    align-items: center;
+    text-align: center;
+}
+
+.eye {
     float: left !important;
     padding: 5px;
     font-size: 13px;

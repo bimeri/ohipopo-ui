@@ -1,53 +1,49 @@
 <app-header></app-header>
+<ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
-    <ion-refresher-content
-      pullingIcon="chevron-down-circle-outline"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Refreshing...">
-    </ion-refresher-content>
-  </ion-refresher>
-  <div class="alert-success" *ngIf="success">
-   <b>Your payment was successful</b>
-  </div>
-  <div class="alert-danger" *ngIf="fail">
-   <b>Your payment was unsuccessful</b>
-  </div>
-  <div class="alert-danger" *ngIf="length == 0">
-   <ion-button color="primary" (click)="getUserId()">click to load subject</ion-button>
-  </div>
-  <ion-row *ngFor="let subject of subjects" (click)="checkPayment(subject.sub_id)">
-    <ion-col size-md="6" size-xs="6" size-lg="6">
-      <a (click)="checkPayment(subject.sub_id)">
-        <img [src]="domSanitizer.bypassSecurityTrustUrl(env+'/'+subject.logo)"
-        *ngIf="env+'/'+subject.logo"
-         style="border-radius: 10px;" height="150" alt="{{ subject.name }}">
-      </a>
-    </ion-col>
-    <ion-col size-md="6" size-xs="6" size-lg="6">
-      <ion-label class="ion-text-right right" style="float: right !important; font-size: 20px; padding: 3px;">
-        <ion-icon slot="icon-only" ios="ellipsis-vertical" md="ellipsis-vertical"></ion-icon>
-      </ion-label>
-      <p><b style="padding-bottom: 5px; font-size: 17px; margin: 4px;">{{ subject.name }}</b><br> 
-        <span style="font-size: 14px; margin: 4px;">{{ subject.author }}</span> <br> {{ subject.topics }} topics
-      </p>
-      <div class="left" style="margin-top: -10px;">
-        <i class="fa fa-star big" [class]="star1 == true ? 'star' : '' "></i>
-        <i class="fa fa-star big" [class]="star2 == true ? 'star' : '' "></i>
-        <i class="fa fa-star big" [class]="star3 == true ? 'star' : '' "></i>
-        <i class="fa fa-star big" [class]="star4 == true ? 'star' : '' "></i>
-        <i class="fa fa-star big" [class]="star5 == true ? 'star' : '' "></i>
-        <!-- <i class="fa fa-thumbs-up black padding-right"></i> -->
-        <br>
-        <div class="ion-nowrap">
-          <i class="fa fa-group people padding-right"></i>
-          <i class="padding-right" style="color: #1d7734; font-size: 16px;">{{ subject.students }}</i>
-          <i class="padding-right" style="color: #e44a4a; padding-right: 10px !important;">Classmates</i>
-          <!-- <i class="fa fa-book book"></i> -->
-        </div>
-      </div>
-    </ion-col>
-    <hr style="border-top: 1.5px solid #6e6e67; width: 100%;">
-</ion-row>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+        <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="alert-success" *ngIf="success">
+        <b>{{ "payment_successful" | translate }}</b>
+    </div>
+    <div class="alert-danger" *ngIf="fail">
+        <b>{{ "payment_unsuccessful" | translate}}</b>
+    </div>
+    <!-- <div class="alert-danger" *ngIf="length == 0">
+        <ion-button color="primary" (click)="getUserId()">{{ "click_to_laod_subject" | translate }}</ion-button>
+    </div> -->
+    <ion-row *ngFor="let subject of subjects" (click)="checkPayment(subject.sub_id)">
+        <ion-col size-md="6" size-xs="6" size-lg="6">
+            <a (click)="checkPayment(subject.sub_id)">
+                <img [src]="domSanitizer.bypassSecurityTrustUrl(subject.img)" *ngIf="subject.img" style="border-radius: 10px;" height="150" alt="{{ subject.name }}">
+            </a>
+        </ion-col>
+        <ion-col size-md="6" size-xs="6" size-lg="6">
+            <ion-label class="ion-text-right right" style="float: right !important; font-size: 20px; padding: 3px;">
+                <ion-icon slot="icon-only" ios="ellipsis-vertical" md="ellipsis-vertical"></ion-icon>
+            </ion-label>
+            <p><b style="padding-bottom: 5px; font-size: 17px; margin: 4px;">{{ subject.name }}</b><br>
+                <span style="font-size: 14px; margin: 4px;">{{ subject.author }}</span> <br> {{ subject.topics }} {{ "" | translate}}
+            </p>
+            <div class="left" style="margin-top: -10px;">
+                <i class="fa fa-star big" [class]="star1 == true ? 'star' : '' "></i>
+                <i class="fa fa-star big" [class]="star2 == true ? 'star' : '' "></i>
+                <i class="fa fa-star big" [class]="star3 == true ? 'star' : '' "></i>
+                <i class="fa fa-star big" [class]="star4 == true ? 'star' : '' "></i>
+                <i class="fa fa-star big" [class]="star5 == true ? 'star' : '' "></i>
+                <!-- <i class="fa fa-thumbs-up black padding-right"></i> -->
+                <br>
+                <div class="ion-nowrap">
+                    <i class="fa fa-group people padding-right"></i>
+                    <i class="padding-right" style="color: #1d7734; font-size: 16px;">{{ subject.students }}</i>
+                    <i class="padding-right" style="color: #e44a4a; padding-right: 10px !important;">{{ "classmates" | translate }}</i>
+                    <!-- <i class="fa fa-book book"></i> -->
+                </div>
+            </div>
+        </ion-col>
+        <hr style="border-top: 1.5px solid #6e6e67; width: 100%;">
+    </ion-row>
+    <app-footer></app-footer>
 </ion-content>

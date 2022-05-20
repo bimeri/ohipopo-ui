@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button class="white" defaultHref="/public/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-spinner name="danger" class="loader"></ion-spinner>
+            <i class="fa ion-text-lg-right ion-text-md-right"></i>
+            <ion-label class="contact">{{ "settings" | translate }}</ion-label>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+    <app-loader *ngIf="loader"></app-loader>
+    <ion-card>
+        <ion-header class="ion-padding ion-text-center">
+            <ion-card-title>{{'account_settings' | translate}}</ion-card-title>
+        </ion-header>
+
+        <ion-card-content>
+            <ion-list>
+                <ion-item button>
+                    <ion-label> {{ "bimerinoe@gmail.com" }}</ion-label>
+                    <ion-icon slot="end" [ios]="'at-circle-outline'" [md]="'at-circle-sharp'"></ion-icon>
+                </ion-item>
+                <ion-item button>
+                    <ion-label (click)="changePassword()">{{'change_password' | translate}} ****</ion-label>
+                    <ion-icon slot="end" [md]="'key-outline'" [ios]="'key-sharp'"></ion-icon>
+                </ion-item>
+
+                <ion-item-group>
+                    <ion-item>
+                        <ion-icon color="warning" slot="start" name="person-outline"></ion-icon>
+                        <ion-label>{{"bimeri noel"}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon color="warning" slot="start" name="call-outline"></ion-icon>
+                        <ion-label>{{"678657959"}}</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon color="warning" slot="start" name="card-outline"></ion-icon>
+                        <ion-label>8985689685</ion-label>
+                        <ion-note (click)="updateProfile()" slot="end" color="primary">{{'update_profile' | translate}}</ion-note>
+                    </ion-item>
+                </ion-item-group>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-header class="ion-padding ion-text-center">
+            <ion-card-title>{{"my_benefits" | translate}}</ion-card-title>
+        </ion-header>
+        <h6 class="point">{{ "you_got_point"|translate }} <b>{{ userPoint }}</b> {{ userPoint > 1 ? 'point_s' : 'point' | translate}}</h6>
+        <h6>{{ "user_benefit"|translate }}</h6>
+        <!-- <hr style="border-bottom: 1px solid #000; width: 100%;" /> -->
+        <ion-row *ngIf="userBenefits.length > 0">
+            <ion-col size="12" *ngIf="userBenefits.length > 0">
+                <ion-list style="margin-bottom: 6px; border-radius: 8px; padding: 3px; border: 1px solid #ccc;" *ngFor="let benefit of userBenefits">
+                    <ion-row>
+                        <ion-col size="10">
+                            <div style="float: left !important;">{{"benefit_description"|translate}}: <br>
+                                <b>{{ benefit.description }}</b>
+                            </div>
+                        </ion-col>
+                        <ion-col size="2">
+                            <div style="text-align: right; margin-top: 10%;">
+                                <b style="color: #4343ec;">{{ benefit.percent }}%</b>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-list>
+                <div style="font-weight: bold; margin-top: 5px; align-content: center; text-align: center; padding: 5px">Average: <b>{{ avg | number:'.2-2'}}%</b></div>
+            </ion-col>
+        </ion-row>
+        <div *ngIf="userBenefits.length == 0" class="alert alert-danger text-center" role="alert">
+            {{ "not_described" | translate }}
+        </div>
+    </ion-card>
+    <app-footer></app-footer>
+</ion-content>

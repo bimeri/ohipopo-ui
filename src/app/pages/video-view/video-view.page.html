@@ -1,139 +1,130 @@
-  <video playsinline preload="auto" no-padding style="margin-top: 0px !important; margin: 0px; padding: 0 !important;"
-    controls
-    width="100%"
-    controlsList="nodownload" 
-    seekable
-    fullscreen="fullscreen"
-    autoplay
-    size-xs="12" size-md="12" size-lg="6"
-    [attr.src]="defaultUrl+'#t=0'" type="video/mp4">   
+<video playsinline preload="auto" no-padding style="margin-top: 0px !important; margin: 0px; padding: 0 !important;" controls width="100%" controlsList="nodownload" seekable fullscreen="fullscreen" autoplay size-xs="12" size-md="12" size-lg="6" [attr.src]="defaultUrl+'#t=0'"
+    type="video/mp4">   
   </video>
 <ion-grid no-padding style="padding: 0 !important; margin: 0 !important">
-  <ion-row>
-    <ion-col>
-      <div class="bar">
-        <div class="left"><b>{{ subjectName }}</b><br><small>{{ subjectAuthor }}</small></div>
-        <div class="right">{{ view }}<br>views</div>
-      </div>
-    </ion-col>
-  </ion-row>
-  <hr style="border-top: 1px solid #ccc; margin-top: -15px;">
-<ion-progress-bar type="indeterminate" *ngIf="load"></ion-progress-bar>
-
-
-<ion-content>
-  <ion-row>
-    <ion-col>
-      <i #vidLike class="fa fa-thumbs-up" (click)="likeVideo('like')"></i><br> <label>{{ like }}</label>
-    </ion-col>
-    <ion-col>
-      <i class="fa fa-thumbs-down" (click)="likeVideo('dislike')"></i><br> <label>{{ dislike }}</label>
-    </ion-col>
-    <ion-col (click)="share()">
-      <i class="fa fa-share"></i><br> <label>Share</label>
-    </ion-col>
-    
-    <ion-col>
-      <i class="fa fa-arrow-circle-o-down" style="color: #29272780;"></i><br><label>Download</label>
-    </ion-col>
-    <ion-col>
-      <i class="fa fa-book" style="color: #29272780;"></i><br> <label>Notes</label>
-    </ion-col>
-  </ion-row>
-  <!-- <hr style="border-top:1px solid #ccc; width:100%; position: absolute; left: 0;z-index: 9999;"> -->
-  <ion-toolbar no-header>
     <ion-row>
-
-      <ion-segment mod="md" [(ngModel)]="segment" (ionChange)="segmentchange($event)">
-        <ion-col size-xs="4">
-          <ion-segment-button value="0">
-            <h5>Curriculum</h5>
-          </ion-segment-button>
+        <ion-col>
+            <div class="bar">
+                <div class="left"><b>{{ subjectName }}</b><br><small>{{ subjectAuthor }}</small></div>
+                <div class="right">{{ view }}<br>{{ "views" | translate }}</div>
+            </div>
         </ion-col>
-        <!-- <ion-col size-xs="4">
-          <ion-segment-button value="1">
-            <h5>Overview </h5>
-          </ion-segment-button>
-        </ion-col>
-        <ion-col size-xs="4">
-          <ion-segment-button value="2">
-            <h5>Q&A 
-               <ion-badge color="warning">99+</ion-badge> 
-            </h5>
-          </ion-segment-button>
-        </ion-col> -->
-      </ion-segment>
     </ion-row>
-  </ion-toolbar>
-  <hr style="border-top:1px solid #000; width:100%; position: absolute; left: 0;"><br>
-  <!-- slides -->
-  <ion-slides #slides pager="false" [options]="slideOptions" (ionSlideDidChange)="slideChanged(slides)" (ionSlidesdidLoad)="slideChanged(slides)">
-    <ion-slide class="slide">
-      <!-- <div class="filter-search">
-        <ion-label position="floating">Filter by Topic</ion-label><br>
-        <input type="text" list="browsers"/>
-        <datalist id="browsers">
-            <option *ngFor="let topic of allTopics" [value]="topic.topicName"></option>
-        </datalist>
-      </div> -->
-      <ion-row style="margin-bottom: 10px;">
-        <ion-row *ngIf="videoLength">
-          <ion-col>
-            <h4 class="alert">
-              There is no video for the subjects selected, admin will soon record more vidoes, please stay tune
-            </h4>
-          </ion-col>
-        </ion-row>
-        <ion-row *ngFor="let video of videos, let i = index" style="border-bottom: 2px solid #000;">
-          <ion-label class="h6"> {{ video.topicName }} {{ video.topicVideo[0] ? video.topicVideo[0].totalVideo:'' }} lecture video</ion-label><br>
-          <ion-row 
-          *ngFor="let sub of video.topicVideo, let j = index" 
-          (click)="playVideo(sub.videoUrl, sub.videoName, sub.vId, sub.likes, sub.dislikes, sub.totalView)"
-          style="border-top: 0.5px solid #ccc; width: 100%;"
-          >
-            <ion-col size-xs="6">
-              <img [src]="donSanitizer.bypassSecurityTrustUrl(logo)" style="border-radius: 5px; width: 100%;">
-              <!-- <video playsinline preload="auto" [attr.src]="sub.videoUrl+'#t=0.5'" style="border-radius: 5px; width: 100%;">
-              </video> -->
+    <hr style="border-top: 1px solid #ccc; margin-top: -15px;">
+    <ion-progress-bar type="indeterminate" *ngIf="load"></ion-progress-bar>
+
+    <ion-content>
+        <ion-row>
+            <ion-col>
+                <i #vidLike class="fa fa-thumbs-up" (click)="likeVideo('like')"></i><br> <label>{{ like }}</label>
             </ion-col>
-            <ion-col size-xs="6">
-              <h6 class="label">
-                <h4 class="heading"> {{ sub.videoName.length > 40 ? sub.videoName.substring(0,40)+"..." : sub.videoName }}</h4> 
-                <small> {{ subjectAuthor }}</small>
-              </h6>
-              <ion-label class="eye">
-                <i style="font-family: 'Comic Sans Ms'; margin-top:-8px !important; font-size: 13px !important;">{{ sub.totalView }}</i>
-                <ion-label>views</ion-label>
-              </ion-label>
-              <ion-label *ngIf="sub.vId === videoId" class="fa fa-check-circle indicator"></ion-label>
+            <ion-col>
+                <i class="fa fa-thumbs-down" (click)="likeVideo('dislike')"></i><br> <label>{{ dislike }}</label>
             </ion-col>
-          </ion-row>
+            <ion-col (click)="share()">
+                <i class="fa fa-share"></i><br> <label>{{ "share" | translate }}</label>
+            </ion-col>
+
+            <ion-col>
+                <i class="fa fa-arrow-circle-o-down" style="color: #29272780;"></i><br><label>{{ "download" | translate }}</label>
+            </ion-col>
+            <ion-col>
+                <i class="fa fa-book" style="color: #29272780;"></i><br> <label>{{ "notes" | translate }}</label>
+            </ion-col>
         </ion-row>
-      </ion-row>
-    </ion-slide>
-    <!-- slide two overview -->
-    <!-- <ion-slide class="slide">
-      <ion-row>
-        <ion-col>
-          <h5 class="ion-text-center">
-            Coming Soon ...
-          </h5>
-        </ion-col>
-      </ion-row>
-    </ion-slide> -->
-    <!-- slide three question and answer -->
-    <!-- <ion-slide class="slide">
-      <ion-row>
-        <ion-col>
-          <h5 class="ion-text-center">
-           Questiona and answer section comming soon Coming Soon ...
-          </h5>
-        </ion-col>
-      </ion-row>
-    </ion-slide> -->
-  </ion-slides>
-  <ion-item>
-  <ion-spinner name="crescent" *ngIf="loader" class="loader"></ion-spinner>
-  </ion-item>
-</ion-content>
+        <!-- <hr style="border-top:1px solid #ccc; width:100%; position: absolute; left: 0;z-index: 9999;"> -->
+        <ion-toolbar no-header>
+            <ion-row>
+                <ion-segment mod="md" [(ngModel)]="segment" (ionChange)="segmentchange($event)">
+                    <ion-col size-xs="4">
+                        <ion-segment-button value="0">
+                            <h5>{{ "curriculum" | translate }}</h5>
+                        </ion-segment-button>
+                    </ion-col>
+                    <ion-col size-xs="4">
+                        <ion-segment-button value="1">
+                            <h5>{{"overview"|translate}} </h5>
+                        </ion-segment-button>
+                    </ion-col>
+                    <ion-col size-xs="4">
+                        <ion-segment-button value="2">
+                            <h5>Q&A
+                                <ion-badge color="warning">99+</ion-badge>
+                            </h5>
+                        </ion-segment-button>
+                    </ion-col>
+                </ion-segment>
+            </ion-row>
+        </ion-toolbar>
+        <hr style="border-top:1px solid #000; width:100%; position: absolute; left: 0;"><br>
+        <!-- slides -->
+        <ion-row>
+            <ion-col size="12">
+                <ion-slides #slides pager="false" [options]="slideOptions" (ionSlideDidChange)="slideChanged(slides)" (ionSlidesdidLoad)="slideChanged(slides)">
+                    <ion-slide class="slide">
+                        <!-- <div class="filter-search">
+                            <ion-label position="floating">Filter by Topic</ion-label><br>
+                            <input type="text" list="browsers" />
+                            <datalist id="browsers">
+                                    <option *ngFor="let topic of allTopics" [value]="topic.topicName"></option>
+                                </datalist>
+                        </div> -->
+
+                        <ion-row style="margin-bottom: 10px;">
+                            <ion-spinner style="margin-top: 10px;" color="primary" type="crescent" *ngIf="loader" class="loader"></ion-spinner>
+                            <ion-row *ngIf="videoLength">
+                                <ion-col class="alert">
+                                    <ion-label>
+                                        {{ "no_video" | translate}}
+                                    </ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row *ngFor="let video of videos, let i = index" style="border-bottom: 2px solid #000;">
+                                <ion-label class="h6"> {{ video.topicName }} {{ video.topicVideo[0] ? video.topicVideo[0].totalVideo:'' }} {{"lecture_video" | translate}}</ion-label><br>
+                                <ion-row *ngFor="let sub of video.topicVideo, let j = index" (click)="playVideo(sub.videoUrl, sub.videoName, sub.vId, sub.likes, sub.dislikes, sub.totalView)" style="border-top: 0.5px solid #ccc; width: 100%;">
+                                    <ion-col size-xs="6">
+                                        <img [src]="donSanitizer.bypassSecurityTrustUrl(logo)" style="border-radius: 5px; width: 100%;">
+                                        <!-- <video playsinline preload="auto" [attr.src]="sub.videoUrl+'#t=0.5'" style="border-radius: 5px; width: 100%;"></video> -->
+                                    </ion-col>
+                                    <ion-col size-xs="6">
+                                        <h6 class="label">
+                                            <h4 class="heading"> {{ sub.videoName.length > 40 ? sub.videoName.substring(0,40)+"..." : sub.videoName }}</h4>
+                                            <small> {{ subjectAuthor }}</small>
+                                        </h6>
+                                        <ion-label class="eye">
+                                            <i style="font-family: 'Comic Sans Ms'; margin-top:-8px !important; font-size: 13px !important;">{{ sub.totalView }}</i>
+                                            <ion-label>{{ "views" | translate }}</ion-label>
+                                        </ion-label>
+                                        <ion-label *ngIf="sub.vId === videoId" class="fa fa-play-circle indicator"></ion-label>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-row>
+                        </ion-row>
+                    </ion-slide>
+                    <!-- slide two overview -->
+                    <ion-slide class="slide">
+                        <ion-row>
+                            <ion-col>
+                                <h5 class="ion-text-center">
+                                    Coming Soon ...
+                                </h5>
+                            </ion-col>
+                        </ion-row>
+                    </ion-slide>
+                    <!-- slide three question and answer -->
+                    <ion-slide class="slide">
+                        <ion-row>
+                            <ion-col>
+                                <h5 class="ion-text-center">
+                                    Questions and answer section comming soon ...
+                                </h5>
+                            </ion-col>
+                        </ion-row>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+        <app-footer></app-footer>
+        <p><br><br></p>
+    </ion-content>
 </ion-grid>

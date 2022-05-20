@@ -5,6 +5,7 @@ import { User } from '../../model/user';
 import { Router } from '@angular/router';
 import { HandleErrorService } from '../../service/error-handler/handle-error.service';
 import { StorageService } from '../../service/storage/storage.service';
+import { TranslationService } from 'src/app/service/translation/translation.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,6 @@ import { StorageService } from '../../service/storage/storage.service';
 export class RegisterPage implements OnInit {
 category = [];
 // tslint:disable-next-line: new-parens
-dates = new Date;
 userRegistration: FormGroup;
 levels: any = [];
 options: any;
@@ -23,6 +23,7 @@ loader: boolean;
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticateService,
               private router: Router,
+              private translate: TranslationService,
               private handlerService: HandleErrorService,
               private storageService: StorageService ) { }
 
@@ -43,6 +44,10 @@ loader: boolean;
      });
     this.getLevelTypes();
     // this.authenticationService.isLogin();
+    }
+
+    ngAfterViewInit(){
+      this.ngOnInit();
     }
 
     clearForm(){
@@ -82,8 +87,8 @@ loader: boolean;
     const cpass = this.userRegistration.controls.confirmPassword.value;
     const credential = this.userRegistration.controls.email.value;
     if (pass !== cpass){
-      const mess = 'Password Mismatch, both password do not match.';
-      this.authenticationService.presentToast('danger', mess, 'top', 5000);
+      const mess = this.translate.getMessage('wrong_password');
+      this.authenticationService.presentToast('danger', mess, 'top', 5000, 'alert-circle-outline');
       this.load = false;
       this.loader = false;
       return;
@@ -107,8 +112,8 @@ loader: boolean;
      () => {
        this.load = false;
        this.loader = false;
-       const mess = 'Your Registration was Successful, You can now sign in to your account.';
-       this.authenticationService.presentToast('success', mess, 'top', 3000);
+       const mess = this.translate.getMessage('register_success');
+       this.authenticationService.presentToast('success', mess, 'top', 3000, 'checkmark_outline');
        this.storageService.clear();
        setTimeout(() => {
         window.location.href = '/login';
@@ -118,9 +123,13 @@ loader: boolean;
        this.loader = false;
        this.load = false;
        this.handlerService.errorResponses(error);
-       const mes = 'Fail to register to Ohipopo School, please try again';
-       this.authenticationService.presentToast('danger', mes, 'top', 6000);
+       const mes = this.translate.getMessage('fail_to_register');
+       this.authenticationService.presentToast('danger', mes, 'top', 6000, 'alert-circle-outline');
      }
    );
   }
+
+  termsAndCondition(){
+    this.router.navigate(['/register']).then(result => {window.location.href = 'https://www.ohipopo.org/terms-and-conditions/'; });
+   }
 }

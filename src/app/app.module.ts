@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -25,7 +25,13 @@ import { ProfilePageModule } from './pages/profile/profile.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { TranslationService } from './service/translation/translation.service';
+import { LocalStorageService } from './service/localStorage/local-storage.service';
+import { CbsService } from './service/cbs/cbs.service';
 
+const setTranslationFactory = (translationService: TranslationService) => {
+  return () => translationService.getTranslationMessages();
+};
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -48,14 +54,23 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     StatusBar,
     SplashScreen,
     UserService,
+    TranslationService,
     AuthenticateService,
     HandleErrorService,
     StorageService,
+    LocalStorageService,
     ShareService,
     SocialSharing,
+    CbsService,
     InterceptorProvider,
     DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorProvider, multi: true },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: setTranslationFactory,
+      deps: [TranslationService],
+      multi: true
+    },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy, },
   ],
   bootstrap: [AppComponent]

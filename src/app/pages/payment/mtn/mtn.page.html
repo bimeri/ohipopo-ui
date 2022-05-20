@@ -1,51 +1,53 @@
 <ion-header>
-  <ion-toolbar color="warning">
-    <ion-buttons slot="start" color="primary">
-      <ion-back-button defaultHref="/payment"></ion-back-button>
-    </ion-buttons>
-    <ion-title class="center" style="font-size: 15px;">You selected MTN Mobile Money</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="warning">
+        <ion-buttons slot="start" color="primary">
+            <ion-back-button defaultHref="/payment"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="center" style="font-size: 15px;">You selected MTN Mobile Money</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <img src="../../../../assets/img/momo.jpeg" style="width: 100%; height: 250px; padding-top: 5px;">
-  <h4 style="padding: 15px; color: #ffa500; background-color: #ececba; text-align: justify; justify-content: baseline; margin-top: -15px !important;">
-  You are about to make a deposite of {{ '800 XCFA' }}
-   to Ohipopo.org, Please have your mobile Phone beside You, 
-   and be ready to dial *126# and confirm your payment. <br>
-  <b style="color: #cf4a4a;">You have a maximun of 120 seconds for this transaction, 
+    <img src="../../../../assets/img/momo.jpeg" style="width: 100%; height: 250px; padding-top: 5px;">
+    <h4 style="padding: 15px; color: #ffa500; background-color: #ececba; text-align: justify; justify-content: baseline; margin-top: -15px !important;">
+        You are about to make a deposite of {{ '800 XCFA' }} to Ohipopo.org, Please have your mobile Phone beside You, and be ready to dial *126# and confirm your payment. <br>
+        <b style="color: #cf4a4a;">You have a maximun of 120 seconds for this transaction, 
     please do it as fast as you receive the notification</b>
-</h4>
-<ion-grid>
-  <ion-row>
-    <ion-col size-xs="12">
-      <ion-item>
-        Name:<div style="margin-left: 25%; font-size: 23px;"> <ion-label>{{ user?.fullName}}</ion-label></div>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col size-xs="12">
-      <ion-item>
-       <ion-label position="floating">Enter your Phone Number:</ion-label> &nbsp;&nbsp;&nbsp;
-        <ion-input name="phone" type="number" [value]="user?.phoneNumber" #number></ion-input>
-      </ion-item>
-    </ion-col>
-    <ion-col size-xs="10" offset-xs="1" class="margin-top">
-      <ion-button color="danger" routerLink="/public/home" style="float: left; width: 30%;" [disabled]="disable">Cancel</ion-button>
-      <ion-button *ngIf="!spinner" color="success" style="width: 60%; align-items: center; float: right !important;" (click)="makePayment(number.value, user?.fullName)" [disabled]="disable">Make Payment</ion-button>
-      <ion-button *ngIf="spinner" color="secondary" style="width: 60%; align-items: center; float: right !important;">
-        <div class="spinner">
-          <ion-spinner name="lines" color="danger"></ion-spinner>
-        </div>
-        <div class="spinner1">
-          <ion-spinner name="lines" color="danger"></ion-spinner>
-        </div>
-        <div class="spinner2">
-          <ion-spinner name="lines" color="danger"></ion-spinner>
-        </div>
-      </ion-button>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+    </h4>
+    <ion-grid class="cal">
+        <ion-row>
+            <ion-col size-xs="12">
+                <ion-item>
+                    Name:
+                    <div style="margin-left: 25%; font-size: 23px;">
+                        <ion-label>{{ user?.fullName}}</ion-label>
+                    </div>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size-xs="12">
+                <ion-item>
+                    <ion-label position="floating">Enter your Phone Number:</ion-label> &nbsp;&nbsp;&nbsp;
+                    <ion-input name="phone" type="number" [value]="user?.phoneNumber" #number></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size-xs="10" offset-xs="1" class="margin-top">
+                <ion-button color="danger" routerLink="/public/home" style="float: left; width: 30%;" [disabled]="disable">Cancel</ion-button>
+                <ion-button *ngIf="!spinner" color="success" style="width: 60%; align-items: center; float: right !important;" (click)="makePayment(number.value, user?.fullName)" [disabled]="disable">Make Payment</ion-button>
+                <ion-button *ngIf="spinner" color="secondary" style="width: 60%; align-items: center; float: right !important;">
+                    <div class="spinner">
+                        <ion-spinner name="lines" color="danger"></ion-spinner>
+                    </div>
+                    <div class="spinner1">
+                        <ion-spinner name="lines" color="danger"></ion-spinner>
+                    </div>
+                    <div class="spinner2">
+                        <ion-spinner name="lines" color="danger"></ion-spinner>
+                    </div>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <app-footer></app-footer>
 </ion-content>

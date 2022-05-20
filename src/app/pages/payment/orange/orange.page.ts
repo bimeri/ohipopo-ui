@@ -13,7 +13,7 @@ import { HandleErrorService } from '../../../service/error-handler/handle-error.
   templateUrl: './orange.page.html',
   styleUrls: ['./orange.page.scss'],
 })
-export class OrangePage implements OnInit {
+export class OrangePage {
 user: User;
 spinner: boolean;
 disable = false;
@@ -24,7 +24,7 @@ disable = false;
               private authService: AuthenticateService,
               private errorhandle: HandleErrorService) { }
 
-  ngOnInit(): void {
+    ionViewDidEnter() {
     this.storageService.getObject('userInfo').then(result => {
       if (result != null) {
         this.user = result;
@@ -33,6 +33,10 @@ disable = false;
       console.log('error: ', e);
       return e;
       });
+  }
+
+  ngAfterViewInit(){
+    this.ionViewDidEnter();
   }
 
   makePayment(phone, userName){
@@ -51,7 +55,7 @@ disable = false;
           this.disable = false;
         }
         if (result.status === 'MISSING_MSISDN'){
-          this.authService.presentToast('danger', 'Yuo entered a wrong phone Number. please enter a valid phone number', 'top', 5000);
+          this.authService.presentToast('danger', 'You entered a wrong phone Number. please enter a valid phone number', 'top', 5000);
           this.spinner = false;
           this.disable = false;
         }

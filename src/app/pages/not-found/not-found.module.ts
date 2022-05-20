@@ -7,11 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { NotFoundPageRoutingModule } from './not-found-routing.module';
 
 import { NotFoundPage } from './not-found.page';
+import { ShareModule } from 'src/app/shared/share/share.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ShareModule,
     IonicModule,
     NotFoundPageRoutingModule
   ],

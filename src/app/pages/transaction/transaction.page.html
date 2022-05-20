@@ -1,71 +1,71 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button class="white" defaultHref="/public/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>
-      <ion-spinner name="danger" class="loader"></ion-spinner>
-        <i class="fa ion-text-lg-right ion-text-md-right"></i>
-        <ion-label class="contact">{{ "Transaction Detail" }}</ion-label>
-      </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button class="white" defaultHref="/public/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-spinner name="danger" class="loader"></ion-spinner>
+            <i class="fa ion-text-lg-right ion-text-md-right"></i>
+            <ion-label class="contact">{{ "transaction_detail" | translate }}</ion-label>
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
-    <ion-refresher-content
-      pullingIcon="chevron-down-circle-outline"
-      pullingText="Pull to refresh"
-      refreshingSpinner="circles"
-      refreshingText="Loading data...">
-    </ion-refresher-content>
-  </ion-refresher>
-  <ion-grid>
-    <ion-row style="border-bottom: 0.01rem solid #8d8675; box-shadow: 4px 8px 8px 8px solid rgba(53, 49, 46, 0.5);">
-      <ion-col size-xs="12">
-          <h3 class="ion-text-center">All Transactions</h3>
-      </ion-col>
-    </ion-row>
-    <ion-row style="padding: 10px; margin-top: 5px;">
-      <ion-col size-xs="12" *ngIf="loader">
-        <ion-spinner class="spin" name="circles" color="warning"></ion-spinner>
-      </ion-col>
-      <ion-label *ngIf="message" class="message" color="danger">{{ message }}</ion-label>
-      <ion-col size-xs="12" *ngFor="let transaction of transactions" style="border-bottom: 0.5px solid #ccc;">
-       <ion-list>
-        <ion-item lines="none">
-          <ion-label class="ion-text-left i">Payment Motive:</ion-label>
-          <ion-label class="ion-text-right i">Lecture Fees</ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="ion-text-left i">Payment Amount:</ion-label>
-          <ion-label class="ion-text-right i">{{ transaction.amount }} CFA</ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="ion-text-left i">Telephone Number:</ion-label>
-          <ion-label class="ion-text-right i">{{ transaction.phoneNumber }}</ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="ion-text-left i">Transaction Id:</ion-label>
-          <ion-label class="ion-text-right i">{{ transaction.transactionId? transaction.transactionId:'NILL' }}</ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="ion-text-left i">Payment date:</ion-label>
-          <ion-label class="ion-text-right i">{{ transaction.paymentDate | date:'MMM d, y, h:mm a' }}</ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label class="ion-text-left i">Payment Channel:</ion-label>
-          <ion-label class="ion-text-right i">
-            <img *ngIf="transaction.paymentChannel" [src]="getImage(transaction.paymentChannel)" height="45" width="80" alt="{{ transaction.paymentChannel }}" style="border-radius: 4px;">
-          <ion-label *ngIf="!transaction.paymentChannel" class="ion-text-right i">OhipsPay</ion-label>
-          </ion-label>
-        </ion-item>   
-        <ion-item lines="none">
-          <ion-label class="ion-text-center i download">
-            <ion-button color="warning" size="small" expand="half" fill="outline">download &nbsp;&nbsp; <ion-icon name="cloud-download"></ion-icon></ion-button>
-          </ion-label>
-        </ion-item>        
-       </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-grid>  
+    <ion-progress-bar type="indeterminate" *ngIf="loader"></ion-progress-bar>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" class="ref">
+        <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="{{'loading_data' | translate }">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid class="cal">
+        <ion-row style="border-bottom: 0.01rem solid #8d8675; box-shadow: 4px 8px 8px 8px solid rgba(53, 49, 46, 0.5);">
+            <ion-col size-xs="12">
+                <h3 class="ion-text-center">{{ "all_transaction" | translate }}</h3>
+            </ion-col>
+        </ion-row>
+        <ion-row style="padding: 10px; margin-top: 5px;">
+            <ion-col size-xs="12" *ngIf="loader">
+                <ion-spinner class="spin" name="circles" color="warning"></ion-spinner>
+            </ion-col>
+            <ion-label *ngIf="message" class="message" color="danger">{{ message }}</ion-label>
+            <ion-col size-xs="12" *ngFor="let transaction of transactions" style="border-bottom: 0.5px solid #ccc;">
+                <ion-list>
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-left i">{{"payment_motive" | translate }}</ion-label>
+                        <ion-label class="ion-text-right i">{{ "lecture_fee" | translate }}</ion-label>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-left i">{{ "payment_amount" | translate }}</ion-label>
+                        <ion-label class="ion-text-right i">{{ transaction.amount }} CFA</ion-label>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-left i">{{ "telephone_number" | translate }}</ion-label>
+                        <ion-label class="ion-text-right i">{{ transaction.phoneNumber }}</ion-label>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-left i">{{ "transaction_id" | translate }}</ion-label>
+                        <ion-label class="ion-text-right i">{{ transaction.transactionId? transaction.transactionId:'NILL' }}</ion-label>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-left i">{{ "payment_id" | translate}}</ion-label>
+                        <ion-label class="ion-text-right i">{{ transaction.paymentDate | date:'MMM d, y, h:mm a' }}</ion-label>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-left i">{{ "payment_channel" | translate }}</ion-label>
+                        <ion-label class="ion-text-right i">
+                            <img *ngIf="transaction.paymentChannel" [src]="getImage(transaction.paymentChannel)" height="45" width="80" alt="{{ transaction.paymentChannel }}" style="border-radius: 4px;">
+                            <ion-label *ngIf="!transaction.paymentChannel" class="ion-text-right i">OhipsPay</ion-label>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <ion-label class="ion-text-center i download">
+                            <ion-button color="warning" size="small" expand="half" fill="outline">{{ "download" | translate }} &nbsp;&nbsp;
+                                <ion-icon name="cloud-download"></ion-icon>
+                            </ion-button>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <app-footer></app-footer>
 </ion-content>

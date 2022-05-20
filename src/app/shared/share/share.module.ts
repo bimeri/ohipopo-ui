@@ -4,10 +4,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ModalPageComponent } from '../../components/modal-page/modal-page.component';
+import { TranslatePipe } from 'src/pipes/translate/translate.pipe';
+import { FilterPipe } from 'src/pipes/filter/filter.pipe';
+import { FooterComponent } from 'src/app/components/footer/footer.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, ModalPageComponent],
+  declarations: [HeaderComponent, FooterComponent, ModalPageComponent, TranslatePipe, FilterPipe],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -19,7 +22,10 @@ import { ModalPageComponent } from '../../components/modal-page/modal-page.compo
     ReactiveFormsModule,
     CommonModule,
     HeaderComponent,
-    ModalPageComponent
+    ModalPageComponent,
+    FooterComponent,
+    TranslatePipe,
+    FilterPipe
     ]
 })
 export class ShareModule { }

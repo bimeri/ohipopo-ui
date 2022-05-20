@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar color="warning" class="white">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/public/home"></ion-back-button>
+        </ion-buttons>
+        <ion-label class="ion-margin-horizontal">{{'language_setting' | translate}}</ion-label>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="cal">
+    <ion-header class="ion-padding ion-text-center">
+        <ion-searchbar [placeholder]="'search_placeholder' | translate" [(ngModel)]="searchText" animated="true"></ion-searchbar>
+    </ion-header>
+
+    <ion-list>
+        <ion-item button *ngFor="let char of characters | filter:searchText">
+            <ion-label (click)="onChangeLang(char.slog)">{{ char.lang }}</ion-label>
+            <ion-icon color="warning" *ngIf="char.current" slot="end" [ios]="'checkmark-outline'" [md]="'checkmark-sharp'"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<app-footer class="footer"></app-footer>

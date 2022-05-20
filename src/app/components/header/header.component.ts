@@ -27,4 +27,8 @@ export class HeaderComponent implements OnInit {
       });
   }
 
+  ngAfterViewInit(){
+    this.ngOnInit();
+  }
+
 }
