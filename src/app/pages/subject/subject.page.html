@@ -40,7 +40,7 @@
                     <p><b style="padding-bottom: 5px; font-size: 18px;">{{ subject.name }}</b><br> {{ subject.author }} <br> {{ subject.topic }} {{"topics"|translate}}</p>
                     <div class="right" style="margin-top: -9% !important">
                         <input type="checkbox" name="options" color="primary" id="DD{{subject.id}}" (click)="pushId(subject.id, $event.target.checked)" class="check" [attr.disabled]="maximumSubject == count ? true:null">
-                        <input type="button" fill="outline" name="remove" (click)="pushId(subject.id, false)" value="{{'remove'|translate}}" class="remove" *ngIf="maximumSubject == count && newArrray.includes(subject.id)">
+                        <input type="button" fill="outline" name="remove" (click)="pushId(subject.id, false)" value="{{'X'|translate}}" class="remove" *ngIf="maximumSubject == count && newArrray.includes(subject.id)">
                     </div>
                 </ion-col>
                 <hr style="border-top: 1px solid #f7f6eb; width: 100%;">
@@ -49,7 +49,7 @@
                 <ion-label class="alert" style="align-items: center; text-align: center;">{{ "selected_total_of" | translate }} <b>{{ count }} </b> {{ count == 0 || count == 1 ? label_subject : label_subjects }} </ion-label>
                 <ion-col size-xs="12">
                     <ion-button color="primary" style="width: 100%; align-items: center; text-align: center;" [disabled]="count==0" *ngIf="!spinner" (click)="submitValue()">{{"submit"|translate}}</ion-button>
-                    <ion-button class="right" *ngIf="spinner" style="width: 100%; align-items: center; text-align: center;">
+                    <ion-button class="right" color="primary" *ngIf="spinner" style="width: 100%; align-items: center; text-align: center;">
                         <ion-spinner name="crescent"></ion-spinner>
                     </ion-button>
                 </ion-col>

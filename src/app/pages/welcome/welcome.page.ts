@@ -56,6 +56,7 @@ export class WelcomePage implements OnInit, OnDestroy  {
       }).catch(e => {});
     this.authenticationService.isLogin();
     this.clickBackButton();
+    this.getIsFree();
   }
 
   ngAfterViewInit(){
@@ -70,6 +71,19 @@ export class WelcomePage implements OnInit, OnDestroy  {
 
   gotoClass(link){
     this.router.navigate([link]);
+  }
+
+  getIsFree(){
+    this.userService.getIsFree().subscribe(
+      result => {
+       this.storageService.setObject('free', result);
+      },
+      error => {
+        console.log(error);
+        this.errorHandle.errorResponses(error);
+        
+      }
+    );
   }
 
    getSubject(levelId){

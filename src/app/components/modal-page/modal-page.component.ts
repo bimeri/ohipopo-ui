@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./modal-page.component.scss'],
 })
 export class ModalPageComponent implements OnInit {
-
+dates = new Date();
   constructor(private modalCtrl: ModalController, private router: Router) { }
 
   ngOnInit() {}

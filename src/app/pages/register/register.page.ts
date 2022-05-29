@@ -20,6 +20,7 @@ levels: any = [];
 options: any;
 load: boolean;
 loader: boolean;
+dates: Date = new Date();
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticateService,
               private router: Router,

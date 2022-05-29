@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, Platform } from '@ionic/angular';
 import { Plugins, Capacitor } from '@capacitor/core';
 import { AuthenticateService } from './service/authentication/authenticate.service';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { StorageService } from './service/storage/storage.service';
 import { ShareService } from './service/shared/share.service';
@@ -11,6 +11,7 @@ import { BackButtonEvent } from '@ionic/core';
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslationService } from './service/translation/translation.service';
+import { AutocloseOverlaysService } from './shared/share/autocloseOverlaysService';
 const { App } = Plugins;
 const prefix = environment.prefix;
 
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   userName: string;
   login = false;
-  version = environment.app_version;
+  version = "version: " +environment.app_version;
   t0 = performance.now();
   imageUpload: FormGroup;
   public appPages = [
@@ -89,6 +90,7 @@ export class AppComponent implements OnInit {
     private storageService: StorageService,
     private translate: TranslationService,
     private shareService: ShareService,
+    private autocloseOverlaysService: AutocloseOverlaysService,
     public loadingController: LoadingController) {
     this.initializeApp();
     this.shareService.$userInfo.subscribe(data =>
@@ -106,6 +108,14 @@ export class AppComponent implements OnInit {
         Plugins.SplashScreen.hide();
       }
       timer(3000).subscribe(() => this.showSplash = false);
+    });
+
+    this.router.events.subscribe((event: any): void => {
+      if (event instanceof NavigationStart) {
+        if (event.navigationTrigger === 'popstate') {
+          this.autocloseOverlaysService.trigger();
+        }
+      }
     });
 
     document.addEventListener('ionBackButton', (ev: BackButtonEvent) => {

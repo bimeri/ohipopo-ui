@@ -37,7 +37,7 @@ export class SubjectPage implements OnInit {
               private errorHandle: HandleErrorService,
               private storageService: StorageService,
               private authenticateService: AuthenticateService,
-              private donSanitizer: DomSanitizer,
+              public donSanitizer: DomSanitizer,
               private router: Router,
               private authenticationService: AuthenticateService,
               private translate: TranslationService,
@@ -98,7 +98,8 @@ export class SubjectPage implements OnInit {
        this.count = this.newArrray.length;
         this.message = null;
         // $("#DD" + ids).checked = false;
-         document.getElementById("DD" + ids).checked = false;
+        let va: any = document.getElementById("DD" + ids);
+        va.checked = false;
         return;
       }
      this.newArrray.push(ids);

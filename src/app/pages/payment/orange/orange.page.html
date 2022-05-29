@@ -1,15 +1,15 @@
 <ion-header>
     <ion-toolbar color="warning">
         <ion-buttons slot="start" color="primary">
-            <ion-back-button defaultHref="/payment"></ion-back-button>
+            <ion-back-button class="color" defaultHref="/payment"></ion-back-button>
         </ion-buttons>
-        <ion-title class="center" style="font-size: 15px;">You selected Orange Money</ion-title>
+        <ion-title class="center color" style="font-size: 15px;">You selected Orange Money</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <img src="../../../../assets/img/orange.png" style="width: 100%; height: 250px; padding-top: 5px;">
-    <h4 style="padding: 15px; color: #000; background-color: #bbf3bb; text-align: justify; justify-content: baseline; margin-top: -15px !important;">
+    <img src="../../../../assets/img/orange.png" style="width: 100%; height: 230px; padding: 5px;">
+    <h6 style="padding: 15px; color: #000; background-color: #bbf3bb; text-align: justify; justify-content: baseline; margin-top: -5px !important;">
         <em>
     You are about to make a deposite of {{ '800 XCFA' }}
    to Ohipopo.org, Please have your mobile Phone beside You, 
@@ -17,13 +17,13 @@
   </em> <br>
         <b style="color: #ff5e00;">You have a maximun of 120 seconds for this transaction, 
     please do it as fast as you receive the notification</b>
-    </h4>
-    <ion-grid class="cal">
+    </h6>
+    <ion-grid>
         <ion-row>
             <ion-col size-xs="12">
                 <ion-item>
                     Name:
-                    <div style="margin-left: 25%; font-size: 23px;">
+                    <div style="margin-left: 4%; font-size: 17px;">
                         <ion-label>{{ user?.fullName}}</ion-label>
                     </div>
                 </ion-item>
@@ -32,7 +32,7 @@
         <ion-row>
             <ion-col size-xs="12">
                 <ion-item>
-                    <ion-label position="floating">Enter your Phone Number:</ion-label> &nbsp;&nbsp;&nbsp;
+                    <ion-label position="floating" style="margin-right: 2%;">Enter your Phone Number:</ion-label>
                     <ion-input name="phone" type="number" [value]="user?.phoneNumber" #number></ion-input>
                 </ion-item>
             </ion-col>
@@ -41,12 +41,6 @@
                 <ion-button *ngIf="!spinner" color="success" style="width: 60%; align-items: center; float: right !important;" (click)="makePayment(number.value, user?.fullName)" [disabled]="disable">Make Payment</ion-button>
                 <ion-button *ngIf="spinner" color="secondary" style="width: 60%; align-items: center; float: right !important;">
                     <div class="spinner">
-                        <ion-spinner name="lines" color="danger"></ion-spinner>
-                    </div>
-                    <div class="spinner1">
-                        <ion-spinner name="lines" color="danger"></ion-spinner>
-                    </div>
-                    <div class="spinner2">
                         <ion-spinner name="lines" color="danger"></ion-spinner>
                     </div>
                 </ion-button>

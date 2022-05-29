@@ -17,18 +17,19 @@
                         <h5 id="exampleModalLabel">{{ "call_option" | translate }}</h5>
                     </div>
                     <div class="modal-body">
-                        <div class="border-call">
-                            <a class="btn btn-default border" href="tel:+237652137960" style="padding-left:3; cursor:pointer;color:#ff8800" data-value="(+237) 652 137 960">
-                                <ion-icon ios="ios-call-outline" md="call-outline" style="font-size: 20px;"></ion-icon>
+                        <div class="border-blue ion-padding-top">
+                            <a class="nav-link text-black" href="https://api.whatsapp.com/send?phone=237652137960&text={{ 'hello ohipopo.org, i need help?' }}" style="color: #4edb4e; font-size: 20px; padding-left: 3">
+                                {{ "contact_us_via_whatapp" | translate }}
+                            <ion-icon ios="logo-whatsapp" md="logo-whatsapp" style="margin-left: 40%"></ion-icon>
+                            </a>
+                        </div>
+
+                        <div class="border-call ion-padding-top" style="margin-top: 10px;">
+                            <!-- <ion-icon slot="end" ios="ios-call-outline" md="call-outline" style="padding-right: 10%;"></ion-icon> -->
+                            <a class="btn btn-default border" href="tel:+237652137960" style="padding-left:3; cursor:pointer;color:#002fff" data-value="(+237) 652 137 960">
                                 {{ "click_to_call" | translate}} <b>+237652137960</b>
                             </a>
                             <br />
-                        </div>
-
-                        <div class="border-blue ion-padding-top">
-                            <a class="nav-link text-black" href="https://api.whatsapp.com/send?phone=237652137960&text={{ 'hello ohipopo.org, i need help?' }}" style="color: #4edb4e; font-size: 20px; padding-left: 3">
-                                <ion-icon slot="start" ios="logo-whatsapp" md="logo-whatsapp"></ion-icon>
-                                {{ "contact_us_via_whatapp" | translate }}</a>
                         </div>
                     </div>
                 </div>
@@ -36,35 +37,32 @@
         </ion-col>
         <ion-col size="12">
             <ion-item>
-                <ion-label class="ion-text-center center content">{{ "ohipopo_social_media" | translate }}</ion-label>
+                <ion-label class="ion-text-left content">{{ "ohipopo_social_media" | translate }}</ion-label>
             </ion-item>
-            <ion-list>
-                <h5 class="ion-padding label">{{ "follow_us_on" | translate}}</h5>
-                <ion-list class="nav-icon">
-                    <ion-menu-toggle>
-                        <ion-item (click)="facebook()">
-                            <ion-icon class="facebook" ios="logo-facebook" md="logo-facebook"></ion-icon>
-                            <ion-label class="label">Facebook</ion-label>
-                        </ion-item>
-                        <ion-item (click)="instagram()">
-                            <ion-icon ios="logo-instagram" md="logo-instagram" class="instagram"></ion-icon>
-                            <ion-label class="label">Instagram</ion-label>
-                        </ion-item>
-                        <ion-item (click)="youTube()">
-                            <ion-icon class="youtube" ios="logo-youtube" md="logo-youtube"></ion-icon>
-                            <ion-label class="label">YouTube</ion-label>
-                        </ion-item>
-                    </ion-menu-toggle>
-                </ion-list>
+            <!-- <h5 class="ion-padding label">{{ "follow_us_on" | translate}}</h5> -->
+            <ion-list class="nav-icon">
+                <ion-item (click)="facebook()">
+                    <ion-icon class="facebook" ios="logo-facebook" md="logo-facebook" style="padding-right: 10%;"></ion-icon>
+                    <ion-label class="label">Facebook</ion-label>
+                </ion-item>
+                <ion-item (click)="instagram()">
+                    <ion-icon ios="logo-instagram" md="logo-instagram" class="instagram"></ion-icon>
+                    <ion-label class="label" style="padding-left: 10%;">Instagram</ion-label>
+                </ion-item>
+                <ion-item (click)="youTube()">
+                    <ion-icon class="youtube" ios="logo-youtube" md="logo-youtube" style="padding-right: 10%;"></ion-icon>
+                    <ion-label class="label">YouTube</ion-label>
+                </ion-item>
             </ion-list>
         </ion-col>
     </ion-row>
+    <ion-footer>
+        <div class="div">
+            <hr class="hr">
+            <h6 class="h6">
+                {{"powerd_by"|translate}}<br>
+                <small style="font-size: 10px;">{{"copyright"|translate}} © {{ dates | date :'y'}}</small>
+            </h6>
+        </div>
+    </ion-footer>
 </ion-grid>
-<ion-footer>
-    <br>
-    <hr class="hr">
-    <h6 class="h6">
-        {{"powerd_by"|translate}}<br>
-        <small style="font-size: 10px;">{{"copyright"|translate}} © {{ dates | date :'y'}}</small>
-    </h6>
-</ion-footer>

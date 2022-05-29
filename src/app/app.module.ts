@@ -28,6 +28,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { TranslationService } from './service/translation/translation.service';
 import { LocalStorageService } from './service/localStorage/local-storage.service';
 import { CbsService } from './service/cbs/cbs.service';
+import { AutocloseOverlaysService } from './shared/share/autocloseOverlaysService';
 
 const setTranslationFactory = (translationService: TranslationService) => {
   return () => translationService.getTranslationMessages();
@@ -60,6 +61,7 @@ const setTranslationFactory = (translationService: TranslationService) => {
     StorageService,
     LocalStorageService,
     ShareService,
+    AutocloseOverlaysService,
     SocialSharing,
     CbsService,
     InterceptorProvider,

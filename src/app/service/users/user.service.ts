@@ -10,6 +10,10 @@ pathDir = `${environment.base_url}/${environment.auth_path}`;
   getAllSubject(levelId: any){
     return this.http.get<any>(`${this.pathDir}/subject?levelId=${levelId}`);
   }
+  
+  getIsFree(){
+    return this.http.get<any>(`${environment.base_url}/api/subscription/value`);
+  }
 
   getUserRegisteredSubject(userId: string){
     return this.http.get<any>(`${this.pathDir}/user/subject?userId=${userId}`);
