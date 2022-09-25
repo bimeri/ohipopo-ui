@@ -119,8 +119,8 @@ export class WelcomePage implements OnInit, OnDestroy  {
    toastMessage(type: string){
      if (this.userType) {
       this.alertDisplay();
-       this.authenticationService.presentToast('danger', this.translate.getMessage("available_for_parttime"), 'bottom', 2500, 'alert-circle-outline');
-       this.show = true;
+      //  this.authenticationService.presentToast('danger', this.translate.getMessage("available_for_parttime"), 'bottom', 2500, 'alert-circle-outline');
+      //  this.show = true;
      } else {
       this.authenticationService.presentToast('tertiary', this.translate.getMessage("comming_soon"), 'bottom', 1000, 'code-outline');
      }
@@ -159,7 +159,8 @@ export class WelcomePage implements OnInit, OnDestroy  {
 
    doRefresh(event) {
     setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
+      this.ngAfterViewInit();
       event.target.complete();
     }, 2000);
   }

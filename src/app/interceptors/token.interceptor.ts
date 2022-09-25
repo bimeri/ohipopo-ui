@@ -44,13 +44,13 @@ export class InterceptorProvider implements HttpInterceptor {
                         const status = error.status;
                         let reason = error.error.message;
                         if (status === 0) {
-                            this.authenticateService.presentToast('secondary', this.translate.getMessage('offline_message'), 'top', 6000, 'warning-outline');
+                            this.authenticateService.presentToast('secondary', this.translate.getMessage('offline_message'), 'top', 3000, 'warning-outline');
                           }
                         if (status === 422) {
                             if (error.error.message === this.translate.getMessage('invalid_data')) {
                                  reason = this.translate.getMessage('user_name_taken');
                             } else{
-                                this.authenticateService.presentToast('secondary', this.translate.getMessage('offline_message'), 'top', 6000);
+                                this.authenticateService.presentToast('secondary', this.translate.getMessage('offline_message'), 'top', 3000, 'warning-outline');
                             }
                           }
                         if (status < 299){

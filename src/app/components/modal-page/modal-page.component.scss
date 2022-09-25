@@ -1,6 +1,19 @@
+body,
+* {
+    overflow-y: auto;
+}
+
+.modal-header,
+ion-header,
+ion-title,
+ion-toolbar {
+    overflow-y: hidden;
+}
+
 ion-toolbar {
     color: white;
     --background: #ffc409;
+    overflow: hidden;
     ion-back-button {
         color: white;
     }
@@ -33,6 +46,10 @@ ion-toolbar {
     padding: 5px;
 }
 
+.small {
+    font-size: 17px;
+}
+
 .center {
     text-align: center !important;
 }
@@ -63,10 +80,8 @@ a {
 }
 
 .content {
-    font-size: 20px;
-    text-transform: capitalize;
+    font-size: 15px;
     font-style: italic;
-    font-family: 'Monotype corsiva';
 }
 
 #menu-outer {

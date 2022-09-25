@@ -1,7 +1,6 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>
-            <ion-spinner name="danger" class="loader"></ion-spinner>
             <i class="fa ion-text-lg-right ion-text-md-right"></i>
             <ion-label class="contact">{{ "label_contact_us" | translate }}</ion-label>
         </ion-title>
@@ -17,17 +16,17 @@
                         <h5 id="exampleModalLabel">{{ "call_option" | translate }}</h5>
                     </div>
                     <div class="modal-body">
-                        <div class="border-blue ion-padding-top">
-                            <a class="nav-link text-black" href="https://api.whatsapp.com/send?phone=237652137960&text={{ 'hello ohipopo.org, i need help?' }}" style="color: #4edb4e; font-size: 20px; padding-left: 3">
-                                {{ "contact_us_via_whatapp" | translate }}
+                        <div class="border-blue ion-padding-top" style="margin-bottom: 10px">
+                            <a class="nav-link text-black small" href="https://api.whatsapp.com/send?phone=237652137960&text={{ 'hello ohipopo.org, i need help?' }}" style="color: #4edb4e; padding-left: 3">
+                                {{ "contact_us_via_whatapp" | translate }} <br>
                             <ion-icon ios="logo-whatsapp" md="logo-whatsapp" style="margin-left: 40%"></ion-icon>
                             </a>
                         </div>
 
-                        <div class="border-call ion-padding-top" style="margin-top: 10px;">
-                            <!-- <ion-icon slot="end" ios="ios-call-outline" md="call-outline" style="padding-right: 10%;"></ion-icon> -->
-                            <a class="btn btn-default border" href="tel:+237652137960" style="padding-left:3; cursor:pointer;color:#002fff" data-value="(+237) 652 137 960">
-                                {{ "click_to_call" | translate}} <b>+237652137960</b>
+                        <div class="border-call ion-padding-top small">
+                            <a class="btn btn-default border" href="tel:+237652137960" style="padding-left:3; cursor:pointer; color:#002fff" data-value="(+237) 652 137 960">
+                                {{ "click_to_call" | translate}} <b>+237652137960</b> <br>
+                            <ion-icon slot="end" ios="ios-call-outline" md="call-outline" style="padding-right: 10%;"></ion-icon>
                             </a>
                             <br />
                         </div>

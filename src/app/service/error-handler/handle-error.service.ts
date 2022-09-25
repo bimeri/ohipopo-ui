@@ -16,9 +16,6 @@ export class HandleErrorService {
   errorResponses(error: HttpErrorResponse){
     console.log('the error fron handler service', error);
     if (!(error && Object.keys(error).length === 0)) {
-      if (error.status === 0) {
-        this.authenticateService.presentToast('secondary', this.translate.getMessage('offline_message'), 'top', 6000, 'warning-outline');
-      }
       if (error.status === 401 || error.error.message === 'Unauthenticated') {
         this.authenticateService.presentToast('danger', this.translate.getMessage('not_authorized'), 'top', 5000, 'alert-circle-outline');
         this.storageService.clear();

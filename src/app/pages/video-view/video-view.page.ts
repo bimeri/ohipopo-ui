@@ -42,6 +42,7 @@ export class VideoViewPage {
   load: boolean;
   loader = true;
   videoLength: boolean;
+
   constructor(private activateRoute: ActivatedRoute,
               private userService: UserService,
               private errorHandle: HandleErrorService,
@@ -50,7 +51,8 @@ export class VideoViewPage {
               public storageService: StorageService,
               private translate: TranslationService,
               public donSanitizer: DomSanitizer,
-              private socialSharing: SocialSharing) { }
+              private socialSharing: SocialSharing) {}
+
   ionViewDidEnter() {
     this.loader = true;
     this.activateRoute.paramMap.subscribe(
